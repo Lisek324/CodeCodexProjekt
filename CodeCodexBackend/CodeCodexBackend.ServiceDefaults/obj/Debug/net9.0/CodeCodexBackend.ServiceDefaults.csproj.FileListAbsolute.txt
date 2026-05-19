@@ -1,0 +1,15 @@
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.ServiceDefaults\bin\Debug\net9.0\CodeCodexBackend.ServiceDefaults.deps.json
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.ServiceDefaults\bin\Debug\net9.0\CodeCodexBackend.ServiceDefaults.runtimeconfig.json
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.ServiceDefaults\bin\Debug\net9.0\CodeCodexBackend.ServiceDefaults.dll
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.ServiceDefaults\bin\Debug\net9.0\CodeCodexBackend.ServiceDefaults.pdb
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.ServiceDefaults\obj\Debug\net9.0\CodeCodexBackend.ServiceDefaults.csproj.AssemblyReference.cache
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.ServiceDefaults\obj\Debug\net9.0\CodeCodexBackend.ServiceDefaults.GeneratedMSBuildEditorConfig.editorconfig
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.ServiceDefaults\obj\Debug\net9.0\CodeCodexBackend.ServiceDefaults.AssemblyInfoInputs.cache
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.ServiceDefaults\obj\Debug\net9.0\CodeCodexBackend.ServiceDefaults.AssemblyInfo.cs
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.ServiceDefaults\obj\Debug\net9.0\CodeCodexBackend.ServiceDefaults.csproj.CoreCompileInputs.cache
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.ServiceDefaults\obj\Debug\net9.0\CodeCodexBackend.ServiceDefaults.sourcelink.json
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.ServiceDefaults\obj\Debug\net9.0\CodeCodexBackend.ServiceDefaults.dll
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.ServiceDefaults\obj\Debug\net9.0\refint\CodeCodexBackend.ServiceDefaults.dll
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.ServiceDefaults\obj\Debug\net9.0\CodeCodexBackend.ServiceDefaults.pdb
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.ServiceDefaults\obj\Debug\net9.0\CodeCodexBackend.ServiceDefaults.genruntimeconfig.cache
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.ServiceDefaults\obj\Debug\net9.0\ref\CodeCodexBackend.ServiceDefaults.dll

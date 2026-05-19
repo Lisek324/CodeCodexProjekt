@@ -1,0 +1,6 @@
+@CodeCodexBackend_HostAddress = http://localhost:5062
+
+GET {{CodeCodexBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

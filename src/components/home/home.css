@@ -1,0 +1,17 @@
+.hero-section {
+  background-image: url('/grid-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+}
+.custombutton:hover {
+ background-color: #289DAE; 
+ color: white;
+}
+/*#289DAE*/
+/*#0B5D72*/
+/*#00365B*/
+
