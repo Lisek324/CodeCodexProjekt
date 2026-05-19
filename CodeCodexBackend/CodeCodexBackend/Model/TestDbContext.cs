@@ -8,5 +8,6 @@ namespace CodeCodexBackend.Model
 
     }
 
+    public DbSet<TestTable> Tests { get; set; }
   }
 }
