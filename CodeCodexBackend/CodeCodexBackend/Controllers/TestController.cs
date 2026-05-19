@@ -41,4 +41,27 @@ public class TestController : ControllerBase
       });
     }
   }
+  //sprawdzenie czy testowa tabela jest widoczna
+  [HttpGet("test-table")]
+  public async Task<IActionResult> TestTable()
+  {
+    try
+    {
+      var exists = await _context.Database
+          .SqlQueryRaw<bool>(@"
+                SELECT EXISTS (
+                    SELECT 1
+                    FROM information_schema.tables
+                    WHERE table_schema = 'public'
+                    AND table_name = 'notes'
+                )")
+          .FirstAsync();
+
+      return Ok(new { exists });
+    }
+    catch (Exception ex)
+    {
+      return StatusCode(500, new { ex.Message });
+    }
+  }
 }
