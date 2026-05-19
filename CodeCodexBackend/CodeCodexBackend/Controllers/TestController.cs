@@ -48,14 +48,15 @@ public class TestController : ControllerBase
     try
     {
       var exists = await _context.Database
-          .SqlQueryRaw<bool>(@"
+    .SqlQueryRaw<bool>(@"
                 SELECT EXISTS (
                     SELECT 1
                     FROM information_schema.tables
                     WHERE table_schema = 'public'
-                    AND table_name = 'notes'
-                )")
-          .FirstAsync();
+                      AND table_name = 'testtable'
+                ) AS ""Value""
+            ")
+    .FirstAsync();
 
       return Ok(new { exists });
     }
