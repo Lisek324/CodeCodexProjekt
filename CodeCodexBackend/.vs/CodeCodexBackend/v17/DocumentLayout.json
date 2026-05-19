@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\Angular\\projektKursy\\CodeCodexBackend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
@@ -12,10 +16,6 @@
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\brzoz\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.23.0\\build\\Container.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\controllers\\testcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -37,11 +37,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Extensions.cs",
               "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend.ServiceDefaults\\Extensions.cs",
               "RelativeDocumentMoniker": "CodeCodexBackend.ServiceDefaults\\Extensions.cs",
@@ -49,12 +49,11 @@
               "RelativeToolTip": "CodeCodexBackend.ServiceDefaults\\Extensions.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-19T12:07:50.765Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-19T12:07:50.765Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Dockerfile",
               "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Dockerfile",
               "RelativeDocumentMoniker": "CodeCodexBackend\\Dockerfile",
@@ -67,24 +66,23 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Container.targets",
               "DocumentMoniker": "C:\\Users\\brzoz\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.23.0\\build\\Container.targets",
               "ToolTip": "C:\\Users\\brzoz\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.23.0\\build\\Container.targets",
               "ViewState": "AgIAAMgAAAAAAAAAAAAlwPYAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2026-05-19T11:55:53.214Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-19T11:55:53.214Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\appsettings.json",
               "RelativeDocumentMoniker": "CodeCodexBackend\\appsettings.json",
               "ToolTip": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\appsettings.json",
               "RelativeToolTip": "CodeCodexBackend\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAADGAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2026-05-19T10:53:23.73Z",
               "EditorCaption": ""
@@ -99,8 +97,7 @@
               "RelativeToolTip": "CodeCodexBackend\\Controllers\\TestController.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-19T10:49:22.865Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-19T10:49:22.865Z"
             },
             {
               "$type": "Document",
@@ -112,8 +109,7 @@
               "RelativeToolTip": "CodeCodexBackend\\Model\\TestDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-19T10:41:39.853Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-19T10:41:39.853Z"
             },
             {
               "$type": "Document",
@@ -125,8 +121,7 @@
               "RelativeToolTip": "CodeCodexBackend\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-19T10:31:59.066Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-19T10:31:59.066Z"
             }
           ]
         }
