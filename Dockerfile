@@ -8,7 +8,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 COPY ["CodeCodexBackend/CodeCodexBackend/CodeCodexBackend.csproj", "CodeCodexBackend/CodeCodexBackend/"]
-COPY ["CodeCodexBackend.ServiceDefaults/CodeCodexBackend.ServiceDefaults.csproj", "CodeCodexBackend.ServiceDefaults/"]
+COPY ["CodeCodexBackend/CodeCodexBackend.ServiceDefaults/CodeCodexBackend.ServiceDefaults.csproj", "CodeCodexBackend/CodeCodexBackend.ServiceDefaults/"]
 
 RUN dotnet restore "CodeCodexBackend/CodeCodexBackend/CodeCodexBackend.csproj"
 
