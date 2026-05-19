@@ -1,0 +1,129 @@
+<header class="hero-section text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 class="display-5 fw-bold mb-3">Ucz się programowania praktycznie</h1>
+                <p class="lead">
+                    Oferujemy szeroki wybór kursów programowania dla każdego poziomu zaawansowania od podstaw do projektów,
+                    które możesz pokazać w portfolio.
+                </p>
+                <div class="d-flex gap-2">
+                    <a href="#courses" class="btn btn-outline-light btn-lg ">Zobacz kursy</a>
+                    <a routerLink="/login" class="btn btn-outline-light btn-lg ">Zaloguj się</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="courses" class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="fw-bold">Nasze najpopularniejsze kursy</h1>
+            <p class="text-muted">Wybierz to co ciebie najbardziej interesuje i zacznij od poziomu dopasowanego do
+                twoich potrzeb.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="col d-flex justify-content-between">
+                            <h3 class="h5 card-title">Frontend od podstaw</h3>
+                            <img src="/html5-icon.png" alt="Frontend Logo" style="width: 30px;">
+                        </div>
+                            <p class="card-text">
+                                Naucz się HTML, CSS, responsywności i JavaScriptu, a potem buduj nowoczesne interfejsy.
+                            </p>                        
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge rounded-pill bg-success px-3 py-2">Podstawowy</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        <a routerLink="/htmlDetails" class="btn btn-outline-primary w-100">Szczegóły</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="col d-flex justify-content-between">
+                            <h3 class="h5 card-title">Angular w praktyce </h3>
+                            <img src="/angular-icon.png" alt="Angular Logo" style="width: 30px;">
+                        </div>
+                        <p class="card-text">Routing, komponenty, formularze, API i budowa kompletnej aplikacji krok po
+                            kroku.</p>
+                        <span class="badge rounded-pill bg-warning text-dark px-3 py-2">Średni</span>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        <a routerLink="/angularDetails" class="btn btn-outline-primary w-100">Szczegóły</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3 class="h5 card-title">Kompletny kurs C++</h3>
+                            <img src="/c++-icon.png" alt="C++ Logo" style="width: 30px;">
+                        </div>
+
+                        <p class="card-text mb-3">Od podstawowych konstrukcji po zaawansowane techniki programowania
+                            obiektowego i zarządzania pamięcią.</p>
+
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge rounded-pill bg-success px-3 py-2">Podstawowy</span>
+                            <span class="badge rounded-pill bg-warning text-dark px-3 py-2">Średni</span>
+                            <span class="badge rounded-pill bg-danger px-3 py-2">Zaawansowany</span>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-white border-0">
+                        <a routerLink="/cppDetails" class="btn btn-outline-primary w-100">Szczegóły</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="benefits" class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col">
+                <div class="p-4 border rounded">
+                    <h3 class="h5">Praktyczne projekty</h3>
+                    <p class="mb-0">
+                        Każdy kurs kończy się projektem, który możesz dodać do CV albo GitHuba.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="p-4 border rounded">
+                    <h3 class="h5">Nauka krok po kroku</h3>
+                    <p class="mb-0">
+                        Materiały są podzielone na małe moduły, więc łatwo śledzić postępy.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="p-4 border rounded">
+                    <h3 class="h5">Nowoczesne technologie</h3>
+                    <p class="mb-0">
+                        Uczysz się narzędzi używanych w realnych projektach i na rynku pracy.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="bg-dark text-white mt-auto py-4">
+    <div class="container d-flex justify-content-center align-items-center">
+        <p class="mb-0 text-center">© 2026 CodeCodex</p>
+    </div>
+</footer>

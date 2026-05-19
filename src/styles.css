@@ -1,1 +1,51 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+.course-hero-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.course-shell {
+    border-radius: 1.25rem;
+}
+
+.course-hero-text {
+    max-width: 760px;
+}
+
+.course-content {
+    max-width: 760px;
+}
+
+.feature-box {
+    background: #f8f9fa;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.benefits-list .list-group-item,
+.info-card .list-group-item,
+.course-modules .list-group-item {
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+.purchase-stack,
+.progress-card {
+    top: 1rem;
+}
+
+.purchase-card,
+.info-card,
+.dashboard-card,
+.progress-card {
+    border-radius: 1rem;
+}
+
+.progress-thin {
+    height: 10px;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
