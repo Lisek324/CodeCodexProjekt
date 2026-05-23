@@ -1,74 +1,111 @@
 [
   {
-    "ContainingType": "CodeCodexBackend.Controllers.LoginController",
-    "Method": "PostLogin",
-    "RelativePath": "api/login/login",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "appUser",
-        "Type": "CodeCodexBackend.Model.AppUser",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "CodeCodexBackend.Model.Login",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "CodeCodexBackend.Controllers.LoginController",
-    "Method": "PostRegister",
-    "RelativePath": "api/login/register",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "appUser",
-        "Type": "CodeCodexBackend.Model.AppUser",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "CodeCodexBackend.Model.Login",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "TestController",
-    "Method": "TestDb",
-    "RelativePath": "api/test/db",
+    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
+    "Method": "GetUsers",
+    "RelativePath": "api/AppUsers",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[CodeCodexBackend.Model.AppUser, CodeCodexBackend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
+    "Method": "PostAppUser",
+    "RelativePath": "api/AppUsers",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "appUser",
+        "Type": "CodeCodexBackend.Model.AppUser",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "CodeCodexBackend.Model.AppUser",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
+    "Method": "GetAppUser",
+    "RelativePath": "api/AppUsers/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "CodeCodexBackend.Model.AppUser",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
+    "Method": "PutAppUser",
+    "RelativePath": "api/AppUsers/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "appUser",
+        "Type": "CodeCodexBackend.Model.AppUser",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "TestController",
-    "Method": "TestTable",
-    "RelativePath": "api/test/test-table",
-    "HttpMethod": "GET",
+    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
+    "Method": "DeleteAppUser",
+    "RelativePath": "api/AppUsers/{id}",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   }
 ]
