@@ -21,69 +21,6 @@
   },
   {
     "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
-    "Method": "GetAppUser",
-    "RelativePath": "api/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Guid",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "CodeCodexBackend.Model.AppUser",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
-    "Method": "PutAppUser",
-    "RelativePath": "api/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "appUser",
-        "Type": "CodeCodexBackend.Model.AppUser",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
-    "Method": "DeleteAppUser",
-    "RelativePath": "api/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Guid",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
     "Method": "PostAppUser",
     "RelativePath": "api/register",
     "HttpMethod": "POST",

@@ -45,3 +45,5 @@ Thumbs.db
 
 # Konfiguracja środowiskowa lokalnie
 CodeCodexBackend/CodeCodexBackend/appsettings.Development.json
+appsettings.Development.json
+appsettings.json
