@@ -29,6 +29,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<TestDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddDbContext<AppUserDbContext>(options =>options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
