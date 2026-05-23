@@ -4,6 +4,7 @@ import { LoginPage } from '../components/login-page/login-page';
 import { HtmlDetails } from '../components/html-details/html-details';
 import { AngularDetail } from '../components/angular-detail/angular-detail';
 import { CppDetails } from '../components/cpp-details/cpp-details';
+import { RegisterPage } from '../components/register-page/register-page';
 
 export const routes: Routes = [
     {
@@ -29,5 +30,9 @@ export const routes: Routes = [
     {
         path: 'cppDetails',
         component: CppDetails
+    },
+    {
+        path: 'register',
+        component: RegisterPage
     }
 ];

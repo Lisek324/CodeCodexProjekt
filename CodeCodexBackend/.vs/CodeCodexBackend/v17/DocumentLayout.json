@@ -38,8 +38,7 @@
               "RelativeToolTip": "CodeCodexBackend\\Model\\AppUser.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-23T16:26:11.884Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-23T16:26:11.884Z"
             },
             {
               "$type": "Document",
@@ -49,7 +48,7 @@
               "RelativeDocumentMoniker": "CodeCodexBackend\\Controllers\\AppUsersController.cs",
               "ToolTip": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Controllers\\AppUsersController.cs",
               "RelativeToolTip": "CodeCodexBackend\\Controllers\\AppUsersController.cs",
-              "ViewState": "AgIAAE0AAAAAAAAAAAAiwFMAAABYAAAAAAAAAA==",
+              "ViewState": "AgIAAAQAAAAAAAAAAADwvw0AAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-23T16:23:21.897Z",
               "EditorCaption": ""
@@ -64,8 +63,7 @@
               "RelativeToolTip": "CodeCodexBackend\\Model\\RegisterRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-23T16:17:32.444Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-23T16:17:32.444Z"
             },
             {
               "$type": "Document",
@@ -77,8 +75,7 @@
               "RelativeToolTip": "CodeCodexBackend\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-23T14:54:48.861Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-23T14:54:48.861Z"
             }
           ]
         }
