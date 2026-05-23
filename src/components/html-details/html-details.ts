@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-html-details',
-  imports: [RouterLink, CommonModule],
+  imports: [CommonModule],
   templateUrl: './html-details.html',
   styleUrl: './html-details.css',
 })
