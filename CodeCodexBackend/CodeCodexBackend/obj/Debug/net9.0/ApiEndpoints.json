@@ -21,6 +21,22 @@
   },
   {
     "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
+    "Method": "GoogleLogin",
+    "RelativePath": "api/google",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "glr",
+        "Type": "CodeCodexBackend.Model.GoogleLoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
     "Method": "Register",
     "RelativePath": "api/register",
     "HttpMethod": "POST",

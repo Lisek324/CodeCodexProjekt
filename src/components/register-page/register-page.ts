@@ -99,7 +99,7 @@ export class RegisterPage {
     handleCredentialResponse(response: CredentialResponse){
     this.service.LoginWithGoogle(response.credential).subscribe({
       next: (x: any) => {
-        localStorage.setItem('token', x.token);
+        //localStorage.setItem('token', x.token);
         this._ngZone.run(() => {
           this.router.navigate(['/dashboard']);
         });
