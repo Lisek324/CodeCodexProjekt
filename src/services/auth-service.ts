@@ -19,5 +19,10 @@ export class AuthService {
     const header = new HttpHeaders().set('Content-type','application/json');
     return this.httpClient.post(this.path+"register", formData,{headers:header});
   }
+
+  login(formData:any){
+    const header = new HttpHeaders().set('Content-type','application/json');
+    return this.httpClient.post(this.path+"login", formData,{headers:header});
+  }
   
 }

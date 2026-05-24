@@ -4,4 +4,9 @@
 .error-feedback{
     color: red;
     font-size: 0.9em;
+    margin:0;
+}
+.error-slot{
+    min-height: 22px;
+ 
 }

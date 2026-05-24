@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, NgZone, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, NgZone, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { CredentialResponse } from "google-one-tap";
 import { AuthService } from '../../services/auth-service';
 import { isAwaitKeyword } from 'typescript';
 import { environment } from '../../environments/environment';
+import { finalize } from 'rxjs';
 
 declare global {
   interface Window {
@@ -23,19 +24,21 @@ declare global {
 })
 export class LoginPage implements AfterViewInit {
 @ViewChild('buttonDiv') buttonDiv!: ElementRef<HTMLDivElement>;
+  loginError = signal<string>('');
+  
+  isSubmitted:boolean = false;
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private _ngZone = inject(NgZone);
   private service = inject(AuthService);
 
-  isSubmitting = false;
-  loginError = '';
+  isSubmitting = signal(false);
+
 
   loginForm = this.fb.nonNullable.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    rememberMe: [false]
+    email: [''],
+    password: [''],
   });
 
   ngAfterViewInit(): void {
@@ -77,7 +80,30 @@ export class LoginPage implements AfterViewInit {
   });
 }
 
+  hasDisplayableError(controlName: string, errorName: string): boolean {
+    const control = this.loginForm.get(controlName);
+    return Boolean(control?.invalid) && (this.isSubmitted || Boolean(control?.touched))
+  }
+
   onSubmit(): void {
-    
+    this.isSubmitting.set(true);
+    this.loginError.set('');
+    if(this.loginForm.valid) {
+    this.service.login(this.loginForm.getRawValue())
+    .pipe(finalize(() => this.isSubmitting.set(false)))
+    .subscribe({
+      next: (x: any) => {
+        if (x.success) {
+          this.loginForm.reset();
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.loginError.set(x.message || 'Nie udało się zalogować.');
+        }
+      },
+      error: (error: any) => {
+        this.loginError.set(error?.error?.message || 'Nie udało się zalogować.');
+      }
+    });
+  }
   }
 }

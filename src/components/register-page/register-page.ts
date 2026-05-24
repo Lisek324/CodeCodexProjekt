@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, NgZone, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, NgZone, signal, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CredentialResponse } from 'google-one-tap';
@@ -20,19 +20,28 @@ export class RegisterPage {
   private router = inject(Router);
   private _ngZone = inject(NgZone);
   private service = inject(AuthService);
-  //private toastr = inject(ToastrService);
+    isSubmitting = signal(false);
 
   isSubmitted:boolean = false;
 
-    passwordMatchValidator: ValidatorFn = (control:AbstractControl):null => {
-    const password = control.get('password')?.value;
-    const confirmPassword = control.get('confirmPassword')?.value;
+passwordMatchValidator: ValidatorFn = (control: AbstractControl) => {
+  const password = control.get('password')?.value;
+  const confirmPasswordControl = control.get('confirmPassword');
 
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
-      control.get('confirmPassword')?.setErrors({ passwordMismatch: true });
-    } else control.get('confirmPassword')?.setErrors(null);
-    return null;
-  };
+  if (!confirmPasswordControl) return null;
+
+  if (password && confirmPasswordControl.value && password !== confirmPasswordControl.value) {
+    confirmPasswordControl.setErrors({ ...confirmPasswordControl.errors, passwordMismatch: true });
+  } else {
+    const errors = confirmPasswordControl.errors;
+    if (errors?.['passwordMismatch']) {
+      delete errors['passwordMismatch'];
+      confirmPasswordControl.setErrors(Object.keys(errors).length ? errors : null);
+    }
+  }
+
+  return null;
+};
 
   form = this.fb.group({
     fullName: ['', [Validators.required]],// lub nazwa użytkownika
@@ -44,6 +53,7 @@ export class RegisterPage {
 
   onSubmit() {
     this.isSubmitted = true;
+    this.isSubmitting.set(true);
     if(this.form.valid) {
       this.service.register(this.form.value).subscribe({
         next: (x: any) => {
@@ -51,6 +61,7 @@ export class RegisterPage {
           //nie ma tokenu jeszcze
           //localStorage.setItem('token', x.token);
           this.isSubmitted = false;
+          this.isSubmitting.set(false);
           this.form.reset();
           this.router.navigate(['/dashboard']);
           }else {
@@ -61,12 +72,14 @@ export class RegisterPage {
         error: (error: any) => {
           console.log(error);
           console.log('error body:', error.error);
+          this.isSubmitting.set(false);
         }
       });
   }
+  this.isSubmitting.set(false);
 }
 
-  hasDisplayeableError(controlName: string, errorName: string): boolean {
+  hasDisplayableError(controlName: string, errorName: string): boolean {
     const control = this.form.get(controlName);
     return Boolean(control?.invalid) && (this.isSubmitted || Boolean(control?.touched))
   }
