@@ -1,13 +1,15 @@
 import { Component, ElementRef, inject, NgZone, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CredentialResponse } from 'google-one-tap';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../../services/auth-service';
+import { CommonModule } from '@angular/common';
+//import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register-page',
-  imports: [],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './register-page.html',
   styleUrl: './register-page.css',
 })
@@ -18,10 +20,55 @@ export class RegisterPage {
   private router = inject(Router);
   private _ngZone = inject(NgZone);
   private service = inject(AuthService);
+  //private toastr = inject(ToastrService);
 
-  
+  isSubmitted:boolean = false;
+
+    passwordMatchValidator: ValidatorFn = (control:AbstractControl):null => {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+
+    if (password && confirmPassword && password.value !== confirmPassword.value) {
+      control.get('confirmPassword')?.setErrors({ passwordMismatch: true });
+    } else control.get('confirmPassword')?.setErrors(null);
+    return null;
+  };
+
+  form = this.fb.group({
+    fullName: ['', [Validators.required]],// lub nazwa użytkownika
+    email: ['', [Validators.required,Validators.email]],
+    password: ['', [Validators.required,Validators.minLength(6),Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/)]],
+    confirmPassword: ['', [Validators.required]],
+  }, { validators: this.passwordMatchValidator });
+
+
   onSubmit() {
-    // Handle form submission logic here
+    this.isSubmitted = true;
+    if(this.form.valid) {
+      this.service.register(this.form.value).subscribe({
+        next: (x: any) => {
+          if(x.success){
+          //nie ma tokenu jeszcze
+          //localStorage.setItem('token', x.token);
+          this.isSubmitted = false;
+          this.form.reset();
+          this.router.navigate(['/dashboard']);
+          }else {
+            //this.toastr.error(x.message, 'Błąd');
+             console.log(x.message);
+          }
+        },
+        error: (error: any) => {
+          console.log(error);
+          console.log('error body:', error.error);
+        }
+      });
+  }
+}
+
+  hasDisplayeableError(controlName: string, errorName: string): boolean {
+    const control = this.form.get(controlName);
+    return Boolean(control?.invalid) && (this.isSubmitted || Boolean(control?.touched))
   }
 
   ngAfterViewInit(): void {

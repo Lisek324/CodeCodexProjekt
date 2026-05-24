@@ -5,6 +5,7 @@ import { HtmlDetails } from '../components/html-details/html-details';
 import { AngularDetail } from '../components/angular-detail/angular-detail';
 import { CppDetails } from '../components/cpp-details/cpp-details';
 import { RegisterPage } from '../components/register-page/register-page';
+import { Dashboard } from '../components/dashboard/dashboard';
 
 export const routes: Routes = [
     {
@@ -34,5 +35,10 @@ export const routes: Routes = [
     {
         path: 'register',
         component: RegisterPage
+    }
+    ,
+    {
+        path: 'dashboard',
+        component: Dashboard
     }
 ];

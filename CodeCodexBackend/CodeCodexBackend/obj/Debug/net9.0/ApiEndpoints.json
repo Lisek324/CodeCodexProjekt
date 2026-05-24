@@ -21,28 +21,18 @@
   },
   {
     "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
-    "Method": "PostAppUser",
+    "Method": "Register",
     "RelativePath": "api/register",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "appUser",
-        "Type": "CodeCodexBackend.Model.AppUser",
+        "Name": "request",
+        "Type": "CodeCodexBackend.Model.RegisterRequest",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "CodeCodexBackend.Model.AppUser",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   }
 ]

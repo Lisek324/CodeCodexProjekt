@@ -14,4 +14,10 @@ export class AuthService {
     const header = new HttpHeaders().set('Content-type','application/json');
     return this.httpClient.post(this.path+"LoginWithGoogle", JSON.stringify(credentials),{headers:header})
   }
+
+  register(formData:any){
+    const header = new HttpHeaders().set('Content-type','application/json');
+    return this.httpClient.post(this.path+"register", formData,{headers:header});
+  }
+  
 }

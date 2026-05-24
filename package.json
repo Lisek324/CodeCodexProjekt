@@ -33,6 +33,7 @@
     "@angular/router": "^21.1.0",
     "bootstrap": "^5.3.8",
     "google-one-tap": "^1.0.6",
+    "ngx-toastr": "^20.0.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

@@ -30,9 +30,9 @@ namespace CodeCodexBackend.Controllers
     }
 
     [HttpPost("register")]
-    public async Task<ActionResult<AppUser>> PostAppUser(AppUser appUser)
+    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
-      var normalizedEmailVar = appUser.email.Trim().ToUpperInvariant();
+      var normalizedEmailVar = request.email.Trim().ToUpperInvariant();
       var existingUser = await _context.Users.FirstOrDefaultAsync(x => x.normalizedEmail == normalizedEmailVar);
 
       if (existingUser is not null)
@@ -43,20 +43,19 @@ namespace CodeCodexBackend.Controllers
       var user = new AppUser
       {
         id = Guid.NewGuid(),
-        email = appUser.email.Trim(),
+        email = request.email.Trim(),
         normalizedEmail = normalizedEmailVar,
-        fullName = appUser.fullName?.Trim(),
+        fullName = request.fullName?.Trim(),
         authProvider = "local",
         emailConfirmed = false,
         createdAtUtc = DateTime.UtcNow
       };
-      if (string.IsNullOrWhiteSpace(appUser.passwordHash)) return BadRequest();
-      user.passwordHash = _passwordHasher.HashPassword(user, appUser.passwordHash);
+      user.passwordHash = _passwordHasher.HashPassword(user, request.password);
 
       _context.Users.Add(user);
       await _context.SaveChangesAsync();
 
-      return Ok(new { message = "Rejestracja zakończona sukcesem.", email = user.email });
+      return Ok(new { message = "Rejestracja zakończona sukcesem.", success = true });
     }
   }
 }
