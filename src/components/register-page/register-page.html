@@ -1,0 +1,88 @@
+<div class="min-vh-100 d-flex align-items-center justify-content-center main-div" >
+  <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+    <div class="card-body">
+      <h1 class="h3 text-center mb-2">Rejestracja</h1>
+      <p class="text-muted text-center mb-4">Zarejestruj się, aby utworzyć konto</p>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        
+        <div class="mb-3">
+          <label for="fullName" class="form-label">Nazwa użytkownika</label>
+          <input
+            type="text"
+            id="fullName"
+            class="form-control"
+            name="fullName"
+            placeholder="np. Arcanius991"
+            formControlName="fullName"
+          />
+          @if(form.controls.fullName.hasError('required') && hasDisplayeableError('fullName', 'required')) {
+          <div class="error-feedback">Nazwa użytkownika jest wymagana</div>
+        }
+        </div>
+
+
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Adres email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            name="email"
+            placeholder="np. ilikecats@email.com"
+            formControlName="email"
+          />
+          @if(form.controls.email.hasError('required') && hasDisplayeableError('email', 'required')) {
+          <div class="error-feedback">Adres email jest wymagany</div>
+        }@else if(form.controls.email.hasError('email') && hasDisplayeableError('email', 'email')) {
+          <div class="error-feedback">Podaj poprawny adres email</div>
+        }
+        </div>
+       
+
+       
+        <div class="mb-3">
+          <label for="password" class="form-label">Hasło</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            name="password"
+            placeholder="Wpisz hasło"
+            formControlName="password"
+          />
+           @if(form.controls.password.hasError('required') && hasDisplayeableError('password', 'required')) {
+          <div class="error-feedback">Hasło jest wymagane</div>
+        }@else if(form.controls.password.hasError('minlength') && hasDisplayeableError('password', 'minlength')) {
+          <div class="error-feedback">Hasło musi mieć co najmniej 6 znaków</div>
+        }@else if(form.controls.password.hasError('pattern') && hasDisplayeableError('password', 'pattern')) {
+          <div class="error-feedback">Hasło musi zawierać co najmniej jedną literę i jedną cyfrę</div>
+        }
+        </div>
+
+        
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Potwierdź hasło</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            class="form-control"
+            name="confirmPassword"
+            placeholder="Powtórz hasło"
+            formControlName="confirmPassword"
+          />
+          @if(form.controls.confirmPassword.hasError('required') && hasDisplayeableError('confirmPassword', 'required')) {
+          <div class="error-feedback">Hasła są różne</div>
+        }
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mb-3">
+          Zarejestruj się
+        </button>
+      </form>
+       <div class="mt-3" #buttonDiv>Login with google</div>
+    </div>
+  </div>
+</div>

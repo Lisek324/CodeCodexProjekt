@@ -64,6 +64,10 @@
               "version": "[13.3.3, )",
               "autoReferenced": true
             },
+            "Google.Apis.Auth": {
+              "target": "Package",
+              "version": "[1.74.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.16, )"
