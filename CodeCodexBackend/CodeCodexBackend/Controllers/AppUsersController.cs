@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CodeCodexBackend.Controllers
@@ -71,11 +73,11 @@ namespace CodeCodexBackend.Controllers
       {
         Audience = new[] { _configuration["Authentication:Google:ClientId"] }
       };
-      
+
 
       var payload = await GoogleJsonWebSignature.ValidateAsync(glr.credentials, settings);
       var normalizedEmail = payload.Email.Trim().ToUpperInvariant();
-      //tutaj porównać emailem z googlea oraz z bazy cyz istnieje!
+
       var user = await _context.Users.FirstOrDefaultAsync(x => x.googleSub == payload.Subject || x.normalizedEmail == normalizedEmail);
 
       if (user == null)
@@ -98,18 +100,44 @@ namespace CodeCodexBackend.Controllers
       }
       else///jeśli istnieje, zakutalizuj jego dane
       {
-          user.fullName = payload.Name;
-          user.avatarUrl = payload.Picture;
-          user.lastLoginAtUtc = DateTime.UtcNow;
+        user.fullName = payload.Name;
+        user.avatarUrl = payload.Picture;
+        user.lastLoginAtUtc = DateTime.UtcNow;
 
-          if (string.IsNullOrWhiteSpace(user.googleSub))
-            user.googleSub = payload.Subject;
+        if (string.IsNullOrWhiteSpace(user.googleSub))
+          user.googleSub = payload.Subject;
 
-          if (string.IsNullOrWhiteSpace(user.authProvider))
-            user.authProvider = "google";
+        if (string.IsNullOrWhiteSpace(user.authProvider))
+          user.authProvider = "google";
       }
       await _context.SaveChangesAsync();
       return Ok(new { success = true, message = "Zalogowano pomyślnie" });
     }
+ 
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    {
+
+
+      var normalizedEmailVar = request.email.Trim().ToUpperInvariant();
+      var user = await _context.Users.FirstOrDefaultAsync(x => x.normalizedEmail == normalizedEmailVar);
+      if (user is null || user.passwordHash == null)
+      {
+        return BadRequest(new { message = "Login lub hasło jest niepoprawne" });
+      }
+      var result = _passwordHasher.VerifyHashedPassword(user, user.passwordHash, request.password);
+      if (result == PasswordVerificationResult.Failed)
+      {
+        return BadRequest(new { message = "Login lub hasło jest niepoprawne" });
+      }
+
+      user.lastLoginAtUtc = DateTime.UtcNow;
+      await _context.SaveChangesAsync();
+
+      return Ok(new { message = "Zalogowano pomyślnie.", success = true });
+    }
+
+    
   }
 }

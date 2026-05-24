@@ -37,6 +37,22 @@
   },
   {
     "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
+    "Method": "Login",
+    "RelativePath": "api/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "CodeCodexBackend.Model.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
     "Method": "Register",
     "RelativePath": "api/register",
     "HttpMethod": "POST",
