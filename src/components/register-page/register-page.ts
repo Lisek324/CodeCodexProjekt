@@ -58,14 +58,12 @@ passwordMatchValidator: ValidatorFn = (control: AbstractControl) => {
       this.service.register(this.form.value).subscribe({
         next: (x: any) => {
           if(x.success){
-          //nie ma tokenu jeszcze
-          //localStorage.setItem('token', x.token);
+          localStorage.setItem('token', x.token);
           this.isSubmitted = false;
           this.isSubmitting.set(false);
           this.form.reset();
           this.router.navigate(['/dashboard']);
           }else {
-            //this.toastr.error(x.message, 'Błąd');
              console.log(x.message);
           }
         },
@@ -97,7 +95,7 @@ passwordMatchValidator: ValidatorFn = (control: AbstractControl) => {
         type: 'standard',
         theme: 'outline',
         size: 'large',
-        text: 'signin_with',
+        text: 'signup_with',
         shape: 'rectangular',
         logo_alignment: 'left',
         width: 320
