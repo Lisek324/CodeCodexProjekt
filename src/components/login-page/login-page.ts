@@ -67,9 +67,9 @@ if (window.google?.accounts?.id) {
 }
 
   async handleCredentialResponse(response: CredentialResponse){
-  this.service.LoginWithGoogle(response.credential).subscribe({
+  this.service.loginWithGoogle(response.credential).subscribe({
     next: (x: any) => {
-      localStorage.setItem('token', x.token);
+      this.service.setToken(x.token);
       this._ngZone.run(() => {
         this.router.navigate(['/dashboard']);
       });
@@ -89,12 +89,12 @@ if (window.google?.accounts?.id) {
     this.isSubmitting.set(true);
     this.loginError.set('');
     if(this.loginForm.valid) {
-    this.service.login(this.loginForm.value)
+    this.service.login(this.loginForm.getRawValue())
     .pipe(finalize(() => this.isSubmitting.set(false)))
     .subscribe({
       next: (x: any) => {
         if (x.success) {
-          localStorage.setItem('token', x.token)
+          this.service.setToken(x.token);
           this.loginForm.reset();
           this.router.navigate(['/dashboard']);
         } else {

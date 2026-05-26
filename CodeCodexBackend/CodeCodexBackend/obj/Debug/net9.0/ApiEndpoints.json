@@ -21,6 +21,26 @@
   },
   {
     "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
+    "Method": "CreateRefreshToken",
+    "RelativePath": "api",
+    "HttpMethod": "",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
     "Method": "GoogleLogin",
     "RelativePath": "api/google",
     "HttpMethod": "POST",
@@ -49,6 +69,36 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
+    "Method": "Logout",
+    "RelativePath": "api/logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
+    "Method": "GetMyCourses",
+    "RelativePath": "api/my-courses",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
+    "Method": "Refresh",
+    "RelativePath": "api/refresh",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

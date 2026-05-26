@@ -13,5 +13,7 @@ namespace CodeCodexBackend.Model
     public string authProvider { get; set; } = "local";
     public DateTime createdAtUtc { get; set; }
     public DateTime? lastLoginAtUtc { get; set; }
+    public string? refreshToken { get; set; }
+    public DateTime? refreshTokenExpiresAtUtc { get; set; }
   }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +25,8 @@ builder.Services.AddCors(options =>
   {
     policy.WithOrigins(allowedOrigins)
           .AllowAnyHeader()
-          .AllowAnyMethod();
+          .AllowAnyMethod()
+          .AllowCredentials();
   });
 });
 builder.Services
@@ -35,11 +37,20 @@ builder.Services
   })
 .AddJwtBearer(options =>
  {
-   options.TokenValidationParameters.ValidIssuer = builder.Configuration["Jwt:Issuer"];
-   options.TokenValidationParameters.ValidAudience = builder.Configuration["Jwt:Audience"];
-   options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]!));
+   options.TokenValidationParameters = new TokenValidationParameters
+   {
+     ValidateIssuer = true,
+     ValidateAudience = true,
+     ValidateIssuerSigningKey = true,
+     ValidateLifetime = true,
+     ValidIssuer = builder.Configuration["Jwt:Issuer"],
+     ValidAudience = builder.Configuration["Jwt:Audience"],
+     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]!)
+     )
+   };
  });
 builder.Services.AddDbContext<AppUserDbContext>(options =>options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<UserCoursesDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
@@ -52,6 +63,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors("frontend");
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
