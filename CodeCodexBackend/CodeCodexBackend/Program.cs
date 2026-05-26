@@ -1,5 +1,7 @@
 using CodeCodexBackend.Model;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,7 +27,18 @@ builder.Services.AddCors(options =>
           .AllowAnyMethod();
   });
 });
-
+builder.Services
+  .AddAuthentication(options =>
+  {
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+  })
+.AddJwtBearer(options =>
+ {
+   options.TokenValidationParameters.ValidIssuer = builder.Configuration["Jwt:Issuer"];
+   options.TokenValidationParameters.ValidAudience = builder.Configuration["Jwt:Audience"];
+   options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]!));
+ });
 builder.Services.AddDbContext<AppUserDbContext>(options =>options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
 

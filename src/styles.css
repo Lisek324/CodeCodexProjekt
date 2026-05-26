@@ -49,3 +49,13 @@
     overflow: hidden;
 }
 
+.google-btn-slot {
+    height: 50px;
+    width: 320px;
+}
+
+.btn-google {
+  overflow: hidden;
+  display: flex;
+}
+

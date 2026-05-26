@@ -10,9 +10,12 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace CodeCodexBackend.Controllers
 {
@@ -63,7 +66,9 @@ namespace CodeCodexBackend.Controllers
       _context.Users.Add(user);
       await _context.SaveChangesAsync();
 
-      return Ok(new { message = "Rejestracja zakończona sukcesem.", success = true });
+      var token = GenerateJwtToken(user);
+
+      return Ok(new { message = "Rejestracja zakończona sukcesem.", success = true, Token = token });
     }
 
     [HttpPost("google")]
@@ -110,8 +115,10 @@ namespace CodeCodexBackend.Controllers
         if (string.IsNullOrWhiteSpace(user.authProvider))
           user.authProvider = "google";
       }
+      var token = GenerateJwtToken(user);
+
       await _context.SaveChangesAsync();
-      return Ok(new { success = true, message = "Zalogowano pomyślnie" });
+      return Ok(new { success = true, message = "Zalogowano pomyślnie", Token = token });
     }
  
 
@@ -135,9 +142,39 @@ namespace CodeCodexBackend.Controllers
       user.lastLoginAtUtc = DateTime.UtcNow;
       await _context.SaveChangesAsync();
 
-      return Ok(new { message = "Zalogowano pomyślnie.", success = true });
+      var token = GenerateJwtToken(user);
+
+      return Ok(new { message = "Zalogowano pomyślnie.", success = true, Token = token });
     }
 
-    
+    private string GenerateJwtToken(AppUser user)
+    {
+      var jwtKey = _configuration["Jwt:SecretKey"];
+
+      var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey!));
+      var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+      List<Claim> claims =
+      [
+          new (Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames.Sub, user.id.ToString()),
+          new (Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames.Email, user.email),
+          new ("fullName", user.fullName??""),
+          new ("authProvider", user.authProvider ?? "local")
+      ];
+
+      var tokenDescriptor = new SecurityTokenDescriptor
+      {
+        Subject = new ClaimsIdentity(claims),
+        Expires = DateTime.UtcNow.AddMinutes(_configuration.GetValue<int>("Jwt:ExpirationInMinutes")),
+        SigningCredentials = credentials,
+        Issuer = _configuration["Jwt:Issuer"],
+        Audience = _configuration["Jwt:Audience"]
+      };
+
+      var tokenHandler = new JsonWebTokenHandler();
+      string accessToken = tokenHandler.CreateToken(tokenDescriptor);
+
+      return accessToken;
+    }
+
   }
 }

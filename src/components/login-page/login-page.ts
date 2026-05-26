@@ -23,7 +23,7 @@ declare global {
   styleUrl: './login-page.css',
 })
 export class LoginPage implements AfterViewInit {
-@ViewChild('buttonDiv') buttonDiv!: ElementRef<HTMLDivElement>;
+@ViewChild('buttonDiv', { static: false }) buttonDiv!: ElementRef<HTMLDivElement>;
   loginError = signal<string>('');
   
   isSubmitted:boolean = false;
@@ -57,11 +57,11 @@ export class LoginPage implements AfterViewInit {
       text: 'signin_with',
       shape: 'rectangular',
       logo_alignment: 'left',
-      width: 320
+      width: '320',
     });
   };
 
-  if (window.google?.accounts?.id) {
+if (window.google?.accounts?.id) {
     window.onGoogleLibraryLoad();
   }
 }
@@ -89,11 +89,12 @@ export class LoginPage implements AfterViewInit {
     this.isSubmitting.set(true);
     this.loginError.set('');
     if(this.loginForm.valid) {
-    this.service.login(this.loginForm.getRawValue())
+    this.service.login(this.loginForm.value)
     .pipe(finalize(() => this.isSubmitting.set(false)))
     .subscribe({
       next: (x: any) => {
         if (x.success) {
+          localStorage.setItem('token', x.token)
           this.loginForm.reset();
           this.router.navigate(['/dashboard']);
         } else {
