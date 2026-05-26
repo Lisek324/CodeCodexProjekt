@@ -43,7 +43,7 @@ passwordMatchValidator: ValidatorFn = (control: AbstractControl) => {
   return null;
 };
 
-  form = this.fb.group({
+  form = this.fb.nonNullable.group({
     fullName: ['', [Validators.required]],// lub nazwa użytkownika
     email: ['', [Validators.required,Validators.email]],
     password: ['', [Validators.required,Validators.minLength(6),Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/)]],
@@ -55,10 +55,10 @@ passwordMatchValidator: ValidatorFn = (control: AbstractControl) => {
     this.isSubmitted = true;
     this.isSubmitting.set(true);
     if(this.form.valid) {
-      this.service.register(this.form.value).subscribe({
+      this.service.register(this.form.getRawValue()).subscribe({
         next: (x: any) => {
           if(x.success){
-          localStorage.setItem('token', x.token);
+          this.service.setToken(x.token);
           this.isSubmitted = false;
           this.isSubmitting.set(false);
           this.form.reset();
@@ -108,9 +108,9 @@ passwordMatchValidator: ValidatorFn = (control: AbstractControl) => {
   }
   
     handleCredentialResponse(response: CredentialResponse){
-    this.service.LoginWithGoogle(response.credential).subscribe({
+    this.service.loginWithGoogle(response.credential).subscribe({
       next: (x: any) => {
-        //localStorage.setItem('token', x.token);
+        this.service.setToken(x.token);
         this._ngZone.run(() => {
           this.router.navigate(['/dashboard']);
         });
