@@ -158,7 +158,7 @@ namespace CodeCodexBackend.Controllers
       });
 
       await _context.SaveChangesAsync();
-      return Ok(new AuthResponse { message = "Zalogowano pomyślnie.", isLoggedIn = true, accessToken = token });
+      return Ok(new AuthResponse { message = "Zalogowano pomyślnie.", isLoggedIn = true, accessToken = token, avatarUrl = user.avatarUrl });
     }
 
 
