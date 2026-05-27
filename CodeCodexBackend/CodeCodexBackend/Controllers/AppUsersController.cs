@@ -165,8 +165,6 @@ namespace CodeCodexBackend.Controllers
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-
-
       var normalizedEmailVar = request.email.Trim().ToUpperInvariant();
       var user = await _context.Users.FirstOrDefaultAsync(x => x.normalizedEmail == normalizedEmailVar);
       if (user is null || user.passwordHash == null)

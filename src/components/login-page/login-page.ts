@@ -69,7 +69,7 @@ if (window.google?.accounts?.id) {
   async handleCredentialResponse(response: CredentialResponse){
   this.service.loginWithGoogle(response.credential).subscribe({
     next: (x: any) => {
-      this.service.setToken(x.token);
+      this.service.setToken(x.accessToken);
       this._ngZone.run(() => {
         this.router.navigate(['/dashboard']);
       });
@@ -94,7 +94,7 @@ if (window.google?.accounts?.id) {
     .subscribe({
       next: (x: any) => {
         if (x.success) {
-          this.service.setToken(x.token);
+          this.service.setToken(x.accessToken);
           this.loginForm.reset();
           this.router.navigate(['/dashboard']);
         } else {

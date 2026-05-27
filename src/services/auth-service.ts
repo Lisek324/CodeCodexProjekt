@@ -24,16 +24,21 @@ export interface RegisterRequest {
 
 export class AuthService {
   private path = environment.apiUrl;
-  private readonly tokenKey = 'authToken'
+  private readonly tokenKey = 'accessToken'
   private readonly _token = signal<string | null>(localStorage.getItem(this.tokenKey));;
   httpClient = inject(HttpClient);
   header = new HttpHeaders().set('Content-type','application/json');
   
-  loginWithGoogle(credentials: string): Observable<AuthResponse> {
-    return this.httpClient.post<AuthResponse>(`${this.path}google`,{ credentials }).pipe(
-      tap(response => this.setToken(response.accessToken))
-    );
-  }
+loginWithGoogle(credentials: string): Observable<AuthResponse> {
+  return this.httpClient.post<AuthResponse>(`${this.path}google`, { credentials }).pipe(
+    tap(response => {
+      console.log('response:', response);
+      console.log('accessToken:', response.accessToken);
+      this.setToken(response.accessToken);
+      console.log('saved token:', localStorage.getItem(this.tokenKey));
+    })
+  );
+}
 
   register(request: RegisterRequest): Observable<AuthResponse> {
     return this.httpClient.post<AuthResponse>(this.path+"register", request,{headers:this.header}).pipe(
