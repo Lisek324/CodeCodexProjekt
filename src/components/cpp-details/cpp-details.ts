@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-cpp-details',
@@ -8,4 +9,17 @@ import { Component } from '@angular/core';
 })
 export class CppDetails {
   isLoggedIn: boolean = false;
+
+  service = inject(AuthService);
+
+    buyCPPCourse(courseId: number) {
+    this.service.buyCourse(courseId).subscribe({
+      next: (res: any) => {
+        window.location.href = res.url;
+        } ,
+        error: (err) => {
+          console.error(err);
+      }
+    });
+  }
 }

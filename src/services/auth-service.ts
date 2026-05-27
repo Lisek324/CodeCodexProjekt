@@ -63,4 +63,7 @@ export class AuthService {
   getCourses(){
     return this.httpClient.get(this.path+"my-courses");
   }
+  buyCourse(courseId: number){
+    return this.httpClient.post<{url:string}>(this.path+"create-checkout-session",{courseId},{headers:this.header});
+  }
 }

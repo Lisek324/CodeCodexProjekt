@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0XSVMJvfKCs=",
+  "dgSpecHash": "xWL1AyUyQZQ=",
   "success": true,
   "projectFilePath": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend.AppHost\\CodeCodexBackend.AppHost.csproj",
   "expectedPackageFiles": [
@@ -93,6 +93,7 @@
     "C:\\Users\\brzoz\\.nuget\\packages\\polly.core\\8.6.5\\polly.core.8.6.5.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\semver\\3.0.0\\semver.3.0.0.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\streamjsonrpc\\2.22.23\\streamjsonrpc.2.22.23.nupkg.sha512",
+    "C:\\Users\\brzoz\\.nuget\\packages\\stripe.net\\51.1.0\\stripe.net.51.1.0.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\system.codedom\\7.0.0\\system.codedom.7.0.0.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\system.collections.immutable\\7.0.0\\system.collections.immutable.7.0.0.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\system.composition\\7.0.0\\system.composition.7.0.0.nupkg.sha512",
@@ -101,6 +102,7 @@
     "C:\\Users\\brzoz\\.nuget\\packages\\system.composition.hosting\\7.0.0\\system.composition.hosting.7.0.0.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\system.composition.runtime\\7.0.0\\system.composition.runtime.7.0.0.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\system.composition.typedparts\\7.0.0\\system.composition.typedparts.7.0.0.nupkg.sha512",
+    "C:\\Users\\brzoz\\.nuget\\packages\\system.configuration.configurationmanager\\9.0.0\\system.configuration.configurationmanager.9.0.0.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\system.diagnostics.diagnosticsource\\10.0.7\\system.diagnostics.diagnosticsource.10.0.7.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\system.diagnostics.eventlog\\10.0.7\\system.diagnostics.eventlog.10.0.7.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\system.io.hashing\\10.0.3\\system.io.hashing.10.0.3.nupkg.sha512",
@@ -109,6 +111,7 @@
     "C:\\Users\\brzoz\\.nuget\\packages\\system.net.serversentevents\\10.0.3\\system.net.serversentevents.10.0.3.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\system.reflection.metadata\\7.0.0\\system.reflection.metadata.7.0.0.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\brzoz\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.0\\system.security.cryptography.protecteddata.9.0.0.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\system.text.encodings.web\\10.0.7\\system.text.encodings.web.10.0.7.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\system.text.json\\10.0.7\\system.text.json.10.0.7.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512",

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-html-details',
@@ -8,7 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './html-details.css',
 })
 export class HtmlDetails {
- isLoggedIn = false;
+  service = inject(AuthService);
+  
+  isLoggedIn = false;
 
   modules = [
     { title: 'Wprowadzenie do HTML5', lessons: 6, time: '45 min', completed: true },
@@ -18,4 +21,16 @@ export class HtmlDetails {
     { title: 'Responsywność i media queries', lessons: 6, time: '55 min', completed: false },
     { title: 'JavaScript dla początkujących', lessons: 12, time: '110 min', completed: false }
   ];
+
+  buyHTMLCourse(courseId: number) {
+    this.service.buyCourse(courseId).subscribe({
+      next: (res: any) => {
+        window.location.href = res.url;
+        } ,
+        error: (err) => {
+          console.error(err);
+      }
+    });
+  }
+
 }

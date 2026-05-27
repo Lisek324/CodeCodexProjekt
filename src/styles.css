@@ -1,11 +1,5 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
-
-.course-hero-inner {
-    max-width: 1440px;
-    margin: 0 auto;
-}
-
 .course-shell {
     border-radius: 1.25rem;
 }

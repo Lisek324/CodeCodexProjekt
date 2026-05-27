@@ -8,6 +8,10 @@ using Microsoft.Build.ObjectModelRemoting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+using Stripe;
+using Stripe.BillingPortal;
+using Stripe.Checkout;
+using Stripe.Forwarding;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -25,14 +29,21 @@ namespace CodeCodexBackend.Controllers
   public class AppUsersController : ControllerBase
   {
     private readonly AppUserDbContext _context;
+    private readonly OrdersDbContext _OrdersContext;
+    private readonly EnrollmentsDbContext _EnrollmentsContext;
+    private readonly CoursesDbContext _coursesDbContext;
     private readonly UserCoursesDbContext _userCoursesContext;
     private readonly PasswordHasher<AppUser> _passwordHasher;
     private readonly IConfiguration _configuration;
 
-    public AppUsersController(AppUserDbContext context, IConfiguration configuration,UserCoursesDbContext userCoursesContext)
+    public AppUsersController(AppUserDbContext context, IConfiguration configuration, UserCoursesDbContext userCoursesContext, CoursesDbContext coursesDbContext,
+      EnrollmentsDbContext enrollmentsDbContext, OrdersDbContext ordersDbContext)
     {
       _context = context;                       //Users
       _userCoursesContext = userCoursesContext; //UserCourses
+      _coursesDbContext = coursesDbContext;     //Courses
+      _OrdersContext = ordersDbContext;         //Orders
+      _EnrollmentsContext = enrollmentsDbContext;//Enrollments
       _passwordHasher = new PasswordHasher<AppUser>();
       _configuration = configuration;
     }
@@ -84,7 +95,7 @@ namespace CodeCodexBackend.Controllers
         Path = "/"
       });
 
-      return Ok(new AuthResponse{ message = "Rejestracja zakończona sukcesem.", isLoggedIn = true, accessToken = token });
+      return Ok(new AuthResponse { message = "Rejestracja zakończona sukcesem.", isLoggedIn = true, accessToken = token });
     }
 
     [HttpPost("google")]
@@ -149,7 +160,7 @@ namespace CodeCodexBackend.Controllers
       await _context.SaveChangesAsync();
       return Ok(new AuthResponse { message = "Zalogowano pomyślnie.", isLoggedIn = true, accessToken = token });
     }
- 
+
 
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
@@ -186,7 +197,7 @@ namespace CodeCodexBackend.Controllers
         Path = "/"
       });
 
-      return Ok(new AuthResponse{ message = "Zalogowano pomyślnie.", isLoggedIn = true, accessToken = token });
+      return Ok(new AuthResponse { message = "Zalogowano pomyślnie.", isLoggedIn = true, accessToken = token });
     }
 
     [HttpPost("logout")]
@@ -236,7 +247,7 @@ namespace CodeCodexBackend.Controllers
 
     private string GenerateJwtToken(AppUser user)
     {
-      var jwtKey = _configuration["Jwt:SecretKey"];
+      var jwtKey = _configuration["Jwt:JwtSecretKey"];
 
       var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey!));
       var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -301,10 +312,107 @@ namespace CodeCodexBackend.Controllers
         email = user.email
       });
     }
+
+    [HttpPost("create-checkout-session")]
+    public async Task<IActionResult> BuyAsync([FromBody] BuyCourseRequest course)
+    {
+
+      var dbCourse = await _coursesDbContext.Courses.FindAsync(course.courseId);
+      if (dbCourse == null) return NotFound();
+
+      var options = new Stripe.Checkout.SessionCreateOptions
+      {
+        Mode = "payment",
+        SuccessUrl = "http://localhost:4200/payment-success?session_id={CHECKOUT_SESSION_ID}",
+        CancelUrl = "http://localhost:4200/payment-cancel",
+        LineItems = new List<SessionLineItemOptions>
+        {
+          new()
+          {
+            Quantity = 1,
+            PriceData = new Stripe.Checkout.SessionLineItemPriceDataOptions
+            {
+              Currency = "pln",
+              UnitAmount = (long)(dbCourse.price*100),
+              ProductData  = new SessionLineItemPriceDataProductDataOptions
+              {
+                Name = dbCourse.name
+              }
+            }
+          }
+        },
+        Metadata = new Dictionary<string, string>
+        {
+          ["courseId"] = dbCourse.id.ToString()
+        }
+      };
+      var service = new Stripe.Checkout.SessionService();
+      var session = await service.CreateAsync(options);
+
+      return Ok(new { url = session.Url });
+    }
+
     public string CreateRefreshToken()
     {
       var bytes = RandomNumberGenerator.GetBytes(64);
       return Convert.ToBase64String(bytes);
+    }
+
+    [HttpPost("webhook")]
+    [IgnoreAntiforgeryToken]
+    public async Task<IActionResult> StripeWebhook()
+    {
+      var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+      var stripeSignature = Request.Headers["Stripe-Signature"];
+
+      Event stripeEvent;
+
+      try
+      {
+        stripeEvent = EventUtility.ConstructEvent(
+            json,
+            stripeSignature,
+            _configuration["Stripe:WebhookSecret"]
+        );
+      }
+      catch (StripeException) { return BadRequest("Invalid Stripe signature."); }
+      catch (Exception)       { return BadRequest("Invalid webhook payload."); }
+
+      if (stripeEvent.Type == EventTypes.CheckoutSessionCompleted)
+      {
+        var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
+
+        if (session != null)
+        {
+          var orderId = session.Metadata["orderId"];
+
+          var order = await _OrdersContext.Orders
+              .FirstOrDefaultAsync(x => x.id.ToString() == orderId);
+
+          if (order != null && order.status != "Paid")
+          {
+            order.status = "Paid";
+            order.stripeSessionId = session.Id;
+            order.stripePaymentIntentId = session.PaymentIntentId;
+
+            var alreadyEnrolled = await _EnrollmentsContext.Enrollments
+                .AnyAsync(x => x.userId == order.userId && x.courseId == order.courseId);
+
+            if (!alreadyEnrolled)
+            {
+              _EnrollmentsContext.Enrollments.Add(new Enrollments
+              { 
+                userId = order.userId,
+                courseId = order.courseId,
+                createdAtUtc = DateTime.UtcNow
+              });
+            }
+
+            await _context.SaveChangesAsync();
+          }
+        }
+      }
+      return Ok();
     }
   }
 }
