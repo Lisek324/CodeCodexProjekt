@@ -1,4 +1,4 @@
-<h1>witaj nazwa uzytkownika</h1>
+<h1>witaj {{ service.currentUser() }}</h1>
 
 <h2>Twoje kursy</h2>
 <hr>
@@ -8,7 +8,4 @@
 <p>{{ course.name }}</p>
 }
 </div>
-<p>dashboard works!</p>
-<div>
-    <button mat-raised-button color="primary" (click)="logout()">Wyloguj</button>
-</div>
+

@@ -6,15 +6,19 @@ import { AngularDetail } from '../components/angular-detail/angular-detail';
 import { CppDetails } from '../components/cpp-details/cpp-details';
 import { RegisterPage } from '../components/register-page/register-page';
 import { Dashboard } from '../components/dashboard/dashboard';
+import { authGuard } from '../authGuard/auth-guard';
+import { guestGuard } from '../guestGuard/guest-guard';
+import { Course } from '../components/course/course';
 
 export const routes: Routes = [
     {
         path: 'home',
-        component: Home
+        component: Home,
     },
     {
         path: 'login',
-        component: LoginPage
+        component: LoginPage,
+        canActivate: [guestGuard]
     },
     {
         path: 'htmlDetails',
@@ -34,11 +38,21 @@ export const routes: Routes = [
     },
     {
         path: 'register',
-        component: RegisterPage
+        component: RegisterPage,
+        canActivate: [guestGuard]
     }
     ,
     {
         path: 'dashboard',
-        component: Dashboard
+        component: Dashboard,
+        canActivate: [authGuard]
+    },
+    {
+        path: '**', 
+        redirectTo: '/home'
+    },
+    {
+        path: 'course',
+        component: Course
     }
 ];

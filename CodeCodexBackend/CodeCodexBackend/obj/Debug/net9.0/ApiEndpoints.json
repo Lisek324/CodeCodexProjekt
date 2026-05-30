@@ -73,6 +73,32 @@
   },
   {
     "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
+    "Method": "hasCourse",
+    "RelativePath": "api/has-course/{courseId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
     "Method": "Login",
     "RelativePath": "api/login",
     "HttpMethod": "POST",

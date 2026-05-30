@@ -12,9 +12,6 @@ export class Dashboard {
   service=inject(AuthService);
   courses = signal<any[]>([]);
 
-  logout(): void {
-   // Implement logout logic here, such as clearing authentication tokens and redirecting to the login page.
-  }
   ngOnInit(): void {
     this.service.getCourses().subscribe({
       next: (x: any) => {

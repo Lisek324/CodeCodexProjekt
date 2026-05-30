@@ -3,20 +3,32 @@
   "WorkspaceRootPath": "D:\\Angular\\projektKursy\\CodeCodexBackend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\model\\authresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\model\\authresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\controllers\\appuserscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\controllers\\appuserscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\model\\courses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\model\\courses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\model\\orders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\model\\orders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\model\\authresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\model\\authresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\model\\enrollments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -40,14 +52,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\model\\buycourserequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\model\\buycourserequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\model\\orders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\model\\orders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -57,7 +61,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Document",
@@ -67,7 +71,7 @@
               "RelativeDocumentMoniker": "CodeCodexBackend\\Program.cs",
               "ToolTip": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Program.cs",
               "RelativeToolTip": "CodeCodexBackend\\Program.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAiwBUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-23T14:54:48.861Z",
               "IsPinned": true,
@@ -75,44 +79,56 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "Courses.cs",
+              "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Model\\Courses.cs",
+              "RelativeDocumentMoniker": "CodeCodexBackend\\Model\\Courses.cs",
+              "ToolTip": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Model\\Courses.cs",
+              "RelativeToolTip": "CodeCodexBackend\\Model\\Courses.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T12:31:00.841Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "AuthResponse.cs",
               "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Model\\AuthResponse.cs",
               "RelativeDocumentMoniker": "CodeCodexBackend\\Model\\AuthResponse.cs",
               "ToolTip": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Model\\AuthResponse.cs",
               "RelativeToolTip": "CodeCodexBackend\\Model\\AuthResponse.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAxwAUAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAUAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-27T13:19:56.372Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-27T13:19:56.372Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\appsettings.json",
               "RelativeDocumentMoniker": "CodeCodexBackend\\appsettings.json",
               "ToolTip": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\appsettings.json",
               "RelativeToolTip": "CodeCodexBackend\\appsettings.json",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAwwBgAAABcAAAAAAAAAA==",
+              "ViewState": "AgIAABEAAAAAAAAAAAAwwBgAAABcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2026-05-26T21:55:30.009Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 3,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\appsettings.Development.json",
               "RelativeDocumentMoniker": "CodeCodexBackend\\appsettings.Development.json",
               "ToolTip": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\appsettings.Development.json",
               "RelativeToolTip": "CodeCodexBackend\\appsettings.Development.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2026-05-26T21:31:48.291Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "BuyCourseRequest.cs",
               "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Model\\BuyCourseRequest.cs",
               "RelativeDocumentMoniker": "CodeCodexBackend\\Model\\BuyCourseRequest.cs",
@@ -124,7 +140,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "secrets.json",
               "DocumentMoniker": "C:\\Users\\brzoz\\AppData\\Roaming\\Microsoft\\UserSecrets\\a5202439-e733-49f6-b30c-ded92aecfc8b\\secrets.json",
               "ToolTip": "C:\\Users\\brzoz\\AppData\\Roaming\\Microsoft\\UserSecrets\\a5202439-e733-49f6-b30c-ded92aecfc8b\\secrets.json",
@@ -134,7 +150,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "CoursesDbContext.cs",
               "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Model\\CoursesDbContext.cs",
               "RelativeDocumentMoniker": "CodeCodexBackend\\Model\\CoursesDbContext.cs",
@@ -146,7 +162,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "OrdersDbContext.cs",
               "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Model\\OrdersDbContext.cs",
               "RelativeDocumentMoniker": "CodeCodexBackend\\Model\\OrdersDbContext.cs",
@@ -158,7 +174,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "EnrollmentsDbContext.cs",
               "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Model\\EnrollmentsDbContext.cs",
               "RelativeDocumentMoniker": "CodeCodexBackend\\Model\\EnrollmentsDbContext.cs",
@@ -170,7 +186,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "Enrollments.cs",
               "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Model\\Enrollments.cs",
               "RelativeDocumentMoniker": "CodeCodexBackend\\Model\\Enrollments.cs",
@@ -182,25 +198,25 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 5,
               "Title": "Orders.cs",
               "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Model\\Orders.cs",
               "RelativeDocumentMoniker": "CodeCodexBackend\\Model\\Orders.cs",
               "ToolTip": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Model\\Orders.cs",
               "RelativeToolTip": "CodeCodexBackend\\Model\\Orders.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-26T20:02:22.926Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "AppUsersController.cs",
               "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Controllers\\AppUsersController.cs",
               "RelativeDocumentMoniker": "CodeCodexBackend\\Controllers\\AppUsersController.cs",
               "ToolTip": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Controllers\\AppUsersController.cs",
               "RelativeToolTip": "CodeCodexBackend\\Controllers\\AppUsersController.cs",
-              "ViewState": "AgIAAIsAAAAAAAAAAAAqwKAAAACIAAAAAAAAAA==",
+              "ViewState": "AgIAAGgAAAAAAAAAAAAcwEoBAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-23T16:23:21.897Z",
               "EditorCaption": ""

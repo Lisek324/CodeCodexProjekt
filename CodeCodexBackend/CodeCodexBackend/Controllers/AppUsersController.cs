@@ -11,10 +11,12 @@ using Microsoft.IdentityModel.Tokens;
 using Stripe;
 using Stripe.BillingPortal;
 using Stripe.Checkout;
+using Stripe.Climate;
 using Stripe.Forwarding;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
@@ -28,6 +30,7 @@ namespace CodeCodexBackend.Controllers
   [ApiController]
   public class AppUsersController : ControllerBase
   {
+    private readonly ILogger<AppUsersController> _logger;
     private readonly AppUserDbContext _context;
     private readonly OrdersDbContext _OrdersContext;
     private readonly EnrollmentsDbContext _EnrollmentsContext;
@@ -36,7 +39,7 @@ namespace CodeCodexBackend.Controllers
     private readonly PasswordHasher<AppUser> _passwordHasher;
     private readonly IConfiguration _configuration;
 
-    public AppUsersController(AppUserDbContext context, IConfiguration configuration, UserCoursesDbContext userCoursesContext, CoursesDbContext coursesDbContext,
+    public AppUsersController(AppUserDbContext context, IConfiguration configuration, UserCoursesDbContext userCoursesContext, CoursesDbContext coursesDbContext, ILogger<AppUsersController> logger,
       EnrollmentsDbContext enrollmentsDbContext, OrdersDbContext ordersDbContext)
     {
       _context = context;                       //Users
@@ -45,6 +48,7 @@ namespace CodeCodexBackend.Controllers
       _OrdersContext = ordersDbContext;         //Orders
       _EnrollmentsContext = enrollmentsDbContext;//Enrollments
       _passwordHasher = new PasswordHasher<AppUser>();
+      _logger = logger;
       _configuration = configuration;
     }
 
@@ -95,7 +99,7 @@ namespace CodeCodexBackend.Controllers
         Path = "/"
       });
 
-      return Ok(new AuthResponse { message = "Rejestracja zakończona sukcesem.", isLoggedIn = true, accessToken = token });
+      return Ok(new AuthResponse { message = "Rejestracja zakończona sukcesem.", isLoggedIn = true, accessToken = token, fullName = user.fullName });
     }
 
     [HttpPost("google")]
@@ -158,7 +162,7 @@ namespace CodeCodexBackend.Controllers
       });
 
       await _context.SaveChangesAsync();
-      return Ok(new AuthResponse { message = "Zalogowano pomyślnie.", isLoggedIn = true, accessToken = token, avatarUrl = user.avatarUrl });
+      return Ok(new AuthResponse { message = "Zalogowano pomyślnie.", isLoggedIn = true, accessToken = token, avatarUrl = user.avatarUrl, fullName = user.fullName });
     }
 
 
@@ -195,7 +199,7 @@ namespace CodeCodexBackend.Controllers
         Path = "/"
       });
 
-      return Ok(new AuthResponse { message = "Zalogowano pomyślnie.", isLoggedIn = true, accessToken = token });
+      return Ok(new AuthResponse { message = "Zalogowano pomyślnie.", isLoggedIn = true, accessToken = token, fullName = user.fullName });
     }
 
     [HttpPost("logout")]
@@ -237,10 +241,25 @@ namespace CodeCodexBackend.Controllers
       var courses = await _userCoursesContext.UserCourses.Where(x => x.userId == userGuid)
         .Select(x => new
         {
-          x.Course.name ///zwróć nazwy oraz je wyświetl 
+          x.Course.name, ///zwróć nazwy oraz je wyświetl
+          x.Course.id
         }).ToListAsync();
 
       return Ok(courses);
+    }
+
+    [Authorize]
+    [HttpGet("has-course/{courseId}")]
+    public async Task<ActionResult<bool>> hasCourse(int courseId)
+    {
+      var userIdVal = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? User.FindFirstValue("sub");
+      
+      if (string.IsNullOrEmpty(userIdVal))
+        return Unauthorized();
+      var userGuid = Guid.Parse(userIdVal);
+      var hasCourse = await _userCoursesContext.UserCourses.AnyAsync(uc => uc.userId == userGuid && uc.courseId == courseId);
+
+      return Ok(hasCourse);
     }
 
     private string GenerateJwtToken(AppUser user)
@@ -312,11 +331,30 @@ namespace CodeCodexBackend.Controllers
     }
 
     [HttpPost("create-checkout-session")]
+    [Authorize]
     public async Task<IActionResult> BuyAsync([FromBody] BuyCourseRequest course)
     {
 
       var dbCourse = await _coursesDbContext.Courses.FindAsync(course.courseId);
+      var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+      // jeśli trzymasz GUID w NameIdentifier:
+      if(userIdString == null) return NotFound();
       if (dbCourse == null) return NotFound();
+
+      var userId = Guid.Parse(userIdString);
+
+      var order = new Orders
+      {
+        userId = userId,
+        courseId = dbCourse.id,
+        amount = dbCourse.price,    
+        currency = "pln",
+        status = "Pending",
+        createdAtUtc = DateTime.UtcNow
+      };
+
+      _OrdersContext.Orders.Add(order);
+      await _OrdersContext.SaveChangesAsync();
 
       var options = new Stripe.Checkout.SessionCreateOptions
       {
@@ -341,7 +379,9 @@ namespace CodeCodexBackend.Controllers
         },
         Metadata = new Dictionary<string, string>
         {
-          ["courseId"] = dbCourse.id.ToString()
+          ["orderId"] = order.id.ToString(),
+          ["courseId"] = dbCourse.id.ToString(),
+          ["userId"] = userId.ToString()
         }
       };
       var service = new Stripe.Checkout.SessionService();
@@ -356,7 +396,7 @@ namespace CodeCodexBackend.Controllers
       return Convert.ToBase64String(bytes);
     }
 
-    [HttpPost("webhook")]
+    /*[HttpPost("webhook")]
     [IgnoreAntiforgeryToken]
     public async Task<IActionResult> StripeWebhook()
     {
@@ -392,7 +432,7 @@ namespace CodeCodexBackend.Controllers
             order.status = "Paid";
             order.stripeSessionId = session.Id;
             order.stripePaymentIntentId = session.PaymentIntentId;
-
+            await _OrdersContext.SaveChangesAsync();
             var alreadyEnrolled = await _EnrollmentsContext.Enrollments
                 .AnyAsync(x => x.userId == order.userId && x.courseId == order.courseId);
 
@@ -404,13 +444,226 @@ namespace CodeCodexBackend.Controllers
                 courseId = order.courseId,
                 createdAtUtc = DateTime.UtcNow
               });
-            }
+              await _EnrollmentsContext.SaveChangesAsync();
 
-            await _context.SaveChangesAsync();
+              
+            }
+            _userCoursesContext.UserCourses.Add(new UserCourses
+            {
+              userId = order.userId,
+              courseId = order.courseId
+            });
+            await _userCoursesContext.SaveChangesAsync();
+            //bug
+
           }
         }
       }
       return Ok();
+    }*/
+
+    [HttpPost("webhook")]
+    [IgnoreAntiforgeryToken]
+    public async Task<IActionResult> StripeWebhook()
+    {
+      
+      _logger.LogInformation("Stripe webhook START");
+
+      string json;
+      string stripeSignature;
+
+      try
+      {
+        using var reader = new StreamReader(HttpContext.Request.Body, Encoding.UTF8);
+        json = await reader.ReadToEndAsync();
+        stripeSignature = Request.Headers["Stripe-Signature"].ToString();
+
+        _logger.LogInformation("Webhook body read. Body length: {BodyLength}", json.Length);
+        _logger.LogInformation("Stripe-Signature header exists: {HasSignature}", !string.IsNullOrWhiteSpace(stripeSignature));
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, "Failed to read webhook request body.");
+        return BadRequest("Failed to read request body.");
+      }
+
+      Event stripeEvent;
+
+      try
+      {
+        var webhookSecret = _configuration["Stripe:WebhookSecret"];
+
+        if (string.IsNullOrWhiteSpace(webhookSecret))
+        {
+          _logger.LogError("Stripe:WebhookSecret is NULL or empty.");
+          return StatusCode(500, "Webhook secret is not configured.");
+        }
+
+        stripeEvent = EventUtility.ConstructEvent(json, stripeSignature, webhookSecret);
+        _logger.LogInformation("Stripe event constructed successfully. Type: {EventType}, EventId: {EventId}",
+            stripeEvent.Type, stripeEvent.Id);
+      }
+      catch (StripeException ex)
+      {
+        _logger.LogError(ex, "Invalid Stripe signature.");
+        return BadRequest("Invalid Stripe signature.");
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, "Invalid webhook payload.");
+        return BadRequest("Invalid webhook payload.");
+      }
+
+      try
+      {
+        if (stripeEvent.Type != EventTypes.CheckoutSessionCompleted)
+        {
+          _logger.LogInformation("Unhandled event type: {EventType}", stripeEvent.Type);
+          return Ok();
+        }
+
+        var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
+
+        if (session == null)
+        {
+          _logger.LogWarning("stripeEvent.Data.Object is not Checkout.Session or is null.");
+          return Ok();
+        }
+
+        _logger.LogInformation("Checkout session parsed. SessionId: {SessionId}, PaymentIntentId: {PaymentIntentId}",
+            session.Id, session.PaymentIntentId);
+
+        if (session.Metadata == null)
+        {
+          _logger.LogError("Session metadata is null. SessionId: {SessionId}", session.Id);
+          return BadRequest("Session metadata is null.");
+        }
+
+        if (!session.Metadata.TryGetValue("orderId", out var orderIdRaw))
+        {
+          _logger.LogError("Missing orderId in session metadata. SessionId: {SessionId}", session.Id);
+          return BadRequest("Missing orderId in metadata.");
+        }
+
+        _logger.LogInformation("orderId from metadata: {OrderIdRaw}", orderIdRaw);
+
+        if (!long.TryParse(orderIdRaw, out var orderId))
+        {
+          _logger.LogError("orderId is invalid. Raw value: {OrderIdRaw}", orderIdRaw);
+          return BadRequest("Invalid orderId.");
+        }
+
+        var order = await _OrdersContext.Orders
+            .FirstOrDefaultAsync(x => x.id == orderId);
+
+        if (order == null)
+        {
+          _logger.LogError("Order not found for orderId {OrderId}", orderId);
+          return NotFound("Order not found.");
+        }
+
+        _logger.LogInformation(
+            "Order found. OrderId: {OrderId}, UserId: {UserId}, CourseId: {CourseId}, Status: {Status}",
+            order.id, order.userId, order.courseId, order.status);
+
+        if (order.status == "Paid")
+        {
+          _logger.LogInformation("Order {OrderId} already has status Paid. Skipping.", order.id);
+          return Ok();
+        }
+
+        order.status = "Paid";
+        order.stripeSessionId = session.Id;
+        order.stripePaymentIntentId = session.PaymentIntentId;
+
+        _logger.LogInformation("Updating order {OrderId} status to Paid...", order.id);
+        await _OrdersContext.SaveChangesAsync();
+        _logger.LogInformation("Order {OrderId} updated successfully.", order.id);
+
+        var alreadyEnrolled = await _EnrollmentsContext.Enrollments
+            .AnyAsync(x => x.userId == order.userId && x.courseId == order.courseId);
+
+        _logger.LogInformation("alreadyEnrolled for user {UserId}, course {CourseId}: {AlreadyEnrolled}",
+            order.userId, order.courseId, alreadyEnrolled);
+
+        if (!alreadyEnrolled)
+        {
+          _EnrollmentsContext.Enrollments.Add(new Enrollments
+          {
+            userId = order.userId,
+            courseId = order.courseId,
+            createdAtUtc = DateTime.UtcNow
+          });
+
+          _logger.LogInformation("Adding Enrollments row...");
+          await _EnrollmentsContext.SaveChangesAsync();
+          _logger.LogInformation("Enrollments row added successfully.");
+        }
+        else
+        {
+          _logger.LogInformation("Enrollments row already exists, skipping insert.");
+        }
+
+        var alreadyInUserCourses = await _userCoursesContext.UserCourses
+            .AnyAsync(x => x.userId == order.userId && x.courseId == order.courseId);
+
+        _logger.LogInformation("alreadyInUserCourses for user {UserId}, course {CourseId}: {AlreadyInUserCourses}",
+            order.userId, order.courseId, alreadyInUserCourses);
+
+        if (!alreadyInUserCourses)
+        {
+          _userCoursesContext.UserCourses.Add(new UserCourses
+          {
+            userId = order.userId,
+            courseId = order.courseId
+          });
+
+          _logger.LogInformation("Adding UserCourses row...");
+          await _userCoursesContext.SaveChangesAsync();
+          _logger.LogInformation("UserCourses row added successfully.");
+        }
+        else
+        {
+          _logger.LogInformation("UserCourses row already exists, skipping insert.");
+        }
+
+        _logger.LogInformation("Stripe webhook END OK for orderId {OrderId}", order.id);
+        return Ok();
+      }
+      catch (DbUpdateException ex)
+      {
+        _logger.LogError(ex, "DbUpdateException in StripeWebhook. Message: {Message}", ex.Message);
+
+        if (ex.InnerException != null)
+        {
+          _logger.LogError(ex.InnerException, "DbUpdateException.InnerException: {InnerMessage}", ex.InnerException.Message);
+        }
+
+        return StatusCode(500, new
+        {
+          error = "Database update failed",
+          message = ex.Message,
+          inner = ex.InnerException?.Message
+        });
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, "Unhandled exception in StripeWebhook. Message: {Message}", ex.Message);
+
+        if (ex.InnerException != null)
+        {
+          _logger.LogError(ex.InnerException, "Unhandled exception inner: {InnerMessage}", ex.InnerException.Message);
+        }
+
+        return StatusCode(500, new
+        {
+          error = "Unhandled webhook error",
+          message = ex.Message,
+          inner = ex.InnerException?.Message,
+          stackTrace = ex.StackTrace
+        });
+      }
     }
   }
 }
+
