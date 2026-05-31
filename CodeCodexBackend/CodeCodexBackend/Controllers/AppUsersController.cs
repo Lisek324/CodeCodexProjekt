@@ -317,7 +317,7 @@ namespace CodeCodexBackend.Controllers
       {
         HttpOnly = true,
         Secure = true,
-        SameSite = SameSiteMode.Strict,
+        SameSite = SameSiteMode.None,
         Expires = DateTimeOffset.UtcNow.AddDays(7),
         Path = "/"
       });

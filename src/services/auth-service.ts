@@ -62,7 +62,7 @@ export class AuthService {
   }
 
   loginWithGoogle(credentials: string): Observable<AuthResponse> {
-    return this.httpClient.post<AuthResponse>(`${this.path}google`, { credentials }).pipe(
+    return this.httpClient.post<AuthResponse>(`${this.path}google`, { credentials },{ withCredentials: true }).pipe(
       tap(response => {
         this.setToken(response.accessToken);
 
@@ -78,7 +78,7 @@ export class AuthService {
   }
 
   register(request: RegisterRequest): Observable<AuthResponse> {
-    return this.httpClient.post<AuthResponse>(this.path + 'register', request, { headers: this.header }).pipe(
+    return this.httpClient.post<AuthResponse>(this.path + 'register', request, { headers: this.header, withCredentials: true }).pipe(
       tap(response => {
         this.setToken(response.accessToken);
 
@@ -94,7 +94,7 @@ export class AuthService {
   }
 
   login(request: LoginRequest): Observable<AuthResponse> {
-    return this.httpClient.post<AuthResponse>(this.path + 'login', request, { headers: this.header }).pipe(
+    return this.httpClient.post<AuthResponse>(this.path + 'login', request, { headers: this.header, withCredentials: true }).pipe(
       tap(response => {
         this.setToken(response.accessToken);
 

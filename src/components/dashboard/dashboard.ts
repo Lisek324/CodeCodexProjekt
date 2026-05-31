@@ -8,17 +8,22 @@ import { AuthService } from '../../services/auth-service';
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
+redirectToCourse(arg0: any) {
+throw new Error('Method not implemented.');
+}
 
   service=inject(AuthService);
   courses = signal<any[]>([]);
-
-  ngOnInit(): void {
+  isLoading = signal(true);
+ngOnInit(): void {
     this.service.getCourses().subscribe({
-      next: (x: any) => {
-        this.courses.set(x);
+      next: (res) => {
+        this.courses.set(res);
+        this.isLoading.set(false);
       },
       error: (err) => {
-        console.error('Error fetching courses:', err);
+        console.error(err);
+        this.isLoading.set(false);
       }
     });
   }
