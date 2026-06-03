@@ -8,5 +8,15 @@ export default defineConfig({
     setupFiles: ['vitest.setup.ts'],
     environment: 'jsdom',
     include: ['src/**/*.spec.ts'],
+    server: {
+      deps: {
+        inline: ['@angular/core', '@angular/common', '@angular/router'],
+      },
+    },
+  },
+  resolve: {
+    alias: {
+      '@': '/src',
+    },
   },
 });
