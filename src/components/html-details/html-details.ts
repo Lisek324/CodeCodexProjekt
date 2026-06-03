@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth-service';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-html-details',
@@ -7,15 +10,36 @@ import { Component } from '@angular/core';
   templateUrl: './html-details.html',
   styleUrl: './html-details.css',
 })
-export class HtmlDetails {
- isLoggedIn = false;
+export class HtmlDetails implements OnInit {
+  service = inject(AuthService);
+  router = inject(Router);
+hasHtmlCourse$!: Observable<boolean>;
 
-  modules = [
-    { title: 'Wprowadzenie do HTML5', lessons: 6, time: '45 min', completed: true },
-    { title: 'Semantyczne znaczniki HTML', lessons: 8, time: '60 min', completed: true },
-    { title: 'Podstawy CSS3', lessons: 10, time: '85 min', completed: false },
-    { title: 'Flexbox i Grid', lessons: 7, time: '70 min', completed: false },
-    { title: 'Responsywność i media queries', lessons: 6, time: '55 min', completed: false },
-    { title: 'JavaScript dla początkujących', lessons: 12, time: '110 min', completed: false }
-  ];
+  buyHtmlCourse(courseId: number) {
+    this.service.buyCourse(courseId).subscribe({
+      next: (res: any) => {
+        window.location.href = res.url;
+        } ,
+        error: (err) => {
+          console.error(err);
+      }
+    });
+  }
+  redirectToCourse(courseId: number) {
+    if(this.service.isLoggedIn()) {
+     this.service.getCourses().subscribe({
+      next: (x: any) => {
+        const htmlCourse = x.find((course: any) => course.id === courseId);
+        if (htmlCourse) {
+          this.router.navigate(['/course']);
+          }
+        }
+      });
+    }
+
+  }
+  ngOnInit(): void {
+    this.hasHtmlCourse$ = this.service.hasCourse(1);
+  }
 }
+

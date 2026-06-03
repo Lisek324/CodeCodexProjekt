@@ -41,6 +41,22 @@
   },
   {
     "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
+    "Method": "BuyAsync",
+    "RelativePath": "api/create-checkout-session",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "course",
+        "Type": "CodeCodexBackend.Model.BuyCourseRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
     "Method": "GoogleLogin",
     "RelativePath": "api/google",
     "HttpMethod": "POST",
@@ -54,6 +70,32 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
+    "Method": "hasCourse",
+    "RelativePath": "api/has-course/{courseId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
@@ -115,6 +157,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CodeCodexBackend.Controllers.AppUsersController",
+    "Method": "StripeWebhook",
+    "RelativePath": "api/webhook",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]

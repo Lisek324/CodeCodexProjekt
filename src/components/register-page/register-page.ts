@@ -58,7 +58,7 @@ passwordMatchValidator: ValidatorFn = (control: AbstractControl) => {
       this.service.register(this.form.getRawValue()).subscribe({
         next: (x: any) => {
           if(x.success){
-          this.service.setToken(x.token);
+          this.service.setToken(x.accessToken);
           this.isSubmitted = false;
           this.isSubmitting.set(false);
           this.form.reset();
@@ -110,7 +110,7 @@ passwordMatchValidator: ValidatorFn = (control: AbstractControl) => {
     handleCredentialResponse(response: CredentialResponse){
     this.service.loginWithGoogle(response.credential).subscribe({
       next: (x: any) => {
-        this.service.setToken(x.token);
+        this.service.setToken(x.accessToken);
         this._ngZone.run(() => {
           this.router.navigate(['/dashboard']);
         });

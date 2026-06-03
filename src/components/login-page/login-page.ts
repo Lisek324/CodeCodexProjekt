@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, inject, NgZone, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatCard } from "@angular/material/card";
 import { CredentialResponse } from "google-one-tap";
 import { AuthService } from '../../services/auth-service';
@@ -18,7 +18,7 @@ declare global {
 
 @Component({
   selector: 'app-login-page',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,RouterLink],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })
@@ -69,7 +69,7 @@ if (window.google?.accounts?.id) {
   async handleCredentialResponse(response: CredentialResponse){
   this.service.loginWithGoogle(response.credential).subscribe({
     next: (x: any) => {
-      this.service.setToken(x.token);
+      this.service.setToken(x.accessToken);
       this._ngZone.run(() => {
         this.router.navigate(['/dashboard']);
       });
@@ -94,7 +94,7 @@ if (window.google?.accounts?.id) {
     .subscribe({
       next: (x: any) => {
         if (x.success) {
-          this.service.setToken(x.token);
+          this.service.setToken(x.accessToken);
           this.loginForm.reset();
           this.router.navigate(['/dashboard']);
         } else {

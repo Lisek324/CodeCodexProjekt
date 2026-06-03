@@ -8,5 +8,6 @@ namespace CodeCodexBackend.Model
     public string email { get; set; } = string.Empty;
     public string? fullName { get; set; }
     public string? accessToken { get; set; }
+    public string? avatarUrl { get; set; }
   }
 }

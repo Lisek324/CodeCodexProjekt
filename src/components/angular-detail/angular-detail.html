@@ -1,12 +1,9 @@
 <div class="course-page ">
-    @if (!isLoggedIn) {
-
     <section class="course-hero-full bg-primary text-white">
-        <div class="">
+        <div class="container-xxl">
             <div class="course-hero-inner py-4 py-md-5">
                 <div class="row justify-content-center">
-                    <div class="col-12 col-xxl-10">
-
+                    <div class="col-12 col-xxl-11">
                         <h1 class="display-6 fw-bold mb-3">Angular w praktyce</h1>
                         <p class="lead mb-0 course-hero-text">
                             Naucz się Angular i TypeScript krok po kroku, poznając routing, komponenty, formularze i budując kompletną aplikację.
@@ -107,11 +104,23 @@
                                 <p class="small text-muted mb-4">
                                     Jednorazowa płatność, natychmiastowy dostęp po zakupie.
                                 </p>
+                                    
+                                    @let hasCourse = (hasAngularCourse$ | async);
 
-                                <div class="d-grid gap-2">
-                                    <a href="#" class="btn btn-primary btn-lg">Kup teraz</a>
-                                    <a href="#" class="btn btn-outline-secondary">Dodaj do koszyka</a>
-                                </div>
+                                    @if (hasCourse === null || hasCourse === undefined) {
+                                    <button class="btn btn-primary btn-lg w-100" disabled>
+                                        Ładowanie...
+                                    </button>
+                                    } @else if (hasCourse === false) {
+                                    <button class="btn btn-primary btn-lg w-100" (click)="buyAngularCourse(2)">
+                                        Kup teraz
+                                    </button>
+                                    } @else {
+                                    <button class="btn btn-primary btn-lg w-100" (click)="redirectToCourse(2)">
+                                        Przejdz do kursu
+                                    </button>
+                                    }
+                                    
                                 <div class="mt-3">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item px-0 ">✅ Pełny dostęp do kursu 24/7</li>
@@ -129,7 +138,4 @@
             </div>
         </section>
     </div>
-    } @else {
-    <!-- tutaj zostaje Twój obecny widok zalogowanego użytkownika -->
-    }
 </div>
