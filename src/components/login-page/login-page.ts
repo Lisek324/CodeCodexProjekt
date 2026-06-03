@@ -37,8 +37,8 @@ export class LoginPage implements AfterViewInit {
 
 
   loginForm = this.fb.nonNullable.group({
-    email: [''],
-    password: [''],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
   });
 
   ngAfterViewInit(): void {
@@ -65,19 +65,26 @@ if (window.google?.accounts?.id) {
     window.onGoogleLibraryLoad();
   }
 }
+handleCredentialResponse(response: CredentialResponse) {
+  this.loginError.set('');
+  this.isSubmitting.set(true);
 
-  async handleCredentialResponse(response: CredentialResponse){
-  this.service.loginWithGoogle(response.credential).subscribe({
-    next: (x: any) => {
-      this.service.setToken(x.accessToken);
-      this._ngZone.run(() => {
-        this.router.navigate(['/dashboard']);
-      });
-    },
-    error: (error: any) => {
-      console.log(error);
-    }
-  });
+  this.service.loginWithGoogle(response.credential)
+    .pipe(finalize(() => this.isSubmitting.set(false)))
+    .subscribe({
+      next: (x: any) => {
+        console.log('google login response:', x);
+        this.service.setToken(x.accessToken);
+
+        this._ngZone.run(() => {
+          this.router.navigate(['/dashboard']);
+        });
+      },
+      error: (error: any) => {
+        console.log(error);
+        this.loginError.set(error?.error?.message || 'Nie udało się zalogować przez Google.');
+      }
+    });
 }
 
   hasDisplayableError(controlName: string, errorName: string): boolean {
@@ -86,17 +93,28 @@ if (window.google?.accounts?.id) {
   }
 
   onSubmit(): void {
-    this.isSubmitting.set(true);
-    this.loginError.set('');
-    if(this.loginForm.valid) {
-    this.service.login(this.loginForm.getRawValue())
+  this.isSubmitted = true;
+  this.loginError.set('');
+
+  if (this.loginForm.invalid) {
+    return;
+  }
+
+  this.isSubmitting.set(true);
+
+  this.service.login(this.loginForm.getRawValue())
     .pipe(finalize(() => this.isSubmitting.set(false)))
     .subscribe({
       next: (x: any) => {
+        console.log('login response:', x);
+
         if (x.success) {
           this.service.setToken(x.accessToken);
           this.loginForm.reset();
-          this.router.navigate(['/dashboard']);
+
+          this._ngZone.run(() => {
+            this.router.navigate(['/dashboard']);
+          });
         } else {
           this.loginError.set(x.message || 'Nie udało się zalogować.');
         }
@@ -105,6 +123,5 @@ if (window.google?.accounts?.id) {
         this.loginError.set(error?.error?.message || 'Nie udało się zalogować.');
       }
     });
-  }
   }
 }

@@ -94,7 +94,7 @@ namespace CodeCodexBackend.Controllers
       {
         HttpOnly = true,
         Secure = true,
-        SameSite = SameSiteMode.Strict,
+        SameSite = SameSiteMode.None,
         Expires = DateTimeOffset.UtcNow.AddDays(7),
         Path = "/"
       });
@@ -411,7 +411,7 @@ namespace CodeCodexBackend.Controllers
       }
       catch (Exception ex)
       {
-        return BadRequest("Failed to read request body.");
+        return BadRequest("Failed to read request body."+ex);
       }
 
       Event stripeEvent;
@@ -429,11 +429,11 @@ namespace CodeCodexBackend.Controllers
       }
       catch (StripeException ex)
       {
-        return BadRequest("Invalid Stripe signature.");
+        return BadRequest("Invalid Stripe signature." + ex);
       }
       catch (Exception ex)
       {
-        return BadRequest("Invalid webhook payload.");
+        return BadRequest("Invalid webhook payload." + ex);
       }
 
       try

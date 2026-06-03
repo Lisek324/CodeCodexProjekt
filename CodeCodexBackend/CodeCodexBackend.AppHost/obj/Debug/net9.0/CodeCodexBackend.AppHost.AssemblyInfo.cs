@@ -24,7 +24,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CodeCodexBackend.AppHost")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+07f433ebfec2f7c28c49880f54252e6e62c5ec27")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bf58389a6beb705a3ff0c5aa8e1876285090c377")]
 [assembly: System.Reflection.AssemblyProductAttribute("CodeCodexBackend.AppHost")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CodeCodexBackend.AppHost")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -5,6 +5,7 @@ import { CredentialResponse } from 'google-one-tap';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../../services/auth-service';
 import { CommonModule } from '@angular/common';
+import { finalize } from 'rxjs';
 //import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -47,35 +48,43 @@ passwordMatchValidator: ValidatorFn = (control: AbstractControl) => {
   form = this.fb.nonNullable.group({
     fullName: ['', [Validators.required]],// lub nazwa użytkownika
     email: ['', [Validators.required,Validators.email]],
-    password: ['', [Validators.required,Validators.minLength(6),Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/)]],
+    password: ['', [Validators.required,Validators.minLength(6),Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).+$/)]],
     confirmPassword: ['', [Validators.required]],
   }, { validators: this.passwordMatchValidator });
 
 
-  onSubmit() {
-    this.isSubmitted = true;
-    this.isSubmitting.set(true);
-    if(this.form.valid) {
-      this.service.register(this.form.getRawValue()).subscribe({
-        next: (x: any) => {
-          if(x.success){
-          this.service.setToken(x.accessToken);
-          this.isSubmitted = false;
-          this.isSubmitting.set(false);
-          this.form.reset();
-          this.router.navigate(['/dashboard']);
-          }else {
-             console.log(x.message);
-          }
-        },
-        error: (error: any) => {
-          console.log(error);
-          console.log('error body:', error.error);
-          this.isSubmitting.set(false);
-        }
-      });
+onSubmit() {
+  this.isSubmitted = true;
+
+  if (this.form.invalid) {
+    return;
   }
-  this.isSubmitting.set(false);
+
+  this.isSubmitting.set(true);
+
+  this.service.register(this.form.getRawValue()).subscribe({
+    next: (x: any) => {
+      console.log('register response:', x);
+
+      if (x.success) {
+        this.service.setToken(x.accessToken);
+        this.form.reset();
+        this.isSubmitted = false;
+
+        this._ngZone.run(() => {
+          this.router.navigate(['/dashboard']);
+        });
+      } else {
+        console.log(x.message);
+        this.isSubmitting.set(false);
+      }
+    },
+    error: (error: any) => {
+      console.log(error);
+      console.log('error body:', error.error);
+      this.isSubmitting.set(false);
+    }
+  }); 
 }
 
   hasDisplayableError(controlName: string, errorName: string): boolean {
@@ -108,7 +117,9 @@ passwordMatchValidator: ValidatorFn = (control: AbstractControl) => {
     }
   }
   
-    handleCredentialResponse(response: CredentialResponse){
+    handleCredentialResponse(response: CredentialResponse) {
+    this.isSubmitting.set(true);
+
     this.service.loginWithGoogle(response.credential).subscribe({
       next: (x: any) => {
         this.service.setToken(x.accessToken);
@@ -118,6 +129,7 @@ passwordMatchValidator: ValidatorFn = (control: AbstractControl) => {
       },
       error: (error: any) => {
         console.log(error);
+        this.isSubmitting.set(false);
       }
     });
   }
