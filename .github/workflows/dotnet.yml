@@ -27,7 +27,9 @@ jobs:
     - name: Test
       run: dotnet test ./CodeCodexBackend/CodeCodexBackend/CodeCodexBackend.csproj --configuration Release --no-build
       
-    - name: Trigger Render Deploy
-      run: curl -X POST "$DEPLOY_HOOK"
-      env: 
-        RENDER_DEPLOY_HOOK_URL: ${{ secrets.DEPLOY_HOOK }}
+    - name: Deploy
+      env:
+        DEPLOY_HOOK: ${{ secrets.DEPLOY_HOOK }}
+      run: |
+        echo "DEPLOY_HOOK='$DEPLOY_HOOK'"
+        curl -X POST "$DEPLOY_HOOK"
