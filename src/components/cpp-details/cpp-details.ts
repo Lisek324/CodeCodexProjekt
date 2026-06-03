@@ -10,11 +10,13 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './cpp-details.css',
 })
 export class CppDetails {
+  readonly CPP_COURSE_ID = 3;
+
   isLoggedIn: boolean = false;
 
   service = inject(AuthService);
   router = inject(Router);
-  hasCPPCourse$ = this.service.hasCourse(3);
+  hasCPPCourse$ = this.service.hasCourse(this.CPP_COURSE_ID);
 
   buyCPPCourse(courseId: number) {
     this.service.buyCourse(courseId).subscribe({

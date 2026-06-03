@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
   styleUrl: './html-details.css',
 })
 export class HtmlDetails implements OnInit {
+  readonly HTML_COURSE_ID = 1;
   service = inject(AuthService);
   router = inject(Router);
   hasHtmlCourse$!: Observable<boolean>;

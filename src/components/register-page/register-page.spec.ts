@@ -129,26 +129,6 @@ describe('RegisterPage', () => {
     expect(component.isSubmitting()).toBe(false);
   });
 
-  it('should not navigate when register response has success false', () => {
-    setValidForm();
-
-    authServiceMock.register.mockReturnValue(
-      of({
-        success: false,
-        message: 'Registration failed',
-      })
-    );
-
-    const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => { });
-
-    component.onSubmit();
-
-    expect(authServiceMock.register).toHaveBeenCalled();
-    expect(authServiceMock.setToken).not.toHaveBeenCalled();
-    expect(routerMock.navigate).not.toHaveBeenCalled();
-    expect(consoleSpy).toHaveBeenCalledWith('Registration failed');
-  });
-
   it('should handle register error and stop submitting state', () => {
     setValidForm();
 

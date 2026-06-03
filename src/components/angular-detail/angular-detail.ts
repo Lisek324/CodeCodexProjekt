@@ -10,11 +10,13 @@ import { CommonModule } from '@angular/common';
   styleUrl: './angular-detail.css',
 })
 export class AngularDetail {
+  readonly ANGULAR_COURSE_ID = 2;
+
   isLoggedIn = false;
   service = inject(AuthService);
   router = inject(Router);
 
-  hasAngularCourse$ = this.service.hasCourse(2);
+  hasAngularCourse$ = this.service.hasCourse(this.ANGULAR_COURSE_ID);
   redirectToCourse(courseId: number) {
     if (this.service.isLoggedIn()) {
       this.service.getCourses().subscribe({
