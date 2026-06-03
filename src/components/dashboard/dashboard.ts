@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class Dashboard {
   router = inject(Router);
-  service=inject(AuthService);
+  service = inject(AuthService);
   courses = signal<any[]>([]);
   isLoading = signal(true);
 

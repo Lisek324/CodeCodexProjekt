@@ -5,8 +5,8 @@ import { authGuard } from './auth-guard';
 import { AuthService } from '../services/auth-service';
 
 describe('authGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => authGuard(...guardParameters));
+  const executeGuard: CanActivateFn = (...guardParameters) =>
+    TestBed.runInInjectionContext(() => authGuard(...guardParameters));
 
   let authServiceMock: {
     isLoggedIn: ReturnType<typeof vi.fn>;
@@ -42,7 +42,7 @@ describe('authGuard', () => {
   it('should be created', () => {
     expect(executeGuard).toBeTruthy();
   });
-   it('should allow access when user is logged in', () => {
+  it('should allow access when user is logged in', () => {
     authServiceMock.isLoggedIn.mockReturnValue(true);
 
     const result = runGuard('/dashboard');
@@ -57,7 +57,7 @@ describe('authGuard', () => {
     authServiceMock.isLoggedIn.mockReturnValue(false);
     routerMock.createUrlTree.mockReturnValue(fakeUrlTree);
 
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => { });
 
     const result = runGuard('/dashboard');
 

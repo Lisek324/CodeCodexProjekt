@@ -12,7 +12,7 @@ describe('Home', () => {
       imports: [Home],
       providers: [provideRouter([])]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(Home);
     component = fixture.componentInstance;

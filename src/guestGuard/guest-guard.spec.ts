@@ -36,7 +36,7 @@ describe('guestGuard', () => {
     return TestBed.runInInjectionContext(() => guestGuard(route, state));
   }
 
-   it('should allow access when user is not logged in', () => {
+  it('should allow access when user is not logged in', () => {
     authServiceMock.isLoggedIn.mockReturnValue(false);
 
     const result = runGuard('/login');

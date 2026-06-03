@@ -16,24 +16,24 @@ export class CppDetails {
   router = inject(Router);
   hasCPPCourse$ = this.service.hasCourse(3);
 
-    buyCPPCourse(courseId: number) {
+  buyCPPCourse(courseId: number) {
     this.service.buyCourse(courseId).subscribe({
       next: (res: any) => {
         window.location.href = res.url;
-        } ,
-        error: (err) => {
-          console.error(err);
+      },
+      error: (err) => {
+        console.error(err);
       }
     });
   }
 
   redirectToCourse(courseId: number) {
-    if(this.service.isLoggedIn()) {
-     this.service.getCourses().subscribe({
-      next: (x: any) => {
-        const cppCourse = x.find((course: any) => course.id === courseId);
-        if (cppCourse) {
-          this.router.navigate(['/course']);
+    if (this.service.isLoggedIn()) {
+      this.service.getCourses().subscribe({
+        next: (x: any) => {
+          const cppCourse = x.find((course: any) => course.id === courseId);
+          if (cppCourse) {
+            this.router.navigate(['/course']);
           }
         }
       });

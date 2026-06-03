@@ -117,7 +117,11 @@
                                 </p>
 
                                 <div class="d-grid gap-2">
-                                    <!--TODO: Hardcoded course ID. Better to use course.id -->
+                                    @if (!service.isLoggedIn()) {
+                                    <button class="btn btn-primary btn-lg w-100" routerLink="/login">
+                                        Zaloguj się
+                                    </button>
+                                    } @else {
                                     @let hasCourse = (hasHtmlCourse$ | async);
 
                                     @if (hasCourse === null || hasCourse === undefined) {
@@ -130,8 +134,9 @@
                                     </button>
                                     } @else {
                                     <button class="btn btn-primary btn-lg w-100" (click)="redirectToCourse(1)">
-                                        Przejdz do kursu
+                                        Przejdź do kursu
                                     </button>
+                                    }
                                     }
                                 </div>
                                 <div class="mt-3">

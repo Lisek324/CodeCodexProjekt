@@ -36,7 +36,7 @@ describe('RegisterPage', () => {
     component = fixture.componentInstance;
   });
 
-    function getHtml(): HTMLElement {
+  function getHtml(): HTMLElement {
     return fixture.nativeElement as HTMLElement;
   }
   function setValidForm() {
@@ -47,9 +47,9 @@ describe('RegisterPage', () => {
       confirmPassword: 'haslo12',
     });
   }
-afterEach(() => {
-  vi.clearAllMocks();
-});
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -103,31 +103,31 @@ afterEach(() => {
     expect(component.isSubmitting()).toBe(false);
   });
 
-it(']', async () => {
-  setValidForm();
+  it(']', async () => {
+    setValidForm();
 
-  authServiceMock.register.mockReturnValue(
-    of({
-      success: true,
-      accessToken: 'token-123',
-    })
-  );
+    authServiceMock.register.mockReturnValue(
+      of({
+        success: true,
+        accessToken: 'token-123',
+      })
+    );
 
-  component.onSubmit();
-  fixture.detectChanges();
-  await fixture.whenStable();
+    component.onSubmit();
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-  expect(authServiceMock.register).toHaveBeenCalledWith({
-    fullName: 'Jan Kowalski',
-    email: 'jan@test.pl',
-    password: 'haslo12',
-    confirmPassword: 'haslo12',
+    expect(authServiceMock.register).toHaveBeenCalledWith({
+      fullName: 'Jan Kowalski',
+      email: 'jan@test.pl',
+      password: 'haslo12',
+      confirmPassword: 'haslo12',
+    });
+    expect(authServiceMock.setToken).toHaveBeenCalledWith('token-123');
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/dashboard']);
+    expect(component.isSubmitted).toBe(false);
+    expect(component.isSubmitting()).toBe(false);
   });
-  expect(authServiceMock.setToken).toHaveBeenCalledWith('token-123');
-  expect(routerMock.navigate).toHaveBeenCalledWith(['/dashboard']);
-  expect(component.isSubmitted).toBe(false);
-  expect(component.isSubmitting()).toBe(false);
-});
 
   it('should not navigate when register response has success false', () => {
     setValidForm();
@@ -139,7 +139,7 @@ it(']', async () => {
       })
     );
 
-    const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => { });
 
     component.onSubmit();
 
@@ -158,7 +158,7 @@ it(']', async () => {
       }))
     );
 
-    const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => { });
 
     component.onSubmit();
 

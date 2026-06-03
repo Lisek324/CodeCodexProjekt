@@ -17,8 +17,8 @@ export const interceptorInterceptor: HttpInterceptorFn = (req, next) => {
       }
     });
   }
-  
- if (isRefreshRequest) {
+
+  if (isRefreshRequest) {
     authReq = req.clone({
       withCredentials: true
     });

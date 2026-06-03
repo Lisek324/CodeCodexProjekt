@@ -18,15 +18,15 @@ declare global {
 
 @Component({
   selector: 'app-login-page',
-  imports: [CommonModule, ReactiveFormsModule,RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })
 export class LoginPage implements AfterViewInit {
-@ViewChild('buttonDiv', { static: false }) buttonDiv!: ElementRef<HTMLDivElement>;
+  @ViewChild('buttonDiv', { static: false }) buttonDiv!: ElementRef<HTMLDivElement>;
   loginError = signal<string>('');
-  
-  isSubmitted:boolean = false;
+
+  isSubmitted: boolean = false;
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
@@ -42,50 +42,50 @@ export class LoginPage implements AfterViewInit {
   });
 
   ngAfterViewInit(): void {
-  window.onGoogleLibraryLoad = () => {
-    window.google.accounts.id.initialize({
-      client_id: environment.clientId,
-      callback: this.handleCredentialResponse.bind(this),
-      auto_select: false,
-      cancel_on_tap_outside: true,
-    });
+    window.onGoogleLibraryLoad = () => {
+      window.google.accounts.id.initialize({
+        client_id: environment.clientId,
+        callback: this.handleCredentialResponse.bind(this),
+        auto_select: false,
+        cancel_on_tap_outside: true,
+      });
 
-    window.google.accounts.id.renderButton(this.buttonDiv.nativeElement, {
-      type: 'standard',
-      theme: 'outline',
-      size: 'large',
-      text: 'signin_with',
-      shape: 'rectangular',
-      logo_alignment: 'left',
-      width: '320',
-    });
-  };
+      window.google.accounts.id.renderButton(this.buttonDiv.nativeElement, {
+        type: 'standard',
+        theme: 'outline',
+        size: 'large',
+        text: 'signin_with',
+        shape: 'rectangular',
+        logo_alignment: 'left',
+        width: '320',
+      });
+    };
 
-if (window.google?.accounts?.id) {
-    window.onGoogleLibraryLoad();
+    if (window.google?.accounts?.id) {
+      window.onGoogleLibraryLoad();
+    }
   }
-}
-handleCredentialResponse(response: CredentialResponse) {
-  this.loginError.set('');
-  this.isSubmitting.set(true);
+  handleCredentialResponse(response: CredentialResponse) {
+    this.loginError.set('');
+    this.isSubmitting.set(true);
 
-  this.service.loginWithGoogle(response.credential)
-    .pipe(finalize(() => this.isSubmitting.set(false)))
-    .subscribe({
-      next: (x: any) => {
-        console.log('google login response:', x);
-        this.service.setToken(x.accessToken);
+    this.service.loginWithGoogle(response.credential)
+      .pipe(finalize(() => this.isSubmitting.set(false)))
+      .subscribe({
+        next: (x: any) => {
+          console.log('google login response:', x);
+          this.service.setToken(x.accessToken);
 
-        this._ngZone.run(() => {
-          this.router.navigate(['/dashboard']);
-        });
-      },
-      error: (error: any) => {
-        console.log(error);
-        this.loginError.set(error?.error?.message || 'Nie udało się zalogować przez Google.');
-      }
-    });
-}
+          this._ngZone.run(() => {
+            this.router.navigate(['/dashboard']);
+          });
+        },
+        error: (error: any) => {
+          console.log(error);
+          this.loginError.set(error?.error?.message || 'Nie udało się zalogować przez Google.');
+        }
+      });
+  }
 
   hasDisplayableError(controlName: string, errorName: string): boolean {
     const control = this.loginForm.get(controlName);
@@ -93,35 +93,35 @@ handleCredentialResponse(response: CredentialResponse) {
   }
 
   onSubmit(): void {
-  this.isSubmitted = true;
-  this.loginError.set('');
+    this.isSubmitted = true;
+    this.loginError.set('');
 
-  if (this.loginForm.invalid) {
-    return;
-  }
+    if (this.loginForm.invalid) {
+      return;
+    }
 
-  this.isSubmitting.set(true);
+    this.isSubmitting.set(true);
 
-  this.service.login(this.loginForm.getRawValue())
-    .pipe(finalize(() => this.isSubmitting.set(false)))
-    .subscribe({
-      next: (x: any) => {
-        console.log('login response:', x);
+    this.service.login(this.loginForm.getRawValue())
+      .pipe(finalize(() => this.isSubmitting.set(false)))
+      .subscribe({
+        next: (x: any) => {
+          console.log('login response:', x);
 
-        if (x.success) {
-          this.service.setToken(x.accessToken);
-          this.loginForm.reset();
+          if (x.success) {
+            this.service.setToken(x.accessToken);
+            this.loginForm.reset();
 
-          this._ngZone.run(() => {
-            this.router.navigate(['/dashboard']);
-          });
-        } else {
-          this.loginError.set(x.message || 'Nie udało się zalogować.');
+            this._ngZone.run(() => {
+              this.router.navigate(['/dashboard']);
+            });
+          } else {
+            this.loginError.set(x.message || 'Nie udało się zalogować.');
+          }
+        },
+        error: (error: any) => {
+          this.loginError.set(error?.error?.message || 'Nie udało się zalogować.');
         }
-      },
-      error: (error: any) => {
-        this.loginError.set(error?.error?.message || 'Nie udało się zalogować.');
-      }
-    });
+      });
   }
 }

@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { provideRouter } from '@angular/router';
 
 describe('AngularDetail', () => {
-    let fixture: ComponentFixture<AngularDetail>;
+  let fixture: ComponentFixture<AngularDetail>;
   let component: AngularDetail;
   let hasCourseSubject: BehaviorSubject<boolean>;
 

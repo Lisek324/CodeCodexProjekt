@@ -22,70 +22,70 @@ export class RegisterPage {
   private router = inject(Router);
   private _ngZone = inject(NgZone);
   private service = inject(AuthService);
-    isSubmitting = signal(false);
+  isSubmitting = signal(false);
 
-  isSubmitted:boolean = false;
+  isSubmitted: boolean = false;
 
-passwordMatchValidator: ValidatorFn = (control: AbstractControl) => {
-  const password = control.get('password')?.value;
-  const confirmPasswordControl = control.get('confirmPassword');
+  passwordMatchValidator: ValidatorFn = (control: AbstractControl) => {
+    const password = control.get('password')?.value;
+    const confirmPasswordControl = control.get('confirmPassword');
 
-  if (!confirmPasswordControl) return null;
+    if (!confirmPasswordControl) return null;
 
-  if (password && confirmPasswordControl.value && password !== confirmPasswordControl.value) {
-    confirmPasswordControl.setErrors({ ...confirmPasswordControl.errors, passwordMismatch: true });
-  } else {
-    const errors = confirmPasswordControl.errors;
-    if (errors?.['passwordMismatch']) {
-      delete errors['passwordMismatch'];
-      confirmPasswordControl.setErrors(Object.keys(errors).length ? errors : null);
+    if (password && confirmPasswordControl.value && password !== confirmPasswordControl.value) {
+      confirmPasswordControl.setErrors({ ...confirmPasswordControl.errors, passwordMismatch: true });
+    } else {
+      const errors = confirmPasswordControl.errors;
+      if (errors?.['passwordMismatch']) {
+        delete errors['passwordMismatch'];
+        confirmPasswordControl.setErrors(Object.keys(errors).length ? errors : null);
+      }
     }
-  }
 
-  return null;
-};
+    return null;
+  };
 
   form = this.fb.nonNullable.group({
     fullName: ['', [Validators.required]],// lub nazwa użytkownika
-    email: ['', [Validators.required,Validators.email]],
-    password: ['', [Validators.required,Validators.minLength(6),Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).+$/)]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).+$/)]],
     confirmPassword: ['', [Validators.required]],
   }, { validators: this.passwordMatchValidator });
 
 
-onSubmit() {
-  this.isSubmitted = true;
+  onSubmit() {
+    this.isSubmitted = true;
 
-  if (this.form.invalid) {
-    return;
-  }
+    if (this.form.invalid) {
+      return;
+    }
 
-  this.isSubmitting.set(true);
+    this.isSubmitting.set(true);
 
-  this.service.register(this.form.getRawValue())
-    .pipe(finalize(() => this.isSubmitting.set(false)))
-    .subscribe({
-      next: (x: any) => {
-        console.log('register response:', x);
+    this.service.register(this.form.getRawValue())
+      .pipe(finalize(() => this.isSubmitting.set(false)))
+      .subscribe({
+        next: (x: any) => {
+          console.log('register response:', x);
 
-        if (x.success) {
-          this.service.setToken(x.accessToken);
-          this.form.reset();
-          this.isSubmitted = false;
+          if (x.success) {
+            this.service.setToken(x.accessToken);
+            this.form.reset();
+            this.isSubmitted = false;
 
-          this._ngZone.run(() => {
-            this.router.navigate(['/dashboard']);
-          });
-        } else {
-          console.log(x.message);
+            this._ngZone.run(() => {
+              this.router.navigate(['/dashboard']);
+            });
+          } else {
+            console.log(x.message);
+          }
+        },
+        error: (error: any) => {
+          console.log(error);
+          console.log('error body:', error.error);
         }
-      },
-      error: (error: any) => {
-        console.log(error);
-        console.log('error body:', error.error);
-      }
-    });
-}
+      });
+  }
 
   hasDisplayableError(controlName: string, errorName: string): boolean {
     const control = this.form.get(controlName);
@@ -100,7 +100,7 @@ onSubmit() {
         auto_select: false,
         cancel_on_tap_outside: true,
       });
-  
+
       window.google.accounts.id.renderButton(this.buttonDiv.nativeElement, {
         type: 'standard',
         theme: 'outline',
@@ -111,13 +111,13 @@ onSubmit() {
         width: 320
       });
     };
-  
+
     if (window.google?.accounts?.id) {
       window.onGoogleLibraryLoad();
     }
   }
-  
-    handleCredentialResponse(response: CredentialResponse) {
+
+  handleCredentialResponse(response: CredentialResponse) {
     this.isSubmitting.set(true);
 
     this.service.loginWithGoogle(response.credential).subscribe({

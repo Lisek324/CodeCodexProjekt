@@ -12,7 +12,7 @@ describe('LoginPage', () => {
       imports: [LoginPage],
       providers: [provideRouter([])]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LoginPage);
     component = fixture.componentInstance;

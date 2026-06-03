@@ -10,31 +10,31 @@ import { CommonModule } from '@angular/common';
   styleUrl: './angular-detail.css',
 })
 export class AngularDetail {
-   isLoggedIn = false;
+  isLoggedIn = false;
   service = inject(AuthService);
   router = inject(Router);
-  
+
   hasAngularCourse$ = this.service.hasCourse(2);
   redirectToCourse(courseId: number) {
-      if(this.service.isLoggedIn()) {
+    if (this.service.isLoggedIn()) {
       this.service.getCourses().subscribe({
         next: (x: any) => {
           const angularCourse = x.find((course: any) => course.id === courseId);
           if (angularCourse) {
             this.router.navigate(['/course']);
-            }
           }
-        });
-      }
+        }
+      });
+    }
 
   }
-    buyAngularCourse(courseId: number) {
+  buyAngularCourse(courseId: number) {
     this.service.buyCourse(courseId).subscribe({
       next: (res: any) => {
         window.location.href = res.url;
-        } ,
-        error: (err) => {
-          console.error(err);
+      },
+      error: (err) => {
+        console.error(err);
       }
     });
   }

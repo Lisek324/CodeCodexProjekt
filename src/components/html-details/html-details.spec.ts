@@ -16,7 +16,7 @@ describe('HtmlDetails', () => {
         provideHttpClientTesting()
       ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(HtmlDetails);
     component = fixture.componentInstance;

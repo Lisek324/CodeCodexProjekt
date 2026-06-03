@@ -13,9 +13,9 @@ describe('Dashboard', () => {
     getCourses: vi.fn(),
   };
   const routerMock = {
-  navigate: vi.fn(),
-};  
-  
+    navigate: vi.fn(),
+  };
+
   beforeEach(async () => {
     authServiceMock.currentUser.mockReturnValue('Jan Kowalski');
     authServiceMock.getCourses.mockReturnValue(of([]));
@@ -59,15 +59,15 @@ describe('Dashboard', () => {
   });
 
   it('should render loading state when isLoading is true', () => {
-  authServiceMock.getCourses.mockReturnValue(NEVER);
+    authServiceMock.getCourses.mockReturnValue(NEVER);
 
-  fixture.detectChanges();
+    fixture.detectChanges();
 
-  const spinner = fixture.nativeElement.querySelector('.spinner-border');
-  const loadingText = fixture.nativeElement.textContent;
+    const spinner = fixture.nativeElement.querySelector('.spinner-border');
+    const loadingText = fixture.nativeElement.textContent;
 
-  expect(spinner).toBeTruthy();
-  expect(loadingText).toContain('Ładowanie Twoich kursów...');
+    expect(spinner).toBeTruthy();
+    expect(loadingText).toContain('Ładowanie Twoich kursów...');
   });
 
   it('should render empty state when there are no courses', () => {
@@ -84,43 +84,43 @@ describe('Dashboard', () => {
     expect(link).toBeTruthy();
   });
 
-it('should render courses count and course cards', () => {
-  authServiceMock.getCourses.mockReturnValue(
-    of([
-      { id: 1, name: 'Angular od podstaw' },
-      { id: 2, name: 'ASP.NET Core API' },
-    ])
-  );
+  it('should render courses count and course cards', () => {
+    authServiceMock.getCourses.mockReturnValue(
+      of([
+        { id: 1, name: 'Angular od podstaw' },
+        { id: 2, name: 'ASP.NET Core API' },
+      ])
+    );
 
-  fixture.detectChanges();
+    fixture.detectChanges();
 
-  const text = fixture.nativeElement.textContent;
-  const cards = fixture.nativeElement.querySelectorAll('.card');
-  const buttons = fixture.nativeElement.querySelectorAll('button');
+    const text = fixture.nativeElement.textContent;
+    const cards = fixture.nativeElement.querySelectorAll('.card');
+    const buttons = fixture.nativeElement.querySelectorAll('button');
 
-  expect(text).toContain('2 kursy');
-  expect(text).toContain('Angular od podstaw');
-  expect(text).toContain('ASP.NET Core API');
-  expect(cards.length).toBe(2);
-  expect(buttons.length).toBe(2);
-}); 
-it('should call redirectToCourse with correct id for clicked course', () => {
-  authServiceMock.getCourses.mockReturnValue(
-    of([
-      { id: 1, name: 'Angular od podstaw' },
-      { id: 2, name: 'ASP.NET Core API' },
-    ])
-  );
+    expect(text).toContain('2 kursy');
+    expect(text).toContain('Angular od podstaw');
+    expect(text).toContain('ASP.NET Core API');
+    expect(cards.length).toBe(2);
+    expect(buttons.length).toBe(2);
+  });
+  it('should call redirectToCourse with correct id for clicked course', () => {
+    authServiceMock.getCourses.mockReturnValue(
+      of([
+        { id: 1, name: 'Angular od podstaw' },
+        { id: 2, name: 'ASP.NET Core API' },
+      ])
+    );
 
-  const spy = vi.spyOn(component, 'redirectToCourse');
+    const spy = vi.spyOn(component, 'redirectToCourse');
 
-  fixture.detectChanges();
+    fixture.detectChanges();
 
-  const buttons = fixture.debugElement.queryAll(By.css('button.btn-outline-primary'));
-  expect(buttons.length).toBe(2);
+    const buttons = fixture.debugElement.queryAll(By.css('button.btn-outline-primary'));
+    expect(buttons.length).toBe(2);
 
-  buttons[1].nativeElement.click();
+    buttons[1].nativeElement.click();
 
-  expect(spy).toHaveBeenCalledWith(2);
-});
+    expect(spy).toHaveBeenCalledWith(2);
+  });
 });

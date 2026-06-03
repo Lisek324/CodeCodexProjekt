@@ -11,49 +11,46 @@
   </div>
 
   @if (isLoading()) {
-    <div class="text-center py-5">
-      <div class="spinner-border text-primary mb-3" role="status">
-        <span class="visually-hidden">Ładowanie...</span>
-      </div>
-      <p class="text-muted mb-0">Ładowanie Twoich kursów...</p>
+  <div class="text-center py-5">
+    <div class="spinner-border text-primary mb-3" role="status">
+      <span class="visually-hidden">Ładowanie...</span>
     </div>
+    <p class="text-muted mb-0">Ładowanie Twoich kursów...</p>
+  </div>
   } @else {
-    <div class="d-flex align-items-center justify-content-between mb-3">
-      <h2 class="h4 mb-0">Twoje kursy</h2>
-      <span class="badge bg-primary">
-        @let list = courses();
-        {{ list.length }} kurs{{ list.length === 1 ? '' : (list.length < 5 ? 'y' : 'ów') }}
-      </span>
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h2 class="h4 mb-0">Twoje kursy</h2>
+    <span class="badge bg-primary">
+      @let list = courses();
+      {{ list.length }} kurs{{ list.length === 1 ? '' : (list.length < 5 ? 'y' : 'ów' ) }} </span>
+  </div>
+  <hr class="mb-4">
+  @let userCourses = courses();
+  @if (userCourses.length === 0) {
+  <div class="alert alert-info">
+    Nie masz jeszcze żadnych kursów.
+    <a routerLink="/home" class="alert-link">Przeglądaj ofertę kursów</a>.
+  </div>
+  } @else {
+  <div class="row row-cols-lg-3 g-4">
+    @for (course of userCourses; track course.id) {
+    <div class="col">
+      <div class="card shadow-sm border-0">
+        <div class="card-body d-flex flex-column">
+          <h5>
+            {{ course.name }}
+          </h5>
+          <p class="card-text text-muted ">
+            Zakupiony kurs na platformie.
+          </p>
+          <button class="btn btn-outline-primary btn-sm" (click)="redirectToCourse(course.id)">
+            Przejdź do kursu
+          </button>
+        </div>
+      </div>
     </div>
-    <hr class="mb-4">
-    @let userCourses = courses();
-    @if (userCourses.length === 0) {
-      <div class="alert alert-info">
-        Nie masz jeszcze żadnych kursów.
-        <a routerLink="/home" class="alert-link">Przeglądaj ofertę kursów</a>.
-      </div>
-    } @else {
-      <div class="row row-cols-lg-3 g-4">
-        @for (course of userCourses; track course.id) {
-          <div class="col">
-            <div class="card shadow-sm border-0">
-              <div class="card-body d-flex flex-column">
-                <h5 >
-                  {{ course.name }}
-                </h5>
-                <p class="card-text text-muted ">
-                  Zakupiony kurs na platformie.
-                </p>
-                  <button
-                    class="btn btn-outline-primary btn-sm"
-                    (click)="redirectToCourse(course.id)">
-                    Przejdź do kursu
-                  </button>
-                </div>
-              </div>
-            </div>
-        }
-      </div>
     }
+  </div>
+  }
   }
 </div>

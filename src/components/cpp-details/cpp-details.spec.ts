@@ -16,7 +16,7 @@ describe('CppDetails', () => {
         provideHttpClientTesting()
       ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CppDetails);
     component = fixture.componentInstance;
