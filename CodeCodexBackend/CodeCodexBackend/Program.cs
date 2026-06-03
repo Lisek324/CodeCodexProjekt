@@ -14,6 +14,7 @@ var allowedOrigins = new[]
 {
     "http://localhost:4200",
     "https://codecodexprojekt.onrender.com"
+    "https://code-codex-projekt.vercel.app"
 }; 
 
 // Add services to the container.
