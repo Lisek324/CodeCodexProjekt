@@ -1,0 +1,35 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    environment: DeployHookRender
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore
+      run: dotnet restore ./CodeCodexBackend/CodeCodexBackend/CodeCodexBackend.csproj
+    - name: Build
+      run: dotnet build ./CodeCodexBackend/CodeCodexBackend/CodeCodexBackend.csproj --configuration Release --no-restore
+    - name: Test
+      run: dotnet test ./CodeCodexBackend/CodeCodexBackend/CodeCodexBackend.csproj --configuration Release --no-build
+      
+    - name: Deploy
+      env:
+        DEPLOY_HOOK: ${{ secrets.DEPLOY_HOOK }}
+      run: |
+        echo "DEPLOY_HOOK='$DEPLOY_HOOK'"
+        curl -X POST "$DEPLOY_HOOK"
