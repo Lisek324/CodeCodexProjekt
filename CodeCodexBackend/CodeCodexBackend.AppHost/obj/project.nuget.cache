@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xWL1AyUyQZQ=",
+  "dgSpecHash": "8KRuJkRoLuM=",
   "success": true,
   "projectFilePath": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend.AppHost\\CodeCodexBackend.AppHost.csproj",
   "expectedPackageFiles": [
@@ -43,6 +43,7 @@
     "C:\\Users\\brzoz\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.16\\microsoft.entityframeworkcore.abstractions.9.0.16.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\9.0.16\\microsoft.entityframeworkcore.analyzers.9.0.16.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\microsoft.entityframeworkcore.design\\9.0.16\\microsoft.entityframeworkcore.design.9.0.16.nupkg.sha512",
+    "C:\\Users\\brzoz\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\9.0.16\\microsoft.entityframeworkcore.inmemory.9.0.16.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\9.0.16\\microsoft.entityframeworkcore.relational.9.0.16.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\9.0.16\\microsoft.entityframeworkcore.tools.9.0.16.nupkg.sha512",
     "C:\\Users\\brzoz\\.nuget\\packages\\microsoft.extensions.ai.abstractions\\10.3.0\\microsoft.extensions.ai.abstractions.10.3.0.nupkg.sha512",

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCodexBackend.AppHost", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCodexBackend.ServiceDefaults", "CodeCodexBackend.ServiceDefaults\CodeCodexBackend.ServiceDefaults.csproj", "{AEEF1369-56DE-1908-0BC5-7A52EDFA8235}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCodexXUnit", "CodeCodexXUnit\CodeCodexXUnit.csproj", "{D1770B89-F724-4F27-BE86-808A43617F32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{AEEF1369-56DE-1908-0BC5-7A52EDFA8235}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEEF1369-56DE-1908-0BC5-7A52EDFA8235}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEEF1369-56DE-1908-0BC5-7A52EDFA8235}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1770B89-F724-4F27-BE86-808A43617F32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1770B89-F724-4F27-BE86-808A43617F32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1770B89-F724-4F27-BE86-808A43617F32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1770B89-F724-4F27-BE86-808A43617F32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

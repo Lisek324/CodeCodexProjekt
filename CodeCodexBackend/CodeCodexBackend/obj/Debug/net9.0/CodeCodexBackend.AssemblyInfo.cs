@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CodeCodexBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7bcf10e877c1674c158fcc9be1e0da86ae2a4f95")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+07f433ebfec2f7c28c49880f54252e6e62c5ec27")]
 [assembly: System.Reflection.AssemblyProductAttribute("CodeCodexBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CodeCodexBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

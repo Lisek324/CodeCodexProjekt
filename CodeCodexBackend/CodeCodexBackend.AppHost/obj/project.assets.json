@@ -914,6 +914,24 @@
           "build/net8.0/Microsoft.EntityFrameworkCore.Design.props": {}
         }
       },
+      "Microsoft.EntityFrameworkCore.InMemory/9.0.16": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "9.0.16",
+          "Microsoft.Extensions.Caching.Memory": "9.0.16",
+          "Microsoft.Extensions.Logging": "9.0.16"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.EntityFrameworkCore.Relational/9.0.16": {
         "type": "package",
         "dependencies": {
@@ -4185,6 +4203,21 @@
         "microsoft.entityframeworkcore.design.nuspec"
       ]
     },
+    "Microsoft.EntityFrameworkCore.InMemory/9.0.16": {
+      "sha512": "XOkT370zmh7knjmz3qMl5yRzBF2yXhby1/Wkm+7zk05xvaWUQ+Tf2h7apX4gP/g8pYLJV5nCO92x++vJgULdKQ==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.inmemory/9.0.16",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.InMemory.dll",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.InMemory.xml",
+        "microsoft.entityframeworkcore.inmemory.9.0.16.nupkg.sha512",
+        "microsoft.entityframeworkcore.inmemory.nuspec"
+      ]
+    },
     "Microsoft.EntityFrameworkCore.Relational/9.0.16": {
       "sha512": "kqZY+wGgK2xJ3ldfW0UAD/IHfRRV0eMMiY1VBV4sajnl7/Lxb4LROHH/RsslFmhZkFFTqe07aSNlsPB621ml2A==",
       "type": "package",
@@ -6381,6 +6414,7 @@
       "Google.Apis.Auth >= 1.74.0",
       "Microsoft.AspNetCore.OpenApi >= 9.0.16",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.16",
+      "Microsoft.EntityFrameworkCore.InMemory >= 9.0.16",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.16",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.4",
       "Stripe.net >= 51.1.0"
@@ -6461,6 +6495,10 @@
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
+            "target": "Package",
+            "version": "[9.0.16, )"
+          },
+          "Microsoft.EntityFrameworkCore.InMemory": {
             "target": "Package",
             "version": "[9.0.16, )"
           },
