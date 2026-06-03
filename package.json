@@ -6,33 +6,21 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "vitest",
-    "test:ci": "vitest run",
-    "coverage": "vitest run --coverage"
-  },
-  "prettier": {
-    "printWidth": 100,
-    "singleQuote": true,
-    "overrides": [
-      {
-        "files": "*.html",
-        "options": {
-          "parser": "angular"
-        }
-      }
-    ]
+    "test": "ng test",
+    "test:ci": "ng test --watch=false",
+    "coverage": "ng test --watch=false --code-coverage"
   },
   "private": true,
   "packageManager": "npm@10.9.2",
   "dependencies": {
-    "@angular/cdk": "^21.2.12",
-    "@angular/common": "^21.1.0",
-    "@angular/compiler": "^21.1.0",
-    "@angular/core": "^21.1.0",
-    "@angular/forms": "^21.1.0",
-    "@angular/material": "^21.2.12",
-    "@angular/platform-browser": "^21.1.0",
-    "@angular/router": "^21.1.0",
+    "@angular/cdk": "21.2.13",
+    "@angular/common": "21.2.13",
+    "@angular/compiler": "21.2.13",
+    "@angular/core": "21.2.13",
+    "@angular/forms": "21.2.13",
+    "@angular/material": "21.2.13",
+    "@angular/platform-browser": "21.2.13",
+    "@angular/router": "21.2.13",
     "bootstrap": "^5.3.8",
     "google-one-tap": "^1.0.6",
     "jwt-decode": "^4.0.0",
@@ -41,18 +29,15 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@angular/build": "^21.1.2",
-    "@angular/cli": "^21.1.2",
-    "@angular/compiler-cli": "^21.1.0",
-    "@angular/platform-browser-dynamic": "^21.1.0",
+    "@angular/build": "21.2.13",
+    "@angular/cli": "21.2.13",
+    "@angular/compiler-cli": "21.2.13",
     "@types/google-one-tap": "^1.2.7",
     "@types/google.accounts": "^0.0.18",
     "@types/node": "^20.0.0",
     "@vitest/coverage-v8": "^4.1.7",
     "jsdom": "^27.4.0",
     "typescript": "~5.9.2",
-    "vite": "^5.0.0",
-    "vite-tsconfig-paths": "^4.3.1",
     "vitest": "^4.1.7"
   }
 }
