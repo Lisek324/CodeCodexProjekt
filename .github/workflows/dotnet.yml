@@ -21,11 +21,11 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore
-      run: dotnet restore ./CodeCodexProjekt/CodeCodexBacken/CodeCodexBacken/CodeCodexBacken.csproj
+      run: dotnet restore ./CodeCodexProjekt/CodeCodexBackend/CodeCodexBackend.csproj
     - name: Build
-      run: dotnet build ./CodeCodexProjekt/CodeCodexBacken/CodeCodexBacken/CodeCodexBacken.csproj --configuration Release --no-restore
+      run: dotnet build ./CodeCodexProjekt/CodeCodexBackend/CodeCodexBackend.csproj --configuration Release --no-restore
     - name: Test
-      run: dotnet test ./CodeCodexProjekt/CodeCodexBacken/CodeCodexBacken/CodeCodexBacken.csproj --configuration Release --no-build
+      run: dotnet test ./CodeCodexProjekt/CodeCodexBackend/CodeCodexBackend.csproj --configuration Release --no-build
       
     - name: Trigger Render Deploy
       run: curl -X POST "$DEPLOY_HOOK"
