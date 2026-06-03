@@ -8,7 +8,3 @@ getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting(),
 );
-
-// Resolve component resources for all components
-import { resolveComponentResources } from '@angular/core/testing';
-resolveComponentResources();
