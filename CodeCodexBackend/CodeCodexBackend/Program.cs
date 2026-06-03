@@ -13,7 +13,7 @@ builder.AddServiceDefaults();
 var allowedOrigins = new[]
 {
     "http://localhost:4200",
-    "https://codecodexprojekt.onrender.com"
+    "https://codecodexprojekt.onrender.com",
     "https://code-codex-projekt.vercel.app"
 }; 
 
