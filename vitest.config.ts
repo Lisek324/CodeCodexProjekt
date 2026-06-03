@@ -13,20 +13,14 @@ export default defineConfig({
         inline: [
           '@angular/core',
           '@angular/common',
+          '@angular/forms',
           '@angular/router',
           '@angular/platform-browser',
           '@angular/platform-browser-dynamic',
+          '@angular/cdk',
+          '@angular/material',
         ],
       },
     },
-  },
-  ssr: {
-    noExternal: [
-      '@angular/core',
-      '@angular/common',
-      '@angular/router',
-      '@angular/platform-browser',
-      '@angular/platform-browser-dynamic',
-    ],
   },
 });
