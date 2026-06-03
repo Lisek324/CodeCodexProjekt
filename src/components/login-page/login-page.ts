@@ -107,17 +107,12 @@ export class LoginPage implements AfterViewInit {
       .subscribe({
         next: (x: any) => {
           console.log('login response:', x);
-
-          if (x.success) {
             this.service.setToken(x.accessToken);
             this.loginForm.reset();
 
             this._ngZone.run(() => {
               this.router.navigate(['/dashboard']);
             });
-          } else {
-            this.loginError.set(x.message || 'Nie udało się zalogować.');
-          }
         },
         error: (error: any) => {
           this.loginError.set(error?.error?.message || 'Nie udało się zalogować.');

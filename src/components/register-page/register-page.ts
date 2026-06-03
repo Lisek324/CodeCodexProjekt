@@ -67,8 +67,6 @@ export class RegisterPage {
       .subscribe({
         next: (x: any) => {
           console.log('register response:', x);
-
-          if (x.success) {
             this.service.setToken(x.accessToken);
             this.form.reset();
             this.isSubmitted = false;
@@ -76,9 +74,6 @@ export class RegisterPage {
             this._ngZone.run(() => {
               this.router.navigate(['/dashboard']);
             });
-          } else {
-            console.log(x.message);
-          }
         },
         error: (error: any) => {
           console.log(error);

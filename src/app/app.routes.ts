@@ -28,10 +28,6 @@ export const routes: Routes = [
         path: 'angularDetails',
         component: AngularDetail
     },
-        {
-        path: 'angularDetails',
-        component: AngularDetail
-    },
     {
         path: 'cppDetails',
         component: CppDetails
@@ -48,11 +44,11 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
+        path: 'course',
+        component: Course
+    },
+    {
         path: '**', 
         redirectTo: '/home'
     },
-    {
-        path: 'course',
-        component: Course
-    }
 ];
