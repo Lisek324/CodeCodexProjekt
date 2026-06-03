@@ -8,7 +8,6 @@ namespace CodeCodexBackend.Model
     {
 
     }
-
     public DbSet<AppUser> Users { get; set; }
   }
 }

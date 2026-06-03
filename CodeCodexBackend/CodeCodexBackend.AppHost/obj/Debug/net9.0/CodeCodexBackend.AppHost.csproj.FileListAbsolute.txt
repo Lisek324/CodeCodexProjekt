@@ -236,3 +236,7 @@ D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\obj\Debug\net9
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\obj\Debug\net9.0\CodeCodexBackend.AppHost.pdb
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\obj\Debug\net9.0\CodeCodexBackend.AppHost.genruntimeconfig.cache
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\obj\Debug\net9.0\ref\CodeCodexBackend.AppHost.dll
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.InMemory.dll
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\Stripe.net.dll
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll

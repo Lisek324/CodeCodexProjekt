@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,14 +9,16 @@ import { AuthService } from '../../services/auth-service';
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-redirectToCourse(arg0: any) {
-throw new Error('Method not implemented.');
-}
-
+  router = inject(Router);
   service=inject(AuthService);
   courses = signal<any[]>([]);
   isLoading = signal(true);
-ngOnInit(): void {
+
+  redirectToCourse(arg0: any) {
+    this.router.navigate(['/courses']);
+  }
+
+  ngOnInit(): void {
     this.service.getCourses().subscribe({
       next: (res) => {
         this.courses.set(res);

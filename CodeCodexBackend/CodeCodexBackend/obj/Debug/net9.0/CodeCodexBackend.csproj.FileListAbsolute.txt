@@ -144,7 +144,6 @@ D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend\obj\Debug\net9.0\stati
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend\obj\Debug\net9.0\staticwebassets.build.json.cache
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend\obj\Debug\net9.0\staticwebassets.development.json
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend\obj\Debug\net9.0\CodeCode.766705EE.Up2Date
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend\obj\Debug\net9.0\CodeCodexBackend.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend\obj\Debug\net9.0\refint\CodeCodexBackend.dll
@@ -306,3 +305,5 @@ D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend\bin\Debug\net9.0\Micro
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend\bin\Debug\net9.0\Stripe.net.dll
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.InMemory.dll
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CppDetails } from './cpp-details';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('CppDetails', () => {
   let component: CppDetails;
@@ -8,7 +10,11 @@ describe('CppDetails', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CppDetails]
+      imports: [CppDetails],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting()
+      ]
     })
     .compileComponents();
 

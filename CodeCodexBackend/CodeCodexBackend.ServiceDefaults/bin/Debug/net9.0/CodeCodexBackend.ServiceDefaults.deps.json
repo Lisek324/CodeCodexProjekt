@@ -11,6 +11,7 @@
           "Google.Apis.Auth": "1.74.0",
           "Microsoft.AspNetCore.OpenApi": "9.0.16",
           "Microsoft.EntityFrameworkCore.Design": "9.0.16",
+          "Microsoft.EntityFrameworkCore.InMemory": "9.0.16",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.16",
           "Microsoft.Extensions.Http.Resilience": "10.6.0",
           "Microsoft.Extensions.ServiceDiscovery": "10.6.0",
@@ -417,6 +418,19 @@
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Design.dll": {
+            "assemblyVersion": "9.0.16.0",
+            "fileVersion": "9.0.1626.23002"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.InMemory/9.0.16": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "9.0.16",
+          "Microsoft.Extensions.Caching.Memory": "9.0.16",
+          "Microsoft.Extensions.Logging": "9.0.16"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
             "assemblyVersion": "9.0.16.0",
             "fileVersion": "9.0.1626.23002"
           }
@@ -1291,6 +1305,13 @@
       "sha512": "sha512-Cji3UmtwQ5CqXIeT6+lLxuATybcKkQqEaMTJ7mKLJOOfNg7oPankCC3Dw4BgrH4m1lUHX7+sY3jsCq8nOTndzw==",
       "path": "microsoft.entityframeworkcore.design/9.0.16",
       "hashPath": "microsoft.entityframeworkcore.design.9.0.16.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.InMemory/9.0.16": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XOkT370zmh7knjmz3qMl5yRzBF2yXhby1/Wkm+7zk05xvaWUQ+Tf2h7apX4gP/g8pYLJV5nCO92x++vJgULdKQ==",
+      "path": "microsoft.entityframeworkcore.inmemory/9.0.16",
+      "hashPath": "microsoft.entityframeworkcore.inmemory.9.0.16.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Relational/9.0.16": {
       "type": "package",

@@ -182,7 +182,7 @@ namespace CodeCodexBackend.Controllers
       }
 
       user.lastLoginAtUtc = DateTime.UtcNow;
-      await _context.SaveChangesAsync();
+     
 
       var token = GenerateJwtToken(user);
       var _refreshToken = CreateRefreshToken();
@@ -198,7 +198,7 @@ namespace CodeCodexBackend.Controllers
         Expires = DateTimeOffset.UtcNow.AddDays(7),
         Path = "/"
       });
-
+      await _context.SaveChangesAsync();
       return Ok(new AuthResponse { message = "Zalogowano pomyślnie.", isLoggedIn = true, accessToken = token, fullName = user.fullName });
     }
 
@@ -395,80 +395,10 @@ namespace CodeCodexBackend.Controllers
       var bytes = RandomNumberGenerator.GetBytes(64);
       return Convert.ToBase64String(bytes);
     }
-
-    /*[HttpPost("webhook")]
-    [IgnoreAntiforgeryToken]
-    public async Task<IActionResult> StripeWebhook()
-    {
-      var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-      var stripeSignature = Request.Headers["Stripe-Signature"];
-
-      Event stripeEvent;
-
-      try
-      {
-        stripeEvent = EventUtility.ConstructEvent(
-            json,
-            stripeSignature,
-            _configuration["Stripe:WebhookSecret"]
-        );
-      }
-      catch (StripeException) { return BadRequest("Invalid Stripe signature."); }
-      catch (Exception)       { return BadRequest("Invalid webhook payload."); }
-
-      if (stripeEvent.Type == EventTypes.CheckoutSessionCompleted)
-      {
-        var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
-
-        if (session != null)
-        {
-          var orderId = session.Metadata["orderId"];
-
-          var order = await _OrdersContext.Orders
-              .FirstOrDefaultAsync(x => x.id.ToString() == orderId);
-
-          if (order != null && order.status != "Paid")
-          {
-            order.status = "Paid";
-            order.stripeSessionId = session.Id;
-            order.stripePaymentIntentId = session.PaymentIntentId;
-            await _OrdersContext.SaveChangesAsync();
-            var alreadyEnrolled = await _EnrollmentsContext.Enrollments
-                .AnyAsync(x => x.userId == order.userId && x.courseId == order.courseId);
-
-            if (!alreadyEnrolled)
-            {
-              _EnrollmentsContext.Enrollments.Add(new Enrollments
-              { 
-                userId = order.userId,
-                courseId = order.courseId,
-                createdAtUtc = DateTime.UtcNow
-              });
-              await _EnrollmentsContext.SaveChangesAsync();
-
-              
-            }
-            _userCoursesContext.UserCourses.Add(new UserCourses
-            {
-              userId = order.userId,
-              courseId = order.courseId
-            });
-            await _userCoursesContext.SaveChangesAsync();
-            //bug
-
-          }
-        }
-      }
-      return Ok();
-    }*/
-
     [HttpPost("webhook")]
     [IgnoreAntiforgeryToken]
     public async Task<IActionResult> StripeWebhook()
     {
-      
-      _logger.LogInformation("Stripe webhook START");
-
       string json;
       string stripeSignature;
 
@@ -478,12 +408,9 @@ namespace CodeCodexBackend.Controllers
         json = await reader.ReadToEndAsync();
         stripeSignature = Request.Headers["Stripe-Signature"].ToString();
 
-        _logger.LogInformation("Webhook body read. Body length: {BodyLength}", json.Length);
-        _logger.LogInformation("Stripe-Signature header exists: {HasSignature}", !string.IsNullOrWhiteSpace(stripeSignature));
       }
       catch (Exception ex)
       {
-        _logger.LogError(ex, "Failed to read webhook request body.");
         return BadRequest("Failed to read request body.");
       }
 
@@ -495,22 +422,17 @@ namespace CodeCodexBackend.Controllers
 
         if (string.IsNullOrWhiteSpace(webhookSecret))
         {
-          _logger.LogError("Stripe:WebhookSecret is NULL or empty.");
           return StatusCode(500, "Webhook secret is not configured.");
         }
 
         stripeEvent = EventUtility.ConstructEvent(json, stripeSignature, webhookSecret);
-        _logger.LogInformation("Stripe event constructed successfully. Type: {EventType}, EventId: {EventId}",
-            stripeEvent.Type, stripeEvent.Id);
       }
       catch (StripeException ex)
       {
-        _logger.LogError(ex, "Invalid Stripe signature.");
         return BadRequest("Invalid Stripe signature.");
       }
       catch (Exception ex)
       {
-        _logger.LogError(ex, "Invalid webhook payload.");
         return BadRequest("Invalid webhook payload.");
       }
 
@@ -518,7 +440,6 @@ namespace CodeCodexBackend.Controllers
       {
         if (stripeEvent.Type != EventTypes.CheckoutSessionCompleted)
         {
-          _logger.LogInformation("Unhandled event type: {EventType}", stripeEvent.Type);
           return Ok();
         }
 
@@ -526,30 +447,20 @@ namespace CodeCodexBackend.Controllers
 
         if (session == null)
         {
-          _logger.LogWarning("stripeEvent.Data.Object is not Checkout.Session or is null.");
           return Ok();
         }
-
-        _logger.LogInformation("Checkout session parsed. SessionId: {SessionId}, PaymentIntentId: {PaymentIntentId}",
-            session.Id, session.PaymentIntentId);
-
         if (session.Metadata == null)
         {
-          _logger.LogError("Session metadata is null. SessionId: {SessionId}", session.Id);
           return BadRequest("Session metadata is null.");
         }
 
         if (!session.Metadata.TryGetValue("orderId", out var orderIdRaw))
         {
-          _logger.LogError("Missing orderId in session metadata. SessionId: {SessionId}", session.Id);
           return BadRequest("Missing orderId in metadata.");
         }
 
-        _logger.LogInformation("orderId from metadata: {OrderIdRaw}", orderIdRaw);
-
         if (!long.TryParse(orderIdRaw, out var orderId))
         {
-          _logger.LogError("orderId is invalid. Raw value: {OrderIdRaw}", orderIdRaw);
           return BadRequest("Invalid orderId.");
         }
 
@@ -558,34 +469,20 @@ namespace CodeCodexBackend.Controllers
 
         if (order == null)
         {
-          _logger.LogError("Order not found for orderId {OrderId}", orderId);
           return NotFound("Order not found.");
         }
 
-        _logger.LogInformation(
-            "Order found. OrderId: {OrderId}, UserId: {UserId}, CourseId: {CourseId}, Status: {Status}",
-            order.id, order.userId, order.courseId, order.status);
-
         if (order.status == "Paid")
         {
-          _logger.LogInformation("Order {OrderId} already has status Paid. Skipping.", order.id);
           return Ok();
         }
 
         order.status = "Paid";
         order.stripeSessionId = session.Id;
         order.stripePaymentIntentId = session.PaymentIntentId;
-
-        _logger.LogInformation("Updating order {OrderId} status to Paid...", order.id);
         await _OrdersContext.SaveChangesAsync();
-        _logger.LogInformation("Order {OrderId} updated successfully.", order.id);
 
-        var alreadyEnrolled = await _EnrollmentsContext.Enrollments
-            .AnyAsync(x => x.userId == order.userId && x.courseId == order.courseId);
-
-        _logger.LogInformation("alreadyEnrolled for user {UserId}, course {CourseId}: {AlreadyEnrolled}",
-            order.userId, order.courseId, alreadyEnrolled);
-
+        var alreadyEnrolled = await _EnrollmentsContext.Enrollments.AnyAsync(x => x.userId == order.userId && x.courseId == order.courseId);
         if (!alreadyEnrolled)
         {
           _EnrollmentsContext.Enrollments.Add(new Enrollments
@@ -594,21 +491,10 @@ namespace CodeCodexBackend.Controllers
             courseId = order.courseId,
             createdAtUtc = DateTime.UtcNow
           });
-
-          _logger.LogInformation("Adding Enrollments row...");
           await _EnrollmentsContext.SaveChangesAsync();
-          _logger.LogInformation("Enrollments row added successfully.");
-        }
-        else
-        {
-          _logger.LogInformation("Enrollments row already exists, skipping insert.");
         }
 
-        var alreadyInUserCourses = await _userCoursesContext.UserCourses
-            .AnyAsync(x => x.userId == order.userId && x.courseId == order.courseId);
-
-        _logger.LogInformation("alreadyInUserCourses for user {UserId}, course {CourseId}: {AlreadyInUserCourses}",
-            order.userId, order.courseId, alreadyInUserCourses);
+        var alreadyInUserCourses = await _userCoursesContext.UserCourses.AnyAsync(x => x.userId == order.userId && x.courseId == order.courseId);
 
         if (!alreadyInUserCourses)
         {
@@ -617,28 +503,12 @@ namespace CodeCodexBackend.Controllers
             userId = order.userId,
             courseId = order.courseId
           });
-
-          _logger.LogInformation("Adding UserCourses row...");
           await _userCoursesContext.SaveChangesAsync();
-          _logger.LogInformation("UserCourses row added successfully.");
         }
-        else
-        {
-          _logger.LogInformation("UserCourses row already exists, skipping insert.");
-        }
-
-        _logger.LogInformation("Stripe webhook END OK for orderId {OrderId}", order.id);
         return Ok();
       }
       catch (DbUpdateException ex)
       {
-        _logger.LogError(ex, "DbUpdateException in StripeWebhook. Message: {Message}", ex.Message);
-
-        if (ex.InnerException != null)
-        {
-          _logger.LogError(ex.InnerException, "DbUpdateException.InnerException: {InnerMessage}", ex.InnerException.Message);
-        }
-
         return StatusCode(500, new
         {
           error = "Database update failed",
@@ -648,13 +518,6 @@ namespace CodeCodexBackend.Controllers
       }
       catch (Exception ex)
       {
-        _logger.LogError(ex, "Unhandled exception in StripeWebhook. Message: {Message}", ex.Message);
-
-        if (ex.InnerException != null)
-        {
-          _logger.LogError(ex.InnerException, "Unhandled exception inner: {InnerMessage}", ex.InnerException.Message);
-        }
-
         return StatusCode(500, new
         {
           error = "Unhandled webhook error",

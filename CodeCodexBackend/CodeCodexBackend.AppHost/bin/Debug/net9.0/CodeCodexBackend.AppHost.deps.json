@@ -14,8 +14,10 @@
           "Google.Apis.Auth": "1.74.0",
           "Microsoft.AspNetCore.OpenApi": "9.0.16",
           "Microsoft.EntityFrameworkCore.Design": "9.0.16",
+          "Microsoft.EntityFrameworkCore.InMemory": "9.0.16",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.16",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4"
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4",
+          "Stripe.net": "51.1.0"
         },
         "runtime": {
           "CodeCodexBackend.AppHost.dll": {}
@@ -694,6 +696,19 @@
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Design.dll": {
+            "assemblyVersion": "9.0.16.0",
+            "fileVersion": "9.0.1626.23002"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.InMemory/9.0.16": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "9.0.16",
+          "Microsoft.Extensions.Caching.Memory": "9.0.16",
+          "Microsoft.Extensions.Logging": "10.0.7"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
             "assemblyVersion": "9.0.16.0",
             "fileVersion": "9.0.1626.23002"
           }
@@ -1441,6 +1456,18 @@
           }
         }
       },
+      "Stripe.net/51.1.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.4",
+          "System.Configuration.ConfigurationManager": "9.0.0"
+        },
+        "runtime": {
+          "lib/net9.0/Stripe.net.dll": {
+            "assemblyVersion": "51.1.0.0",
+            "fileVersion": "51.1.0.0"
+          }
+        }
+      },
       "System.CodeDom/7.0.0": {
         "runtime": {
           "lib/net7.0/System.CodeDom.dll": {
@@ -1507,6 +1534,18 @@
           "lib/net7.0/System.Composition.TypedParts.dll": {
             "assemblyVersion": "7.0.0.0",
             "fileVersion": "7.0.22.51805"
+          }
+        }
+      },
+      "System.Configuration.ConfigurationManager/9.0.0": {
+        "dependencies": {
+          "System.Diagnostics.EventLog": "10.0.7",
+          "System.Security.Cryptography.ProtectedData": "9.0.0"
+        },
+        "runtime": {
+          "lib/net9.0/System.Configuration.ConfigurationManager.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
           }
         }
       },
@@ -1589,6 +1628,14 @@
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
+      "System.Security.Cryptography.ProtectedData/9.0.0": {
+        "runtime": {
+          "lib/net9.0/System.Security.Cryptography.ProtectedData.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
       "System.Text.Encodings.Web/10.0.7": {
         "runtime": {
           "lib/net9.0/System.Text.Encodings.Web.dll": {
@@ -1912,6 +1959,13 @@
       "sha512": "sha512-Cji3UmtwQ5CqXIeT6+lLxuATybcKkQqEaMTJ7mKLJOOfNg7oPankCC3Dw4BgrH4m1lUHX7+sY3jsCq8nOTndzw==",
       "path": "microsoft.entityframeworkcore.design/9.0.16",
       "hashPath": "microsoft.entityframeworkcore.design.9.0.16.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.InMemory/9.0.16": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XOkT370zmh7knjmz3qMl5yRzBF2yXhby1/Wkm+7zk05xvaWUQ+Tf2h7apX4gP/g8pYLJV5nCO92x++vJgULdKQ==",
+      "path": "microsoft.entityframeworkcore.inmemory/9.0.16",
+      "hashPath": "microsoft.entityframeworkcore.inmemory.9.0.16.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Relational/9.0.16": {
       "type": "package",
@@ -2263,6 +2317,13 @@
       "path": "streamjsonrpc/2.22.23",
       "hashPath": "streamjsonrpc.2.22.23.nupkg.sha512"
     },
+    "Stripe.net/51.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-q4Kj14NP0jaGKRkeuCTL2Mwn7BVgVUHowBiGJAX2fGiEIOVbdhpCERlNRTuvirN/5IGae6cCToS0+H/oSX395A==",
+      "path": "stripe.net/51.1.0",
+      "hashPath": "stripe.net.51.1.0.nupkg.sha512"
+    },
     "System.CodeDom/7.0.0": {
       "type": "package",
       "serviceable": true,
@@ -2319,6 +2380,13 @@
       "path": "system.composition.typedparts/7.0.0",
       "hashPath": "system.composition.typedparts.7.0.0.nupkg.sha512"
     },
+    "System.Configuration.ConfigurationManager/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PdkuMrwDhXoKFo/JxISIi9E8L+QGn9Iquj2OKDWHB6Y/HnUOuBouF7uS3R4Hw3FoNmwwMo6hWgazQdyHIIs27A==",
+      "path": "system.configuration.configurationmanager/9.0.0",
+      "hashPath": "system.configuration.configurationmanager.9.0.0.nupkg.sha512"
+    },
     "System.Diagnostics.DiagnosticSource/10.0.7": {
       "type": "package",
       "serviceable": true,
@@ -2374,6 +2442,13 @@
       "sha512": "sha512-/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
       "path": "system.runtime.compilerservices.unsafe/6.0.0",
       "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    },
+    "System.Security.Cryptography.ProtectedData/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CJW+x/F6fmRQ7N6K8paasTw9PDZp4t7G76UjGNlSDgoHPF0h08vTzLYbLZpOLEJSg35d5wy2jCXGo84EN05DpQ==",
+      "path": "system.security.cryptography.protecteddata/9.0.0",
+      "hashPath": "system.security.cryptography.protecteddata.9.0.0.nupkg.sha512"
     },
     "System.Text.Encodings.Web/10.0.7": {
       "type": "package",
