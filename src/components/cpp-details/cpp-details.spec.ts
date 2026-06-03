@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CppDetails } from './cpp-details';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 
 describe('CppDetails', () => {
   let component: CppDetails;
@@ -12,6 +13,7 @@ describe('CppDetails', () => {
     await TestBed.configureTestingModule({
       imports: [CppDetails],
       providers: [
+        provideRouter([]),
         provideHttpClient(),
         provideHttpClientTesting()
       ]
