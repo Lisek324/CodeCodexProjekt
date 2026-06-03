@@ -10,13 +10,23 @@ export default defineConfig({
     include: ['src/**/*.spec.ts'],
     server: {
       deps: {
-        inline: ['@angular/core', '@angular/common', '@angular/router'],
+        inline: [
+          '@angular/core',
+          '@angular/common',
+          '@angular/router',
+          '@angular/platform-browser',
+          '@angular/platform-browser-dynamic',
+        ],
       },
     },
   },
-  resolve: {
-    alias: {
-      '@': '/src',
-    },
+  ssr: {
+    noExternal: [
+      '@angular/core',
+      '@angular/common',
+      '@angular/router',
+      '@angular/platform-browser',
+      '@angular/platform-browser-dynamic',
+    ],
   },
 });
