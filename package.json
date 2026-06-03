@@ -25,6 +25,11 @@
   "private": true,
   "packageManager": "npm@10.9.2",
   "dependencies": {
+    "vitest": "^4.1.7",
+    "vite-tsconfig-paths": "^4.3.1",
+    "@vitest/coverage-v8": "^4.1.7",
+    "jsdom": "^27.4.0",
+    "@types/node": "^20.0.0",
     "@angular/cdk": "^21.2.12",
     "@angular/common": "^21.1.0",
     "@angular/compiler": "^21.1.0",
