@@ -1,8 +1,8 @@
 import { defineConfig } from 'vitest/config';
-import angular from '@vitejs/plugin-angular';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
-  plugins: [angular()],
+  plugins: [tsconfigPaths()],
   test: {
     globals: true,
     setupFiles: ['vitest.setup.ts'],
