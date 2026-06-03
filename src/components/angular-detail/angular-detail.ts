@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-angular-detail',
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './angular-detail.html',
   styleUrl: './angular-detail.css',
 })
