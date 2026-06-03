@@ -103,29 +103,31 @@ afterEach(() => {
     expect(component.isSubmitting()).toBe(false);
   });
 
-  it('should call register and navigate on successful submit', () => {
-    setValidForm();
+it('should call register and navigate on successful submit', async () => {
+  setValidForm();
 
-    authServiceMock.register.mockReturnValue(
-      of({
-        success: true,
-        accessToken: 'token-123',
-      })
-    );
+  authServiceMock.register.mockReturnValue(
+    of({
+      success: true,
+      accessToken: 'token-123',
+    })
+  );
 
-    component.onSubmit();
+  component.onSubmit();
+  fixture.detectChanges();
+  await fixture.whenStable();
 
-    expect(authServiceMock.register).toHaveBeenCalledWith({
-      fullName: 'Jan Kowalski',
-      email: 'jan@test.pl',
-      password: 'haslo12',
-      confirmPassword: 'haslo12',
-    });
-    expect(authServiceMock.setToken).toHaveBeenCalledWith('token-123');
-    expect(routerMock.navigate).toHaveBeenCalledWith(['/dashboard']);
-    expect(component.isSubmitted).toBe(false);
-    expect(component.isSubmitting()).toBe(false);
+  expect(authServiceMock.register).toHaveBeenCalledWith({
+    fullName: 'Jan Kowalski',
+    email: 'jan@test.pl',
+    password: 'haslo12',
+    confirmPassword: 'haslo12',
   });
+  expect(authServiceMock.setToken).toHaveBeenCalledWith('token-123');
+  expect(routerMock.navigate).toHaveBeenCalledWith(['/dashboard']);
+  expect(component.isSubmitted).toBe(false);
+  expect(component.isSubmitting()).toBe(false);
+});
 
   it('should not navigate when register response has success false', () => {
     setValidForm();

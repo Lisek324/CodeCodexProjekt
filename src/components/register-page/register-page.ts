@@ -62,29 +62,29 @@ onSubmit() {
 
   this.isSubmitting.set(true);
 
-  this.service.register(this.form.getRawValue()).subscribe({
-    next: (x: any) => {
-      console.log('register response:', x);
+  this.service.register(this.form.getRawValue())
+    .pipe(finalize(() => this.isSubmitting.set(false)))
+    .subscribe({
+      next: (x: any) => {
+        console.log('register response:', x);
 
-      if (x.success) {
-        this.service.setToken(x.accessToken);
-        this.form.reset();
-        this.isSubmitted = false;
+        if (x.success) {
+          this.service.setToken(x.accessToken);
+          this.form.reset();
+          this.isSubmitted = false;
 
-        this._ngZone.run(() => {
-          this.router.navigate(['/dashboard']);
-        });
-      } else {
-        console.log(x.message);
-        this.isSubmitting.set(false);
+          this._ngZone.run(() => {
+            this.router.navigate(['/dashboard']);
+          });
+        } else {
+          console.log(x.message);
+        }
+      },
+      error: (error: any) => {
+        console.log(error);
+        console.log('error body:', error.error);
       }
-    },
-    error: (error: any) => {
-      console.log(error);
-      console.log('error body:', error.error);
-      this.isSubmitting.set(false);
-    }
-  }); 
+    });
 }
 
   hasDisplayableError(controlName: string, errorName: string): boolean {
