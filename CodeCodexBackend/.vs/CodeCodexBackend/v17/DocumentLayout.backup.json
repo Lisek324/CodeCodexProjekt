@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "D:\\Angular\\projektKursy\\CodeCodexBackend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D1770B89-F724-4F27-BE86-808A43617F32}|CodeCodexXUnit\\CodeCodexXUnit.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexxunit\\appuserscontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1770B89-F724-4F27-BE86-808A43617F32}|CodeCodexXUnit\\CodeCodexXUnit.csproj|solutionrelative:codecodexxunit\\appuserscontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\controllers\\appuserscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\controllers\\appuserscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|d:\\angular\\projektkursy\\codecodexbackend\\codecodexbackend\\model\\appuserdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D6B26A26-C993-2EDE-D35A-C369954AD06E}|CodeCodexBackend\\CodeCodexBackend.csproj|solutionrelative:codecodexbackend\\model\\appuserdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,19 +18,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AppUserDbContext.cs",
-              "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Model\\AppUserDbContext.cs",
-              "RelativeDocumentMoniker": "CodeCodexBackend\\Model\\AppUserDbContext.cs",
-              "ToolTip": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Model\\AppUserDbContext.cs",
-              "RelativeToolTip": "CodeCodexBackend\\Model\\AppUserDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T17:59:18.567Z",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\appsettings.json",
+              "RelativeDocumentMoniker": "CodeCodexBackend\\appsettings.json",
+              "ToolTip": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\appsettings.json",
+              "RelativeToolTip": "CodeCodexBackend\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-06-03T13:25:50.445Z",
               "EditorCaption": ""
             },
             {
@@ -45,22 +41,9 @@
               "RelativeDocumentMoniker": "CodeCodexBackend\\Controllers\\AppUsersController.cs",
               "ToolTip": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexBackend\\Controllers\\AppUsersController.cs",
               "RelativeToolTip": "CodeCodexBackend\\Controllers\\AppUsersController.cs",
-              "ViewState": "AgIAANoAAAAAAAAAAAAWwOcAAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAAPAAAAAAAAAAAAD4vwgBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-02T15:18:05.263Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AppUsersControllerTests.cs",
-              "DocumentMoniker": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexXUnit\\AppUsersControllerTests.cs",
-              "RelativeDocumentMoniker": "CodeCodexXUnit\\AppUsersControllerTests.cs",
-              "ToolTip": "D:\\Angular\\projektKursy\\CodeCodexBackend\\CodeCodexXUnit\\AppUsersControllerTests.cs",
-              "RelativeToolTip": "CodeCodexXUnit\\AppUsersControllerTests.cs",
-              "ViewState": "AgIAAMQAAAAAAAAAAAAAADYBAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T14:37:14.399Z",
               "EditorCaption": ""
             }
           ]

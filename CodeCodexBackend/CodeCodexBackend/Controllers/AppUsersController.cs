@@ -355,12 +355,13 @@ namespace CodeCodexBackend.Controllers
 
       _OrdersContext.Orders.Add(order);
       await _OrdersContext.SaveChangesAsync();
-
+      var frontendBaseUrl = _configuration["Frontend:BaseUrl"];
       var options = new Stripe.Checkout.SessionCreateOptions
       {
+
         Mode = "payment",
-        SuccessUrl = "http://localhost:4200/payment-success?session_id={CHECKOUT_SESSION_ID}",
-        CancelUrl = "http://localhost:4200/payment-cancel",
+        SuccessUrl = $"{frontendBaseUrl}/payment-success?session_id={{CHECKOUT_SESSION_ID}}",
+        CancelUrl = $"{frontendBaseUrl}/payment-cancel",
         LineItems = new List<SessionLineItemOptions>
         {
           new()

@@ -103,7 +103,7 @@ afterEach(() => {
     expect(component.isSubmitting()).toBe(false);
   });
 
-it('should call register and navigate on successful submit', async () => {
+it(']', async () => {
   setValidForm();
 
   authServiceMock.register.mockReturnValue(
