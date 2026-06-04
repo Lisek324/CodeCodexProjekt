@@ -30,6 +30,4 @@ jobs:
     - name: Deploy
       env:
         DEPLOY_HOOK: ${{ secrets.DEPLOY_HOOK }}
-      run: |
-        echo "DEPLOY_HOOK='$DEPLOY_HOOK'"
-        curl -X POST "$DEPLOY_HOOK"
+      run: curl -X POST "$DEPLOY_HOOK"
