@@ -52,12 +52,17 @@ namespace CodeCodexBackend.Controllers
       _configuration = configuration;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
-    {
-      return await _context.Users.ToListAsync();
-    }
-
+    /// <summary>
+    /// Rejestruje nowego użytkownika.
+    /// </summary>
+    /// <remarks>
+    /// Tworzy konto podstawie adresu e-mail, imienia i hasła.
+    /// Po poprawnej rejestracji zwraca token JWT oraz ustawia refresh token w ciasteczku HttpOnly.
+    /// </remarks>
+    /// <param name="request">Dane potrzebne do rejestracji użytkownika.</param>
+    /// <returns>Zwraca informacje o zalogowanym użytkowniku i token dostępu.</returns>
+    /// <response code="200">Rejestracja zakończona sukcesem.</response>
+    /// <response code="400">Użytkownik o podanym adresie e-mail już istnieje lub dane wejściowe są niepoprawne.</response>
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
@@ -102,6 +107,20 @@ namespace CodeCodexBackend.Controllers
       return Ok(new AuthResponse { message = "Rejestracja zakończona sukcesem.", isLoggedIn = true, accessToken = token, fullName = user.fullName });
     }
 
+    /// <summary>
+    /// Logowanie użytkownika przy użyciu konta Google.
+    /// </summary>
+    /// <remarks>
+    /// Endpoint weryfikuje token Google ID przekazany z frontendu.
+    /// Jeśli użytkownik nie istnieje, tworzy nowe konto na podstawie danych z Google.
+    /// Jeśli użytkownik już istnieje, aktualizuje jego podstawowe dane, takie jak nazwa, avatar i data ostatniego logowania.
+    /// Po poprawnym logowaniu zwraca token JWT oraz ustawia refresh token w ciasteczku HttpOnly.
+    /// </remarks>
+    /// <param name="glr">Obiekt zawierający poświadczenie Google ID token przesłane z klienta.</param>
+    /// <response code="200">Logowanie zakończone sukcesem i zwrócono dane autoryzacyjne użytkownika.</response>
+    /// <response code="400">Żądanie jest niepoprawne.</response>
+    /// <response code="401">Token Google jest nieprawidłowy lub nie przeszedł weryfikacji.</response>
+    /// <response code="500">Błąd po stronie serwera.</response>
     [HttpPost("google")]
     public async Task<IActionResult> GoogleLogin([FromBody] GoogleLoginRequest glr)
     {
@@ -134,7 +153,7 @@ namespace CodeCodexBackend.Controllers
 
         _context.Users.Add(user);
       }
-      else///jeśli istnieje, zakutalizuj jego dane
+      else//jeśli istnieje, zakutalizuj jego dane
       {
         user.fullName = payload.Name;
         user.avatarUrl = payload.Picture;
@@ -165,7 +184,17 @@ namespace CodeCodexBackend.Controllers
       return Ok(new AuthResponse { message = "Zalogowano pomyślnie.", isLoggedIn = true, accessToken = token, avatarUrl = user.avatarUrl, fullName = user.fullName });
     }
 
-
+    /// <summary>
+    /// Loguje użytkownika przy użyciu adresu e-mail i hasła.
+    /// </summary>
+    /// <remarks>
+    /// Endpoint weryfikuje dane logowania użytkownika lokalnego.
+    /// Po poprawnym uwierzytelnieniu generuje token JWT, tworzy refresh token oraz zapisuje refresh token w ciasteczku HttpOnly.
+    /// </remarks>
+    /// <param name="request">Dane logowania użytkownika zawierające adres e-mail i hasło.</param>
+    /// <response code="200">Logowanie zakończone sukcesem i zwrócono dane autoryzacyjne użytkownika.</response>
+    /// <response code="400">Podany login lub hasło są niepoprawne.</response>
+    /// <response code="500">Błąd po stronie serwera.</response>
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
@@ -202,6 +231,14 @@ namespace CodeCodexBackend.Controllers
       return Ok(new AuthResponse { message = "Zalogowano pomyślnie.", isLoggedIn = true, accessToken = token, fullName = user.fullName });
     }
 
+    /// <summary>
+    /// Wylogowuje aktualnie zalogowanego użytkownika.
+    /// </summary>
+    /// <remarks>
+    /// Endpoint usuwa refresh token zapisany dla użytkownika w bazie danych.
+    /// </remarks>
+    /// <response code="200">Użytkownik został poprawnie wylogowany.</response>
+    /// <response code="500">Błąd po stronie serwera.</response>
     [HttpPost("logout")]
     public async Task<IActionResult> Logout()
     {
@@ -228,6 +265,14 @@ namespace CodeCodexBackend.Controllers
       return Ok(new { message = "Wylogowano." });
     }
 
+    /// <summary>
+    /// Zwraca kursy zalogowanego użytkownika.
+    /// </summary>
+    /// <remarks>
+    /// Endpoint wymaga tokenu JWT i pobiera listę kursów powiązanych z aktualnym użytkownikiem.
+    /// </remarks>
+    /// <response code="200">Lista kursów została pobrana poprawnie.</response>
+    /// <response code="401">Brak autoryzacji lub nieprawidłowy token.</response>
     [HttpGet("my-courses")]
     [Authorize]
     public async Task<IActionResult> GetMyCourses()
@@ -241,13 +286,24 @@ namespace CodeCodexBackend.Controllers
       var courses = await _userCoursesContext.UserCourses.Where(x => x.userId == userGuid)
         .Select(x => new
         {
-          x.Course.name, ///zwróć nazwy oraz je wyświetl
+          x.Course.name, //zwróć nazwy oraz je wyświetl
           x.Course.id
         }).ToListAsync();
 
       return Ok(courses);
     }
 
+    /// <summary>
+    /// Sprawdza, czy aktualnie zalogowany użytkownik ma przypisany wskazany kurs.
+    /// </summary>
+    /// <remarks>
+    /// Endpoint wymaga autoryzacji JWT.
+    /// </remarks>
+    /// <param name="courseId">Identyfikator kursu, dla którego wykonywane jest sprawdzenie.</param>
+    /// <returns>Wartość logiczna określająca, czy użytkownik ma dostęp do kursu.</returns>
+    /// <response code="200">Zwrócono wynik sprawdzenia dostępu do kursu.</response>
+    /// <response code="401">Użytkownik nie jest zalogowany lub token autoryzacyjny jest nieprawidłowy.</response>
+    /// <response code="500">Błąd po stronie serwera.</response>
     [Authorize]
     [HttpGet("has-course/{courseId}")]
     public async Task<ActionResult<bool>> hasCourse(int courseId)
@@ -291,6 +347,15 @@ namespace CodeCodexBackend.Controllers
       return accessToken;
     }
 
+    /// <summary>
+    /// Odświeża token dostępu użytkownika na podstawie refresh tokena zapisanego w ciasteczku.
+    /// </summary>
+    /// <remarks>
+    /// Endpoint odczytuje refresh token z ciasteczka `refreshToken`.
+    /// </remarks>
+    /// <response code="200">Pomyślnie odświeżono token dostępu i zwrócono nowe dane autoryzacyjne użytkownika.</response>
+    /// <response code="401">Brak refresh tokena, token jest nieprawidłowy albo wygasł.</response>
+    /// <response code="500">Błąd po stronie serwera.</response>
     [HttpPost("refresh")]
     public async Task<IActionResult> Refresh()
     {
@@ -330,6 +395,13 @@ namespace CodeCodexBackend.Controllers
       });
     }
 
+    /// <summary>
+    /// Inicjuje zakup kursu i tworzy sesję Stripe Checkout.
+    /// </summary>
+    /// <param name="course">Obiekt zawierający identyfikator kursu.</param>
+    /// <response code="200">Zwrócono link do płatności.</response>
+    /// <response code="404">Nie znaleziono kursu lub użytkownika.</response>
+    /// <response code="401">Brak autoryzacji.</response>
     [HttpPost("create-checkout-session")]
     [Authorize]
     public async Task<IActionResult> BuyAsync([FromBody] BuyCourseRequest course)
@@ -391,11 +463,13 @@ namespace CodeCodexBackend.Controllers
       return Ok(new { url = session.Url });
     }
 
-    public string CreateRefreshToken()
+    private string CreateRefreshToken()
     {
       var bytes = RandomNumberGenerator.GetBytes(64);
       return Convert.ToBase64String(bytes);
     }
+
+    [ApiExplorerSettings(IgnoreApi = true)]
     [HttpPost("webhook")]
     [IgnoreAntiforgeryToken]
     public async Task<IActionResult> StripeWebhook()

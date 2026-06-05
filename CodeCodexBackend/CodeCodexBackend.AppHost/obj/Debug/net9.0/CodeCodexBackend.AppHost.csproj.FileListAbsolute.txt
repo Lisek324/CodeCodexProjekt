@@ -36,6 +36,7 @@ D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.InMemory.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\Microsoft.Extensions.AI.Abstractions.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
@@ -85,18 +86,21 @@ D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\Polly.Core.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\Semver.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\StreamJsonRpc.dll
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\Stripe.net.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.CodeDom.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Composition.AttributedModel.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Composition.Convention.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Composition.Hosting.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Composition.Runtime.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Composition.TypedParts.dll
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Diagnostics.DiagnosticSource.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Diagnostics.EventLog.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.IO.Hashing.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.IO.Pipelines.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Management.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Net.ServerSentEvents.dll
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Text.Encodings.Web.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Text.Json.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\YamlDotNet.dll
@@ -236,7 +240,3 @@ D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\obj\Debug\net9
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\obj\Debug\net9.0\CodeCodexBackend.AppHost.pdb
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\obj\Debug\net9.0\CodeCodexBackend.AppHost.genruntimeconfig.cache
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\obj\Debug\net9.0\ref\CodeCodexBackend.AppHost.dll
-D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.InMemory.dll
-D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\Stripe.net.dll
-D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
-D:\Angular\projektKursy\CodeCodexBackend\CodeCodexBackend.AppHost\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll

@@ -128,6 +128,9 @@ D:\Angular\projektKursy\CodeCodexBackend\CodeCodexXUnit\bin\Debug\net9.0\Polly.C
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexXUnit\bin\Debug\net9.0\Polly.Extensions.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexXUnit\bin\Debug\net9.0\Polly.RateLimiting.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexXUnit\bin\Debug\net9.0\Stripe.net.dll
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexXUnit\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexXUnit\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Angular\projektKursy\CodeCodexBackend\CodeCodexXUnit\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexXUnit\bin\Debug\net9.0\System.CodeDom.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexXUnit\bin\Debug\net9.0\System.Composition.AttributedModel.dll
 D:\Angular\projektKursy\CodeCodexBackend\CodeCodexXUnit\bin\Debug\net9.0\System.Composition.Convention.dll
