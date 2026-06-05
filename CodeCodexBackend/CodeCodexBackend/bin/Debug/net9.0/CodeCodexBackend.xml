@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CodeCodexBackend</name>
+    </assembly>
+    <members>
+        <member name="M:CodeCodexBackend.Controllers.AppUsersController.Register(CodeCodexBackend.Model.RegisterRequest)">
+            <summary>
+            Rejestruje nowego użytkownika.
+            </summary>
+            <remarks>
+            Tworzy konto podstawie adresu e-mail, imienia i hasła.
+            Po poprawnej rejestracji zwraca token JWT oraz ustawia refresh token w ciasteczku HttpOnly.
+            </remarks>
+            <param name="request">Dane potrzebne do rejestracji użytkownika.</param>
+            <returns>Zwraca informacje o zalogowanym użytkowniku i token dostępu.</returns>
+            <response code="200">Rejestracja zakończona sukcesem.</response>
+            <response code="400">Użytkownik o podanym adresie e-mail już istnieje lub dane wejściowe są niepoprawne.</response>
+        </member>
+        <member name="M:CodeCodexBackend.Controllers.AppUsersController.GoogleLogin(CodeCodexBackend.Model.GoogleLoginRequest)">
+            <summary>
+            Logowanie użytkownika przy użyciu konta Google.
+            </summary>
+            <remarks>
+            Endpoint weryfikuje token Google ID przekazany z frontendu.
+            Jeśli użytkownik nie istnieje, tworzy nowe konto na podstawie danych z Google.
+            Jeśli użytkownik już istnieje, aktualizuje jego podstawowe dane, takie jak nazwa, avatar i data ostatniego logowania.
+            Po poprawnym logowaniu zwraca token JWT oraz ustawia refresh token w ciasteczku HttpOnly.
+            </remarks>
+            <param name="glr">Obiekt zawierający poświadczenie Google ID token przesłane z klienta.</param>
+            <response code="200">Logowanie zakończone sukcesem i zwrócono dane autoryzacyjne użytkownika.</response>
+            <response code="400">Żądanie jest niepoprawne.</response>
+            <response code="401">Token Google jest nieprawidłowy lub nie przeszedł weryfikacji.</response>
+            <response code="500">Błąd po stronie serwera.</response>
+        </member>
+        <member name="M:CodeCodexBackend.Controllers.AppUsersController.Login(CodeCodexBackend.Model.LoginRequest)">
+            <summary>
+            Loguje użytkownika przy użyciu adresu e-mail i hasła.
+            </summary>
+            <remarks>
+            Endpoint weryfikuje dane logowania użytkownika lokalnego.
+            Po poprawnym uwierzytelnieniu generuje token JWT, tworzy refresh token oraz zapisuje refresh token w ciasteczku HttpOnly.
+            </remarks>
+            <param name="request">Dane logowania użytkownika zawierające adres e-mail i hasło.</param>
+            <response code="200">Logowanie zakończone sukcesem i zwrócono dane autoryzacyjne użytkownika.</response>
+            <response code="400">Podany login lub hasło są niepoprawne.</response>
+            <response code="500">Błąd po stronie serwera.</response>
+        </member>
+        <member name="M:CodeCodexBackend.Controllers.AppUsersController.Logout">
+            <summary>
+            Wylogowuje aktualnie zalogowanego użytkownika.
+            </summary>
+            <remarks>
+            Endpoint usuwa refresh token zapisany dla użytkownika w bazie danych.
+            </remarks>
+            <response code="200">Użytkownik został poprawnie wylogowany.</response>
+            <response code="500">Błąd po stronie serwera.</response>
+        </member>
+        <member name="M:CodeCodexBackend.Controllers.AppUsersController.GetMyCourses">
+            <summary>
+            Zwraca kursy zalogowanego użytkownika.
+            </summary>
+            <remarks>
+            Endpoint wymaga tokenu JWT i pobiera listę kursów powiązanych z aktualnym użytkownikiem.
+            </remarks>
+            <response code="200">Lista kursów została pobrana poprawnie.</response>
+            <response code="401">Brak autoryzacji lub nieprawidłowy token.</response>
+        </member>
+        <member name="M:CodeCodexBackend.Controllers.AppUsersController.hasCourse(System.Int32)">
+            <summary>
+            Sprawdza, czy aktualnie zalogowany użytkownik ma przypisany wskazany kurs.
+            </summary>
+            <remarks>
+            Endpoint wymaga autoryzacji JWT.
+            </remarks>
+            <param name="courseId">Identyfikator kursu, dla którego wykonywane jest sprawdzenie.</param>
+            <returns>Wartość logiczna określająca, czy użytkownik ma dostęp do kursu.</returns>
+            <response code="200">Zwrócono wynik sprawdzenia dostępu do kursu.</response>
+            <response code="401">Użytkownik nie jest zalogowany lub token autoryzacyjny jest nieprawidłowy.</response>
+            <response code="500">Błąd po stronie serwera.</response>
+        </member>
+        <member name="M:CodeCodexBackend.Controllers.AppUsersController.Refresh">
+            <summary>
+            Odświeża token dostępu użytkownika na podstawie refresh tokena zapisanego w ciasteczku.
+            </summary>
+            <remarks>
+            Endpoint odczytuje refresh token z ciasteczka `refreshToken`.
+            </remarks>
+            <response code="200">Pomyślnie odświeżono token dostępu i zwrócono nowe dane autoryzacyjne użytkownika.</response>
+            <response code="401">Brak refresh tokena, token jest nieprawidłowy albo wygasł.</response>
+            <response code="500">Błąd po stronie serwera.</response>
+        </member>
+        <member name="M:CodeCodexBackend.Controllers.AppUsersController.BuyAsync(CodeCodexBackend.Model.BuyCourseRequest)">
+            <summary>
+            Inicjuje zakup kursu i tworzy sesję Stripe Checkout.
+            </summary>
+            <param name="course">Obiekt zawierający identyfikator kursu.</param>
+            <response code="200">Zwrócono link do płatności.</response>
+            <response code="404">Nie znaleziono kursu lub użytkownika.</response>
+            <response code="401">Brak autoryzacji.</response>
+        </member>
+    </members>
+</doc>

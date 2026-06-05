@@ -1,59 +1,62 @@
-# ProjektKursy
+# Opis projektu
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+## Opis
+Aplikacja full-stack oparta o Angular na froncie i ASP.NET Core na backendzie, rozwijana jako serwis webowy z uwierzytelnianiem JWT, z obsługą bazy danych przez Entity Framework. Projekt jest wdrażany na Renderze, a backend działa jako usługa Docker Web Service
 
-## Development server
+## Stos technologiczny
+### Frontend
+- Angular CLI 
+- TypeScript 
 
-To start a local development server, run:
+### Backend
+- ASP.NET Core Web API 
+- Entity Framework Core 
+- Docker do deploymentu backendu na Render
 
-```bash
-ng serve
-```
+### Baza danych
+- PostgreSQL na Render
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Uruchomienie lokalne
+1. Przejdź do katalogu repozytorium, w którym znajduje się Dockerfile.
+2. Zbuduj obraz:
 
 ```bash
-ng generate --help
+docker build -t codecodex-backend -f ./CodeCodexBackend/CodeCodexBackend/Dockerfile .
 ```
 
-## Building
-
-To build the project run:
+3. Uruchom kontener:
 
 ```bash
-ng build
+docker run -d --name codecodex-backend -p 8080:8080 codecodex-backend
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+4. Aplikacja ma skonfigurowany endpoint health check, można sprawdzić jej stan przez endpoint `/health`.
 
-## Running unit tests
+### Uruchomienie na Render
+1. Utwórz nową usługę typu **Web Service** na Renderze
+2. Wybierz repozytorium GitHub z projektem 
+3. Ustaw:
+   - **Language**: `Docker` 
+   - **Dockerfile Path**: `./CodeCodexBackend/CodeCodexBackend/Dockerfile` 
+   - **Root Directory**: puste 
+4. Dodaj wymagane zmienne środowiskowe, w tym connection string do wewnętrznej bazy Render Postgres 
+5. Wdróż usługę i sprawdź logi builda na Renderze
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Schemat bazy danych
 
-```bash
-ng test
+![Schemat bazy](.\screenshots\erd.png)
+
+## Wersja live
+
+- Frontend: https://code-codex-projekt.vercel.app/home
+- Backend / API: https://codecodexprojekt.onrender.com
+
+## Uwagi
+
+Projekt udostępnia interaktywną dokumentację API przy użyciu **Swagger UI**.Po uruchomieniu backendu dokumentacja jest dostępna pod adresem:
+
+```text
+/swagger
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+ Aby móc wpisać token JWT w autoryzacji, należy wywołać jeden z endpointów: /login /register i wkleić w pole Value: `Bearer <token>`

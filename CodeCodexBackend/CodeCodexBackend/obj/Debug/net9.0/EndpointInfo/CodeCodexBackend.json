@@ -1,0 +1,340 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "CodeCodex API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/register": {
+      "post": {
+        "tags": [
+          "AppUsers"
+        ],
+        "summary": "Rejestruje nowego użytkownika.",
+        "description": "Tworzy konto podstawie adresu e-mail, imienia i hasła.\r\nPo poprawnej rejestracji zwraca token JWT oraz ustawia refresh token w ciasteczku HttpOnly.",
+        "requestBody": {
+          "description": "Dane potrzebne do rejestracji użytkownika.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Rejestracja zakończona sukcesem."
+          },
+          "400": {
+            "description": "Użytkownik o podanym adresie e-mail już istnieje lub dane wejściowe są niepoprawne."
+          }
+        }
+      }
+    },
+    "/api/google": {
+      "post": {
+        "tags": [
+          "AppUsers"
+        ],
+        "summary": "Logowanie użytkownika przy użyciu konta Google.",
+        "description": "Endpoint weryfikuje token Google ID przekazany z frontendu.\r\nJeśli użytkownik nie istnieje, tworzy nowe konto na podstawie danych z Google.\r\nJeśli użytkownik już istnieje, aktualizuje jego podstawowe dane, takie jak nazwa, avatar i data ostatniego logowania.\r\nPo poprawnym logowaniu zwraca token JWT oraz ustawia refresh token w ciasteczku HttpOnly.",
+        "requestBody": {
+          "description": "Obiekt zawierający poświadczenie Google ID token przesłane z klienta.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoogleLoginRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoogleLoginRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoogleLoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Logowanie zakończone sukcesem i zwrócono dane autoryzacyjne użytkownika."
+          },
+          "400": {
+            "description": "Żądanie jest niepoprawne."
+          },
+          "401": {
+            "description": "Token Google jest nieprawidłowy lub nie przeszedł weryfikacji."
+          },
+          "500": {
+            "description": "Błąd po stronie serwera."
+          }
+        }
+      }
+    },
+    "/api/login": {
+      "post": {
+        "tags": [
+          "AppUsers"
+        ],
+        "summary": "Loguje użytkownika przy użyciu adresu e-mail i hasła.",
+        "description": "Endpoint weryfikuje dane logowania użytkownika lokalnego.\r\nPo poprawnym uwierzytelnieniu generuje token JWT, tworzy refresh token oraz zapisuje refresh token w ciasteczku HttpOnly.",
+        "requestBody": {
+          "description": "Dane logowania użytkownika zawierające adres e-mail i hasło.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Logowanie zakończone sukcesem i zwrócono dane autoryzacyjne użytkownika."
+          },
+          "400": {
+            "description": "Podany login lub hasło są niepoprawne."
+          },
+          "500": {
+            "description": "Błąd po stronie serwera."
+          }
+        }
+      }
+    },
+    "/api/logout": {
+      "post": {
+        "tags": [
+          "AppUsers"
+        ],
+        "summary": "Wylogowuje aktualnie zalogowanego użytkownika.",
+        "description": "Endpoint usuwa refresh token zapisany dla użytkownika w bazie danych.",
+        "responses": {
+          "200": {
+            "description": "Użytkownik został poprawnie wylogowany."
+          },
+          "500": {
+            "description": "Błąd po stronie serwera."
+          }
+        }
+      }
+    },
+    "/api/my-courses": {
+      "get": {
+        "tags": [
+          "AppUsers"
+        ],
+        "summary": "Zwraca kursy zalogowanego użytkownika.",
+        "description": "Endpoint wymaga tokenu JWT i pobiera listę kursów powiązanych z aktualnym użytkownikiem.",
+        "responses": {
+          "200": {
+            "description": "Lista kursów została pobrana poprawnie."
+          },
+          "401": {
+            "description": "Brak autoryzacji lub nieprawidłowy token."
+          }
+        }
+      }
+    },
+    "/api/has-course/{courseId}": {
+      "get": {
+        "tags": [
+          "AppUsers"
+        ],
+        "summary": "Sprawdza, czy aktualnie zalogowany użytkownik ma przypisany wskazany kurs.",
+        "description": "Endpoint wymaga autoryzacji JWT.",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "description": "Identyfikator kursu, dla którego wykonywane jest sprawdzenie.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Zwrócono wynik sprawdzenia dostępu do kursu.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Użytkownik nie jest zalogowany lub token autoryzacyjny jest nieprawidłowy."
+          },
+          "500": {
+            "description": "Błąd po stronie serwera."
+          }
+        }
+      }
+    },
+    "/api/refresh": {
+      "post": {
+        "tags": [
+          "AppUsers"
+        ],
+        "summary": "Odświeża token dostępu użytkownika na podstawie refresh tokena zapisanego w ciasteczku.",
+        "description": "Endpoint odczytuje refresh token z ciasteczka `refreshToken`.",
+        "responses": {
+          "200": {
+            "description": "Pomyślnie odświeżono token dostępu i zwrócono nowe dane autoryzacyjne użytkownika."
+          },
+          "401": {
+            "description": "Brak refresh tokena, token jest nieprawidłowy albo wygasł."
+          },
+          "500": {
+            "description": "Błąd po stronie serwera."
+          }
+        }
+      }
+    },
+    "/api/create-checkout-session": {
+      "post": {
+        "tags": [
+          "AppUsers"
+        ],
+        "summary": "Inicjuje zakup kursu i tworzy sesję Stripe Checkout.",
+        "requestBody": {
+          "description": "Obiekt zawierający identyfikator kursu.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyCourseRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyCourseRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyCourseRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Zwrócono link do płatności."
+          },
+          "404": {
+            "description": "Nie znaleziono kursu lub użytkownika."
+          },
+          "401": {
+            "description": "Brak autoryzacji."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BuyCourseRequest": {
+        "type": "object",
+        "properties": {
+          "courseId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GoogleLoginRequest": {
+        "type": "object",
+        "properties": {
+          "credentials": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Wpisz token JWT w formacie: Bearer {token}",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}
