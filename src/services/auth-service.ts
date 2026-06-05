@@ -10,7 +10,15 @@ export interface AuthResponse {
   email: string;
   avatarUrl: string;
 }
-
+export interface GoogleCredentialResponse {
+  credential: string;
+  select_by: string;
+  clientId: string;
+}
+export interface MyCoursesResponse {
+  id: number;
+  name: string;
+}
 export interface LoginRequest {
   email: string;
   password: string;
@@ -22,7 +30,7 @@ export interface RegisterRequest {
   fullName: string;
 }
 
-type JwtPayload = {
+export interface JwtPayload {
   fullName?: string;
   email?: string;
   exp?: number;
@@ -128,8 +136,8 @@ export class AuthService {
     return this._token();
   }
 
-  getCourses(): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.path + 'my-courses');
+  getCourses(): Observable<MyCoursesResponse[]> {
+    return this.httpClient.get<MyCoursesResponse[]>(this.path + 'my-courses');
   }
 
   hasCourse(courseId: number): Observable<boolean> {
@@ -147,7 +155,7 @@ export class AuthService {
   }
 
   refreshToken() {
-    return this.httpClient.post<any>(
+    return this.httpClient.post<AuthResponse>(
       `${this.path}refresh`,
       {},
       { withCredentials: true }

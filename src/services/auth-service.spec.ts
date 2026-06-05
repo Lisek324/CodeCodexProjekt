@@ -4,7 +4,8 @@ import { AuthService, LoginRequest, RegisterRequest } from './auth-service';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { environment } from '../environments/environment';
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
+import { MockedFunction } from 'vitest';
 describe('AuthService', () => {
 
   let httpMock: HttpTestingController;
@@ -31,7 +32,7 @@ describe('AuthService', () => {
   });
 
   it('should set token and update auth state', async () => {
-  vi.mocked(jwtDecode).mockReturnValue({ fullName: 'Jan Kowalski' } as any);
+  vi.mocked(jwtDecode).mockReturnValue({ fullName: 'Jan Kowalski' } as JwtPayload);
 
   const token = 'fake-jwt-token';
   service.setToken(token);
@@ -44,7 +45,7 @@ describe('AuthService', () => {
 
   it('should return null currentUser when token decode fails', async () => {
     const { jwtDecode } = await import('jwt-decode');
-    (jwtDecode as any).mockImplementation(() => {
+    (jwtDecode as MockedFunction<typeof jwtDecode>).mockImplementation(() => {
       throw new Error('invalid token');
     });
 

@@ -1,11 +1,12 @@
-import { Component, ElementRef, inject, NgZone, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, NgZone, signal, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CredentialResponse } from 'google-one-tap';
 import { environment } from '../../environments/environment';
-import { AuthService } from '../../services/auth-service';
+import { AuthResponse, AuthService } from '../../services/auth-service';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 //import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -15,7 +16,7 @@ import { finalize } from 'rxjs';
   templateUrl: './register-page.html',
   styleUrl: './register-page.css',
 })
-export class RegisterPage {
+export class RegisterPage implements AfterViewInit {
   @ViewChild('buttonDiv') buttonDiv!: ElementRef<HTMLDivElement>;
 
   private fb = inject(FormBuilder);
@@ -24,7 +25,7 @@ export class RegisterPage {
   private service = inject(AuthService);
   isSubmitting = signal(false);
 
-  isSubmitted: boolean = false;
+  isSubmitted = false;
 
   passwordMatchValidator: ValidatorFn = (control: AbstractControl) => {
     const password = control.get('password')?.value;
@@ -65,7 +66,7 @@ export class RegisterPage {
     this.service.register(this.form.getRawValue())
       .pipe(finalize(() => this.isSubmitting.set(false)))
       .subscribe({
-        next: (x: any) => {
+        next: (x: AuthResponse) => {
           console.log('register response:', x);
             this.service.setToken(x.accessToken);
             this.form.reset();
@@ -75,7 +76,7 @@ export class RegisterPage {
               this.router.navigate(['/dashboard']);
             });
         },
-        error: (error: any) => {
+        error: (error: HttpErrorResponse) => {
           console.log(error);
           console.log('error body:', error.error);
         }
@@ -84,7 +85,8 @@ export class RegisterPage {
 
   hasDisplayableError(controlName: string, errorName: string): boolean {
     const control = this.form.get(controlName);
-    return Boolean(control?.invalid) && (this.isSubmitted || Boolean(control?.touched))
+     return Boolean(control?.hasError(errorName)) &&
+    (this.isSubmitted || Boolean(control?.touched));
   }
 
   ngAfterViewInit(): void {
@@ -116,13 +118,13 @@ export class RegisterPage {
     this.isSubmitting.set(true);
 
     this.service.loginWithGoogle(response.credential).subscribe({
-      next: (x: any) => {
+      next: (x: AuthResponse) => {
         this.service.setToken(x.accessToken);
         this._ngZone.run(() => {
           this.router.navigate(['/dashboard']);
         });
       },
-      error: (error: any) => {
+      error: (error: HttpErrorResponse) => {
         console.log(error);
         this.isSubmitting.set(false);
       }

@@ -18,7 +18,7 @@ export class HtmlDetails implements OnInit {
 
   buyHtmlCourse(courseId: number) {
     this.service.buyCourse(courseId).subscribe({
-      next: (res: any) => {
+      next: (res: { url: string }) => {
         window.location.href = res.url;
       },
       error: (err) => {
@@ -29,8 +29,8 @@ export class HtmlDetails implements OnInit {
   redirectToCourse(courseId: number) {
     if (this.service.isLoggedIn()) {
       this.service.getCourses().subscribe({
-        next: (x: any) => {
-          const htmlCourse = x.find((course: any) => course.id === courseId);
+        next: (x) => {
+          const htmlCourse = x.find((course) => course.id === courseId);
           if (htmlCourse) {
             this.router.navigate(['/course']);
           }
@@ -40,7 +40,7 @@ export class HtmlDetails implements OnInit {
 
   }
   ngOnInit(): void {
-    this.hasHtmlCourse$ = this.service.hasCourse(1);
+    this.hasHtmlCourse$ = this.service.hasCourse(this.HTML_COURSE_ID);
   }
 }
 

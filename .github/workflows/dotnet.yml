@@ -22,6 +22,8 @@ jobs:
         dotnet-version: 8.0.x
     - name: Restore
       run: dotnet restore ./CodeCodexBackend/CodeCodexBackend/CodeCodexBackend.csproj
+    - name: Format
+      run: dotnet format ./CodeCodexBackend/CodeCodexBackend/CodeCodexBackend.csproj --verify-no-changes  
     - name: Build
       run: dotnet build ./CodeCodexBackend/CodeCodexBackend/CodeCodexBackend.csproj --configuration Release --no-restore
     - name: Test

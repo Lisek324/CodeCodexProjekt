@@ -79,6 +79,7 @@ describe('interceptorInterceptor', () => {
         })
       )
     ).subscribe({
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       next: () => { },
       error: (err) => {
         expect(err.status).toBe(401);

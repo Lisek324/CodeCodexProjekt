@@ -1,5 +1,5 @@
-import { Component, inject, signal } from '@angular/core';
-import { AuthService } from '../../services/auth-service';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { AuthService, MyCoursesResponse } from '../../services/auth-service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,14 +8,14 @@ import { Router } from '@angular/router';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard {
+export class Dashboard implements OnInit {
   router = inject(Router);
   service = inject(AuthService);
-  courses = signal<any[]>([]);
+  courses = signal<MyCoursesResponse[]>([]);
   isLoading = signal(true);
 
-  redirectToCourse(arg0: any) {
-    this.router.navigate(['/courses']);
+  redirectToCourse(id: number) {
+    this.router.navigate(['/courses', id]);
   }
 
   ngOnInit(): void {

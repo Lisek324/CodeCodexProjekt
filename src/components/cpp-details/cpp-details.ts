@@ -12,7 +12,7 @@ import { Router, RouterLink } from '@angular/router';
 export class CppDetails {
   readonly CPP_COURSE_ID = 3;
 
-  isLoggedIn: boolean = false;
+  isLoggedIn = false;
 
   service = inject(AuthService);
   router = inject(Router);
@@ -20,7 +20,7 @@ export class CppDetails {
 
   buyCPPCourse(courseId: number) {
     this.service.buyCourse(courseId).subscribe({
-      next: (res: any) => {
+      next: (res) => {
         window.location.href = res.url;
       },
       error: (err) => {
@@ -32,8 +32,8 @@ export class CppDetails {
   redirectToCourse(courseId: number) {
     if (this.service.isLoggedIn()) {
       this.service.getCourses().subscribe({
-        next: (x: any) => {
-          const cppCourse = x.find((course: any) => course.id === courseId);
+        next: (x) => {
+          const cppCourse = x.find((course) => course.id === courseId);
           if (cppCourse) {
             this.router.navigate(['/course']);
           }

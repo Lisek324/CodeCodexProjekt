@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AuthService } from '../../services/auth-service';
+import { AuthService, MyCoursesResponse } from '../../services/auth-service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -20,8 +20,8 @@ export class AngularDetail {
   redirectToCourse(courseId: number) {
     if (this.service.isLoggedIn()) {
       this.service.getCourses().subscribe({
-        next: (x: any) => {
-          const angularCourse = x.find((course: any) => course.id === courseId);
+        next: (x) => {
+          const angularCourse = x.find((course: MyCoursesResponse) => course.id === courseId);
           if (angularCourse) {
             this.router.navigate(['/course']);
           }
@@ -32,7 +32,7 @@ export class AngularDetail {
   }
   buyAngularCourse(courseId: number) {
     this.service.buyCourse(courseId).subscribe({
-      next: (res: any) => {
+      next: (res) => {
         window.location.href = res.url;
       },
       error: (err) => {

@@ -23,9 +23,12 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: rm -f package-lock.json
     - run: npm install
-    
+
+    - name: Run lint
+      run: npm run lint
+        
     - name: Run tests
-      run: npm run test:ci  
+      run: npm run test:ci
 
     - name: Build
       run: npm run build

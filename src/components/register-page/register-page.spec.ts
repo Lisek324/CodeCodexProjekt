@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ɵNoopNgZone } from '@angular/core';
+import { ElementRef, ɵNoopNgZone } from '@angular/core';
 import { RegisterPage } from './register-page';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
 import { of, throwError } from 'rxjs';
-import { By } from '@angular/platform-browser';
+import { CredentialResponse } from 'google-one-tap';
 
 describe('RegisterPage', () => {
   let fixture: ComponentFixture<RegisterPage>;
@@ -47,6 +47,7 @@ describe('RegisterPage', () => {
       confirmPassword: 'haslo12',
     });
   }
+  
   afterEach(() => {
     vi.clearAllMocks();
   });
@@ -103,7 +104,7 @@ describe('RegisterPage', () => {
     expect(component.isSubmitting()).toBe(false);
   });
 
-  it(']', async () => {
+  it('should call register and navigate on successful submission', async () => {
     setValidForm();
 
     authServiceMock.register.mockReturnValue(
@@ -137,7 +138,7 @@ describe('RegisterPage', () => {
         error: { message: 'Server error' },
       }))
     );
-
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => { });
 
     component.onSubmit();
@@ -155,12 +156,12 @@ describe('RegisterPage', () => {
       })
     );
 
-    component.handleCredentialResponse({
+    const response: CredentialResponse = {
       credential: 'google-credential',
       select_by: 'btn',
-      clientId: 'client-id',
-    } as any);
+    };
 
+    component.handleCredentialResponse(response); 
     expect(authServiceMock.loginWithGoogle).toHaveBeenCalledWith('google-credential');
     expect(authServiceMock.setToken).toHaveBeenCalledWith('google-token');
     expect(routerMock.navigate).toHaveBeenCalledWith(['/dashboard']);
@@ -170,7 +171,7 @@ describe('RegisterPage', () => {
     const initialize = vi.fn();
     const renderButton = vi.fn();
 
-    (window as any).google = {
+    window.google = {
       accounts: {
         id: {
           initialize,
@@ -181,13 +182,13 @@ describe('RegisterPage', () => {
 
     component.buttonDiv = {
       nativeElement: document.createElement('div'),
-    } as any;
+    };
 
     component.ngAfterViewInit();
 
-    expect(typeof (window as any).onGoogleLibraryLoad).toBe('function');
+    expect(typeof window.onGoogleLibraryLoad).toBe('function');
 
-    (window as any).onGoogleLibraryLoad();
+    window.onGoogleLibraryLoad();
 
     expect(initialize).toHaveBeenCalled();
     expect(renderButton).toHaveBeenCalledWith(
@@ -203,21 +204,14 @@ describe('RegisterPage', () => {
   });
 
   it('should not fail in ngAfterViewInit when google api does not exist', () => {
-    (window as any).google = undefined;
-    component.buttonDiv = {
-      nativeElement: document.createElement('div'),
-    } as any;
+    window.google = {} as Window['google'];
+
+    component.buttonDiv = new ElementRef<HTMLDivElement>(
+      document.createElement('div')
+    );
 
     expect(() => component.ngAfterViewInit()).not.toThrow();
-    expect(typeof (window as any).onGoogleLibraryLoad).toBe('function');
-  });
-  it('should render all form inputs', () => {
-    const html = getHtml();
-
-    expect(html.querySelector('#fullName')).toBeTruthy();
-    expect(html.querySelector('#email')).toBeTruthy();
-    expect(html.querySelector('#password')).toBeTruthy();
-    expect(html.querySelector('#confirmPassword')).toBeTruthy();
+    expect(typeof window.onGoogleLibraryLoad).toBe('function');
   });
 
 

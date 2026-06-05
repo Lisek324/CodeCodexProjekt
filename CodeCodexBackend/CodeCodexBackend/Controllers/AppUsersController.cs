@@ -182,7 +182,7 @@ namespace CodeCodexBackend.Controllers
       }
 
       user.lastLoginAtUtc = DateTime.UtcNow;
-     
+
 
       var token = GenerateJwtToken(user);
       var _refreshToken = CreateRefreshToken();
@@ -253,7 +253,7 @@ namespace CodeCodexBackend.Controllers
     public async Task<ActionResult<bool>> hasCourse(int courseId)
     {
       var userIdVal = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? User.FindFirstValue("sub");
-      
+
       if (string.IsNullOrEmpty(userIdVal))
         return Unauthorized();
       var userGuid = Guid.Parse(userIdVal);
@@ -338,7 +338,7 @@ namespace CodeCodexBackend.Controllers
       var dbCourse = await _coursesDbContext.Courses.FindAsync(course.courseId);
       var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
       // jeśli trzymasz GUID w NameIdentifier:
-      if(userIdString == null) return NotFound();
+      if (userIdString == null) return NotFound();
       if (dbCourse == null) return NotFound();
 
       var userId = Guid.Parse(userIdString);
@@ -347,7 +347,7 @@ namespace CodeCodexBackend.Controllers
       {
         userId = userId,
         courseId = dbCourse.id,
-        amount = dbCourse.price,    
+        amount = dbCourse.price,
         currency = "pln",
         status = "Pending",
         createdAtUtc = DateTime.UtcNow
@@ -412,7 +412,7 @@ namespace CodeCodexBackend.Controllers
       }
       catch (Exception ex)
       {
-        return BadRequest("Failed to read request body."+ex);
+        return BadRequest("Failed to read request body." + ex);
       }
 
       Event stripeEvent;

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn, Router, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 
 import { guestGuard } from './guest-guard';
 import { AuthService } from '../services/auth-service';
@@ -30,8 +30,8 @@ describe('guestGuard', () => {
     });
   });
   function runGuard(url = '/login') {
-    const route = {} as any;
-    const state = { url } as any;
+    const route = {} as ActivatedRouteSnapshot;
+    const state = { url } as RouterStateSnapshot;
 
     return TestBed.runInInjectionContext(() => guestGuard(route, state));
   }

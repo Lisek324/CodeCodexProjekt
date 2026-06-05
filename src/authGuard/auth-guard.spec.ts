@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn, Router, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 
 import { authGuard } from './auth-guard';
 import { AuthService } from '../services/auth-service';
@@ -33,8 +33,8 @@ describe('authGuard', () => {
     });
   });
   function runGuard(url = '/dashboard') {
-    const route = {} as any;
-    const state = { url } as any;
+    const route = {} as ActivatedRouteSnapshot;
+    const state = { url } as RouterStateSnapshot;
 
     return TestBed.runInInjectionContext(() => authGuard(route, state));
   }
@@ -56,7 +56,7 @@ describe('authGuard', () => {
 
     authServiceMock.isLoggedIn.mockReturnValue(false);
     routerMock.createUrlTree.mockReturnValue(fakeUrlTree);
-
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => { });
 
     const result = runGuard('/dashboard');

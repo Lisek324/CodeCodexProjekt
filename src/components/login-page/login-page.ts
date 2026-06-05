@@ -2,16 +2,16 @@ import { AfterViewInit, Component, ElementRef, inject, NgZone, signal, ViewChild
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { MatCard } from "@angular/material/card";
 import { CredentialResponse } from "google-one-tap";
-import { AuthService } from '../../services/auth-service';
-import { isAwaitKeyword } from 'typescript';
+import { AuthResponse, AuthService } from '../../services/auth-service';
 import { environment } from '../../environments/environment';
 import { finalize } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 declare global {
   interface Window {
     onGoogleLibraryLoad: () => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     google: any;
   }
 }
@@ -26,7 +26,7 @@ export class LoginPage implements AfterViewInit {
   @ViewChild('buttonDiv', { static: false }) buttonDiv!: ElementRef<HTMLDivElement>;
   loginError = signal<string>('');
 
-  isSubmitted: boolean = false;
+  isSubmitted = false;
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
@@ -72,7 +72,7 @@ export class LoginPage implements AfterViewInit {
     this.service.loginWithGoogle(response.credential)
       .pipe(finalize(() => this.isSubmitting.set(false)))
       .subscribe({
-        next: (x: any) => {
+        next: (x: AuthResponse) => {
           console.log('google login response:', x);
           this.service.setToken(x.accessToken);
 
@@ -80,16 +80,18 @@ export class LoginPage implements AfterViewInit {
             this.router.navigate(['/dashboard']);
           });
         },
-        error: (error: any) => {
+        error: (error: HttpErrorResponse) => {
           console.log(error);
           this.loginError.set(error?.error?.message || 'Nie udało się zalogować przez Google.');
         }
       });
   }
 
-  hasDisplayableError(controlName: string, errorName: string): boolean {
+  hasDisplayableError(controlName: string): boolean {
     const control = this.loginForm.get(controlName);
-    return Boolean(control?.invalid) && (this.isSubmitted || Boolean(control?.touched))
+
+    return Boolean(control?.invalid) &&
+      (this.isSubmitted || Boolean(control?.touched));
   }
 
   onSubmit(): void {
@@ -105,7 +107,7 @@ export class LoginPage implements AfterViewInit {
     this.service.login(this.loginForm.getRawValue())
       .pipe(finalize(() => this.isSubmitting.set(false)))
       .subscribe({
-        next: (x: any) => {
+        next: (x: AuthResponse) => {
           console.log('login response:', x);
             this.service.setToken(x.accessToken);
             this.loginForm.reset();
@@ -114,7 +116,7 @@ export class LoginPage implements AfterViewInit {
               this.router.navigate(['/dashboard']);
             });
         },
-        error: (error: any) => {
+        error: (error: HttpErrorResponse) => {
           this.loginError.set(error?.error?.message || 'Nie udało się zalogować.');
         }
       });

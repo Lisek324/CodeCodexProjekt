@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CodeCodexBackend.Model
 {
-  public class UserCoursesDbContext:DbContext
+  public class UserCoursesDbContext : DbContext
   {
-    public UserCoursesDbContext(DbContextOptions<UserCoursesDbContext> o):base(o)
+    public UserCoursesDbContext(DbContextOptions<UserCoursesDbContext> o) : base(o)
     {
 
     }

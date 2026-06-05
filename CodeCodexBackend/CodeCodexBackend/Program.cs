@@ -9,13 +9,13 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
-
+builder.Services.AddHealthChecks();
 var allowedOrigins = new[]
 {
     "http://localhost:4200",
     "https://codecodexprojekt.onrender.com",
     "https://code-codex-projekt.vercel.app"
-}; 
+};
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -54,7 +54,7 @@ builder.Services
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 StripeConfiguration.ApiKey = builder.Configuration["Stripe:ApiKey"];
 
-builder.Services.AddDbContext<AppUserDbContext>(options =>options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppUserDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddDbContext<UserCoursesDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddDbContext<CoursesDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddDbContext<OrdersDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -67,7 +67,7 @@ if (app.Environment.IsDevelopment())
 {
   app.MapOpenApi();
 }
-
+app.MapHealthChecks("/health");
 app.UseCors("frontend");
 app.UseHttpsRedirection();
 

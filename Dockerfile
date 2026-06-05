@@ -3,6 +3,8 @@ WORKDIR /app
 EXPOSE 8080
 ENV ASPNETCORE_URLS=http://+:8080
 
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \ CMD curl --fail http://localhost:8080/health || exit 1
+
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
