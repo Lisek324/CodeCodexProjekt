@@ -44,7 +44,7 @@ docker run -d --name codecodex-backend -p 8080:8080 codecodex-backend
 
 ## Schemat bazy danych
 
-![Schemat bazy](\screenshots\erd.png)
+![Schemat bazy](screenshots/erd.png)
 
 ## Wersja live
 
