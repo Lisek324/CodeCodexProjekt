@@ -56,7 +56,7 @@ docker run -d --name codecodex-backend -p 8080:8080 codecodex-backend
 Projekt udostępnia interaktywną dokumentację API przy użyciu **Swagger UI**.Po uruchomieniu backendu dokumentacja jest dostępna pod adresem:
 
 ```text
-/swagger
+https://codecodexprojekt.onrender.com/swagger
 ```
 
  Aby móc wpisać token JWT w autoryzacji, należy wywołać jeden z endpointów: /login /register i wkleić w pole Value: `Bearer <token>`
