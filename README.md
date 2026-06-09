@@ -59,4 +59,9 @@ Projekt udostępnia interaktywną dokumentację API przy użyciu **Swagger UI**.
 https://codecodexprojekt.onrender.com/swagger
 ```
 
- Aby móc wpisać token JWT w autoryzacji, należy wywołać jeden z endpointów: /login /register i wkleić w pole Value: `Bearer <token>`
+Aby móc wpisać token JWT w autoryzacji, należy wywołać jeden z endpointów: /login /register i wkleić w pole Value: `Bearer <token>`
+
+Sprawdzenie stanu zdrowia backendu: 
+```text
+https://codecodexprojekt.onrender.com/health
+```
